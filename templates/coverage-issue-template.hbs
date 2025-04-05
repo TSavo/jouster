@@ -1,0 +1,54 @@
+# Test Failure: {{testName}}
+
+## Test Information
+- **Test Suite**: {{testSuite}}
+- **Test File**: {{testFilePath}}
+- **Failure Time**: {{dateFormat failureTime}}
+
+## Error Information
+```
+{{errorMessage}}
+```
+
+## Stack Trace
+```
+{{stackTrace}}
+```
+
+## Code Snippet
+```{{codeLanguage}}
+{{codeSnippet}}
+```
+
+## Coverage Information
+{{#if coverage}}
+| Metric | Coverage |
+|--------|----------|
+| Statements | {{coverage.statements}}% |
+| Branches | {{coverage.branches}}% |
+| Functions | {{coverage.functions}}% |
+| Lines | {{coverage.lines}}% |
+{{else}}
+No coverage information available.
+{{/if}}
+
+## Environment Information
+- **Node Version**: {{nodeVersion}}
+- **OS**: {{osInfo}}
+- **Branch**: {{branchName}}
+- **Commit**: {{commitHash}}
+- **Author**: {{commitAuthor}}
+
+## Reproduction Steps
+1. Run the following command to reproduce the failure:
+```bash
+npx jest {{testFilePath}} -t "{{testName}}"
+```
+
+## Possible Causes
+{{#each possibleCauses}}
+- {{this}}
+{{/each}}
+
+## Additional Information
+This issue was automatically created by GHITracker with enhanced coverage information.

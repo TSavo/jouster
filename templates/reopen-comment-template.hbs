@@ -1,0 +1,92 @@
+# ❌ Test Failing Again
+
+This issue is being automatically reopened because the test is failing again after previously being fixed.
+
+## How to Reproduce
+```bash
+# Run this specific test
+npx jest "{{fullTestName}}" --testPathPattern="{{testFilePath}}"
+
+# Or run the test file
+npx jest "{{testFilePath}}"
+
+# Run with verbose output
+npx jest "{{fullTestName}}" --verbose
+
+# Run with debugging
+node --inspect-brk node_modules/.bin/jest "{{fullTestName}}" --runInBand
+```
+
+You can also add a `.only` to the test to focus on just this test:
+```javascript
+test.only('{{testName}}', () => {
+  // Test code
+});
+```
+
+## Regression Information
+- **Failing in Commit**: {{commitHash}}
+- **Commit Message**: {{commitMessage}}
+- **Author**: {{commitAuthor}}
+- **Regression Time**: {{regressionTime}}
+- **Duration Since Fix**: Test was passing for {{passingDuration}}
+
+## Previous Fix
+- **Fixed at**: {{#if mapping}}{{mapping.lastUpdate}}{{else}}Unknown{{/if}}
+- **Fixed by**: {{#if mapping}}{{mapping.fixedBy}}{{else}}Unknown{{/if}}
+- **Fix commit**: {{#if mapping}}{{mapping.fixCommit}}{{else}}Unknown{{/if}}
+
+## Test Details
+- **Test File**: `{{testFilePath}}`
+- **Test Name**: {{testName}}
+- **Full Test Name**: {{fullTestName}}
+- **Test Suite**: {{testSuite}}
+{{#if ancestorTitles.length}}
+- **Ancestor Titles**: {{ancestorTitles}}
+{{/if}}
+- **Duration**: {{duration}}ms
+
+## Error Details
+- **Error Type**: {{errorType}}
+- **Location**: {{errorLocation}}
+{{#if jestInfo.matcherInfo}}
+- **Matcher**: {{jestInfo.matcherInfo.name}}
+- **Expected**: `{{jestInfo.matcherInfo.expected}}`
+- **Actual**: `{{jestInfo.matcherInfo.actual}}`
+{{/if}}
+
+```
+{{errorMessage}}
+```
+
+## Stack Trace
+```
+{{stackTrace}}
+```
+
+## Code Snippet
+```{{codeLanguage}}
+{{codeSnippet}}
+```
+
+## Diff Since Last Fix
+{{#if diffSummary}}
+```diff
+{{diffSummary}}
+```
+{{else}}
+No significant changes detected in the test file.
+{{/if}}
+
+## Possible Causes
+{{#if possibleCauses}}
+{{#each possibleCauses}}
+- {{this}}
+{{/each}}
+{{else}}
+No known causes identified.
+{{/if}}
+
+---
+
+This is a regression of a previously fixed issue.

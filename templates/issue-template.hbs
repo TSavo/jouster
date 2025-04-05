@@ -1,0 +1,106 @@
+# Test Failure: {{testName}}
+
+## How to Reproduce
+```bash
+# Run this specific test
+npx jest "{{fullTestName}}" --testPathPattern="{{testFilePath}}"
+
+# Or run the test file
+npx jest "{{testFilePath}}"
+
+# Run with verbose output
+npx jest "{{fullTestName}}" --verbose
+
+# Run with debugging
+node --inspect-brk node_modules/.bin/jest "{{fullTestName}}" --runInBand
+```
+
+You can also add a `.only` to the test to focus on just this test:
+```javascript
+test.only('{{testName}}', () => {
+  // Test code
+});
+```
+
+## Test Information
+- **Test File**: `{{testFilePath}}`
+- **Full Test Name**: {{fullTestName}}
+- **Test Suite**: {{testSuite}}
+{{#if ancestorTitles.length}}
+- **Ancestor Titles**: {{ancestorTitles}}
+{{/if}}
+- **Duration**: {{duration}}ms
+- **Failure Time**: {{failureTime}}
+- **Status**: {{status}}
+- **Invocations**: {{invocations}}
+- **Passing Assertions**: {{numPassingAsserts}}
+
+## Git Information
+- **Branch**: {{branchName}}
+- **Commit**: {{commitHash}}
+- **Commit Message**: {{commitMessage}}
+- **Author**: {{commitAuthor}}
+
+## Environment Information
+- **Node Version**: {{nodeVersion}}
+- **OS**: {{osInfo}}
+- **CI/Local**: {{environment}}
+{{#if ciInfo}}
+- **CI Build URL**: {{ciInfo.buildUrl}}
+- **CI Job**: {{ciInfo.jobName}}
+{{/if}}
+
+## Error Details
+- **Error Type**: {{errorType}}
+- **Location**: {{errorLocation}}
+{{#if errorInfo}}
+{{#if errorInfo.expected}}
+- **Expected**: {{errorInfo.expected}}
+- **Actual**: {{errorInfo.actual}}
+{{/if}}
+{{/if}}
+
+```
+{{errorMessage}}
+```
+
+## Jest Matcher Information
+{{#if jestInfo.matcherInfo}}
+- **Matcher**: {{jestInfo.matcherInfo.name}}
+- **Expected**: `{{jestInfo.matcherInfo.expected}}`
+- **Actual**: `{{jestInfo.matcherInfo.actual}}`
+- **Pass**: {{jestInfo.matcherInfo.pass}}
+{{else}}
+No matcher information available.
+{{/if}}
+
+## Stack Trace
+```
+{{stackTrace}}
+```
+
+## Code Snippet
+```{{codeLanguage}}
+{{codeSnippet}}
+```
+
+{{#if previousOccurrences}}
+## Previous Occurrences
+This test has failed {{previousOccurrences}} times before.
+{{#if lastFixedDate}}
+Last fixed on: {{lastFixedDate}}
+{{/if}}
+{{/if}}
+
+## Possible Causes
+{{#if possibleCauses}}
+{{#each possibleCauses}}
+- {{this}}
+{{/each}}
+{{else}}
+No known causes identified.
+{{/if}}
+
+---
+
+This issue was automatically created by the Test Failure Tracking System.

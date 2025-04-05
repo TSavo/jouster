@@ -1,0 +1,54 @@
+{
+  "name": "jouster",
+  "version": "1.0.0",
+  "description": "Stick it to your failing tests - A Jest reporter that tracks test failures as GitHub issues",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "jouster-setup": "dist/wizard/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --config=jest.config.js src/__tests__",
+    "test:coverage": "jest --config=jest.config.js src/__tests__ --coverage",
+    "test:passing": "jest --config=jest.config.js src/__tests__/utils/test-identifier.test.ts src/__tests__/plugins/examples/analytics-plugin.test.ts src/__tests__/plugins/examples/slack-notification-plugin.test.ts src/__tests__/issues/issue-manager.test.ts src/__tests__/trackers/github/github-bug-tracker.test.ts src/__tests__/trackers/file/file-bug-tracker.test.ts src/__tests__/jest/issue-tracker-reporter.test.ts src/__tests__/index.test.ts",
+    "lint": "eslint src --ext .ts",
+    "prepublishOnly": "npm run build",
+    "test:issue-tracker": "jest --config=jest.config.js",
+    "test:with-tracking": "cross-env GENERATE_ISSUES=true TRACK_ISSUES=true jest --config=jest.config.with-tracking.js"
+  },
+  "keywords": [
+    "jest",
+    "reporter",
+    "github",
+    "issues",
+    "testing"
+  ],
+  "author": "T Savo",
+  "license": "MIT",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "handlebars": "^4.7.7",
+    "minimatch": "^5.1.0"
+  },
+  "peerDependencies": {
+    "jest": ">=26.0.0"
+  },
+  "devDependencies": {
+    "@types/handlebars": "^4.1.0",
+    "@types/jest": "^29.5.0",
+    "@types/minimatch": "^5.1.2",
+    "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "eslint": "^8.38.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.4"
+  },
+  "files": [
+    "dist",
+    "templates",
+    "bin"
+  ]
+}
