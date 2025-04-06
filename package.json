@@ -5,7 +5,7 @@
   "main": "index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "jouster-setup": "dist/src/wizard/cli.js"
+    "jouster-setup": "dist/wizard/cli.js"
   },
   "scripts": {
     "build": "tsc",
