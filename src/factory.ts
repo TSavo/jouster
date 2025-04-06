@@ -23,9 +23,9 @@ import { IBugTracker } from './trackers/bug-tracker.interface';
  * @param config Configuration
  * @returns GitHub client
  */
-export function createGitHubClient(config?: Partial<IssueTrackerConfig>): IGitHubClient {
+export function createGitHubClient(config?: Partial<IssueTrackerConfig>): GitHubClient {
   if (config?.githubClient) {
-    return config.githubClient;
+    return config.githubClient as unknown as GitHubClient;
   }
 
   // Use REST API client if configured
@@ -33,11 +33,11 @@ export function createGitHubClient(config?: Partial<IssueTrackerConfig>): IGitHu
     if (!config.githubToken || !config.githubRepo) {
       throw new Error('GitHub token and repository are required when using REST API');
     }
-    return new GitHubRestClient(config.githubToken, config.githubRepo);
+    return new GitHubRestClient(config.githubToken, config.githubRepo) as unknown as GitHubClient;
   }
 
   // Default to CLI client
-  return new GitHubClient(config?.githubLabels || config?.defaultLabels);
+  return new GitHubClient();
 }
 
 /**
@@ -59,9 +59,8 @@ export function createStorageClient(config?: Partial<IssueTrackerConfig>): IStor
  * @param config Configuration
  * @returns Mapping store
  */
-export function createMappingStore(config?: Partial<IssueTrackerConfig>): IMappingStore {
-  const storageClient = createStorageClient(config);
-  return new MappingStore(storageClient);
+export function createMappingStore(config?: Partial<IssueTrackerConfig>): MappingStore {
+  return new MappingStore(config?.databasePath);
 }
 
 /**
@@ -121,7 +120,7 @@ export function createBugTracker(config?: Partial<IssueTrackerConfig>): IBugTrac
   if (type === 'github') {
     const githubClient = createGitHubClient(config);
     const mappingStore = createMappingStore(config);
-    return new GitHubBugTracker(githubClient, templateManager, mappingStore, config?.defaultLabels);
+    return new GitHubBugTracker(githubClient as unknown as IGitHubClient, templateManager, mappingStore as unknown as IMappingStore, config?.defaultLabels);
   } else {
     const baseDir = getBaseDir(config);
     return new FileBugTracker(baseDir, templateManager);
@@ -144,19 +143,22 @@ export function getBaseDir(config?: IssueTrackerConfig): string {
  * @param config Configuration
  * @returns Issue manager
  */
-export function createIssueManager(config?: Partial<IssueTrackerConfig>): IIssueManager {
-  const bugTracker = createBugTracker(config);
-  const pluginManager = createPluginManager(config);
+export function createIssueManager(config?: Partial<IssueTrackerConfig>): IssueManager {
+  const githubClient = createGitHubClient(config);
+  const mappingStore = createMappingStore(config);
 
   return new IssueManager(
-    bugTracker,
-    pluginManager,
+    githubClient,
+    mappingStore,
     {
       generateIssues: config?.generateIssues,
       trackIssues: config?.trackIssues,
       closeIssues: config?.closeIssues,
       reopenIssues: config?.reopenIssues,
-      config
+      databasePath: config?.databasePath,
+      templateDir: config?.templateDir,
+      defaultLabels: config?.defaultLabels,
+      githubLabels: config?.githubLabels
     }
   );
 }
@@ -169,21 +171,7 @@ export function createIssueManager(config?: Partial<IssueTrackerConfig>): IIssue
  * @returns Issue tracker reporter
  */
 export function createIssueTrackerReporter(globalConfig: any, options: any): IssueTrackerReporter {
-  const config: IssueTrackerConfig = {
-    ...defaultConfig,
-    ...options,
-    generateIssues: options.generateIssues || process.env.GENERATE_ISSUES === 'true',
-    trackIssues: options.trackIssues || process.env.TRACK_ISSUES === 'true',
-    closeIssues: options.closeIssues !== false,
-    reopenIssues: options.reopenIssues !== false,
-    trackerType: options.trackerType || defaultConfig.trackerType
-  };
-
-  const bugTracker = createBugTracker(config);
-  const pluginManager = createPluginManager(config);
-  const issueManager = createIssueManager(config);
-
-  return new IssueTrackerReporter(globalConfig, options, issueManager, pluginManager, bugTracker);
+  return new IssueTrackerReporter(globalConfig, options);
 }
 
 // Default export

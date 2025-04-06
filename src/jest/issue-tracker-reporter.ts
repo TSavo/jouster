@@ -1,212 +1,145 @@
-import { IIssueManager } from '../issues/issue-manager.interface';
-import { PluginManager } from '../plugins/plugin-manager';
-import { IBugTracker } from '../trackers/bug-tracker.interface';
+import { GitHubClient } from '../github/github-client';
+import { IssueManager } from '../issues/issue-manager';
+import { MappingStore } from '../storage/mapping-store';
+import {
+  IssueTrackerOptions,
+  TestResult
+} from '../types';
 
 /**
- * Jouster: Jest reporter for tracking test failures as GitHub issues
- * Stick it to your failing tests!
+ * Jest reporter that tracks test failures and creates/closes GitHub issues
  */
 export class IssueTrackerReporter {
-  private globalConfig: any;
-  private options: any;
-  private issueManager: IIssueManager;
-  private pluginManager: PluginManager;
-  private bugTracker?: IBugTracker;
-  private pendingResults: any[];
-  private isTrackerAvailable: boolean;
+  private options: IssueTrackerOptions;
+  private issueManager: IssueManager;
+  private pendingResults: TestResult[] = [];
+  private isGitHubCliAvailable: boolean = false;
 
   /**
-   * Creates a new issue tracker reporter
+   * Creates a new IssueTrackerReporter instance
    *
-   * @param globalConfig Global Jest configuration
-   * @param options Reporter options
-   * @param issueManager Issue manager
-   * @param pluginManager Plugin manager
-   * @param bugTracker Bug tracker
+   * @param globalConfig Jest global configuration
+   * @param reporterOptions Reporter options
    */
-  constructor(
-    globalConfig: any,
-    options: any,
-    issueManager: IIssueManager,
-    pluginManager: PluginManager,
-    bugTracker?: IBugTracker
-  ) {
-    this.globalConfig = globalConfig;
-    this.options = this.initializeOptions(options);
-    this.issueManager = issueManager;
-    this.pluginManager = pluginManager;
-    this.bugTracker = bugTracker;
-    this.pendingResults = [];
-    this.isTrackerAvailable = false;
+  constructor(globalConfig: any, reporterOptions: any) {
+    // Parse options from environment variables or Jest command line arguments
+    this.options = {
+      generateIssues: process.env.GENERATE_ISSUES === 'true' || process.argv.includes('--generate-issues'),
+      trackIssues: process.env.TRACK_ISSUES === 'true' || process.argv.includes('--track-issues') || process.env.GENERATE_ISSUES === 'true' || process.argv.includes('--generate-issues'),
+      databasePath: reporterOptions?.databasePath
+    };
+
+    // Initialize components
+    const mappingStore = new MappingStore(this.options.databasePath);
+    const githubClient = new GitHubClient();
+    this.issueManager = new IssueManager(githubClient, mappingStore, this.options);
+
+    // Check if GitHub CLI is available
+    this.checkGitHubCli();
   }
 
   /**
-   * Initialize options with defaults
-   *
-   * @param options Options object or undefined
-   * @returns Initialized options object
+   * Checks if the GitHub CLI is available
    */
-  private initializeOptions(options: any): any {
-    return options || {};
+  private async checkGitHubCli(): Promise<void> {
+    const githubClient = new GitHubClient();
+    this.isGitHubCliAvailable = await githubClient.isGitHubCliAvailable();
+
+    // If GitHub CLI is not available and we need it, show a warning
+    this.checkAndWarnAboutGitHubCli();
   }
 
   /**
-   * Called when Jest starts running
+   * Check if GitHub CLI is needed and warn if it's not available
    */
-  public async onRunStart(): Promise<void> {
-    console.log('[Jouster] Starting test run');
-    console.log('[Jouster] Options:', JSON.stringify(this.options));
-
-    try {
-      console.log('[Jouster] Initializing bug tracker');
-      await this.initializeBugTracker();
-      console.log('[Jouster] Bug tracker initialized, isTrackerAvailable:', this.isTrackerAvailable);
-    } catch (error) {
-      this.handleInitializationError(error);
-    }
-
-    // Warn if bug tracker is needed but not available
-    this.checkAndWarnAboutTracker();
-  }
-
-  /**
-   * Initialize the bug tracker if provided
-   */
-  private async initializeBugTracker(): Promise<void> {
-    if (this.bugTracker) {
-      await this.bugTracker.initialize();
-      this.isTrackerAvailable = true;
+  private checkAndWarnAboutGitHubCli(): void {
+    const needsGitHubCli = this.options.generateIssues || this.options.trackIssues;
+    if (!this.isGitHubCliAvailable && needsGitHubCli) {
+      this.warnAboutMissingGitHubCli();
     }
   }
 
   /**
-   * Handle error during bug tracker initialization
+   * Show warnings about missing GitHub CLI
    */
-  private handleInitializationError(error: unknown): void {
-    this.isTrackerAvailable = false;
-    const errorMessage = this.formatError(error);
-    console.error(`Error initializing bug tracker: ${errorMessage}`);
+  private warnAboutMissingGitHubCli(): void {
+    this.logWarning('\n[Issue Tracker] GitHub CLI not found. Issue tracking will be disabled.');
+    this.logWarning('[Issue Tracker] Please install GitHub CLI: https://cli.github.com/\n');
   }
 
   /**
-   * Called when a test file completes
+   * Log a warning message
+   * @param message The message to log
+   */
+  private logWarning(message: string): void {
+    console.warn(message);
+  }
+
+  /**
+   * Called when a test result is received
    *
-   * @param test Test result
+   * @param test Test context
+   * @param testResult Test result
    */
-  public onTestResult(test: any, testResult: any): void {
-    // Add the test result to pending results
-    this.pendingResults.push({
-      test,
-      testResult
-    });
-  }
-
-  /**
-   * Called when all tests complete
-   */
-  public async onRunComplete(): Promise<void> {
-    console.log('[Jouster] Test run complete');
-    console.log('[Jouster] Pending results:', this.pendingResults.length);
-    console.log('[Jouster] isTrackerAvailable:', this.isTrackerAvailable);
-    console.log('[Jouster] shouldProcessResults:', this.shouldProcessResults());
-
-    try {
-      await this.processTestResults();
-    } catch (error) {
-      this.handleProcessingError(error);
-    }
-  }
-
-  /**
-   * Process test results if conditions are met
-   */
-  private async processTestResults(): Promise<void> {
-    console.log('[Jouster] Processing test results');
-
-    if (!this.shouldProcessResults()) {
-      console.log('[Jouster] Skipping test result processing');
+  onTestResult(test: any, testResult: any): void {
+    // Skip if GitHub CLI is not available
+    if (!this.isGitHubCliAvailable) {
       return;
     }
 
-    console.log('[Jouster] Will process', this.pendingResults.length, 'test results');
+    // Process each test result
+    if (testResult.testResults) {
+      testResult.testResults.forEach((result: any) => {
+        // Create a normalized test result
+        const testData: Partial<TestResult> = {
+          testFilePath: testResult.testFilePath,
+          testSuiteName: result.ancestorTitles.join(' > ') || 'Default Suite',
+          testName: result.title,
+          status: result.status === 'passed' ? 'passed' : 'failed',
+          errorMessage: result.failureMessages?.[0] || undefined,
+          errorStack: result.failureDetails?.[0]?.stack || undefined,
+          duration: result.duration,
+          // Add required TestResult properties
+          ancestorTitles: result.ancestorTitles,
+          failureMessages: result.failureMessages || [],
+          fullName: `${result.ancestorTitles.join(' > ')} ${result.title}`,
+          location: result.location || '',
+          numPassingAsserts: result.numPassingAsserts || 0,
+          title: result.title
+        };
 
-    for (const { test, testResult } of this.pendingResults) {
-      console.log('[Jouster] Processing test result:', test.path);
-      try {
-        await this.processTestResult(test, testResult);
-        console.log('[Jouster] Successfully processed test result');
-      } catch (error) {
-        console.error('[Jouster] Error processing test result:', this.formatError(error));
-      }
-    }
-
-    console.log('[Jouster] Finished processing all test results');
-  }
-
-  /**
-   * Check if test results should be processed
-   */
-  private shouldProcessResults(): boolean {
-    console.log('[Jouster] Options for processing:', {
-      generateIssues: this.options.generateIssues,
-      trackIssues: this.options.trackIssues
-    });
-
-    // Default to true if options are not explicitly set to false
-    const generateIssues = this.options.generateIssues !== false;
-    const trackIssues = this.options.trackIssues !== false;
-
-    console.log('[Jouster] Effective options:', {
-      generateIssues,
-      trackIssues
-    });
-
-    return this.isTrackerAvailable && (generateIssues || trackIssues);
-  }
-
-  /**
-   * Process a single test result
-   */
-  private async processTestResult(test: any, testResult: any): Promise<void> {
-    console.log('[Jouster] Processing test file:', test.path);
-    console.log('[Jouster] Test result status:', testResult.numFailingTests > 0 ? 'FAILING' : 'PASSING');
-
-    try {
-      await this.issueManager.processTestFile(test.path, testResult, this.options);
-      console.log('[Jouster] Successfully processed test file');
-    } catch (error) {
-      console.error('[Jouster] Error processing test file:', this.formatError(error));
-      throw error; // Re-throw to be caught by the caller
+        // Add to pending results to process after all tests complete
+        this.pendingResults.push(testData as TestResult);
+      });
     }
   }
 
   /**
-   * Handle error during test result processing
+   * Called when all tests are complete
    */
-  private handleProcessingError(error: unknown): void {
-    const errorMessage = this.formatError(error);
-    console.error(`Error processing test results: ${errorMessage}`);
-  }
-
-  /**
-   * Format an error for logging
-   */
-  private formatError(error: unknown): string {
-    return error instanceof Error ? error.message : String(error);
-  }
-
-  /**
-   * Check if bug tracker is available and warn if needed
-   */
-  private checkAndWarnAboutTracker(): void {
-    console.log('[Jouster] Checking bug tracker availability');
-    console.log('[Jouster] Bug tracker:', this.bugTracker ? 'provided' : 'not provided');
-
-    if (!this.isTrackerAvailable && (this.options.generateIssues || this.options.trackIssues)) {
-      console.warn(
-        'Bug tracker is not available. Issue tracking will be disabled. ' +
-        'Please check the configuration and ensure the bug tracker is properly initialized.'
-      );
+  async onRunComplete(): Promise<void> {
+    // Skip if GitHub CLI is not available
+    if (!this.isGitHubCliAvailable) {
+      return;
     }
+
+    // Skip if no tracking options are enabled
+    if (!this.options.generateIssues && !this.options.trackIssues) {
+      return;
+    }
+
+    console.log('\n[Issue Tracker] Processing test results...');
+
+    // Process all pending results
+    for (const result of this.pendingResults) {
+      await this.issueManager.processTestResult(result);
+    }
+
+    // Save changes to the mapping store
+    this.issueManager.saveChanges();
+
+    console.log('[Issue Tracker] Done processing test results.');
   }
 }
+
+module.exports = IssueTrackerReporter;

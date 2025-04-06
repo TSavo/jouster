@@ -1,78 +1,138 @@
-import { IMappingStore } from './mapping-store.interface';
-import { IStorageClient } from './storage-client.interface';
-import { IssueMapping, GitInfo } from '../types';
+import fs from 'fs';
+import path from 'path';
+import {
+  MappingDatabase,
+  TestIdentifier,
+  TestIssueMapping,
+  IssueStatus
+} from '../types';
 
 /**
- * Mapping store implementation
+ * Manages the persistent storage of test-to-issue mappings
  */
-export class MappingStore implements IMappingStore {
-  private storageClient: IStorageClient;
+export class MappingStore {
+  private database: MappingDatabase;
+  private databasePath: string;
+  private hasChanges: boolean = false;
 
   /**
-   * Creates a new mapping store
-   * 
-   * @param storageClient Storage client
+   * Creates a new MappingStore instance
+   *
+   * @param databasePath Path to the database file
    */
-  constructor(storageClient: IStorageClient) {
-    this.storageClient = storageClient;
+  constructor(databasePath?: string) {
+    this.databasePath = typeof databasePath === 'string' ? databasePath : path.join(process.cwd(), 'test-issue-mapping.json');
+    this.database = this.loadDatabase();
   }
 
   /**
-   * Get a mapping for a test identifier
-   * 
+   * Loads the database from disk
+   *
+   * @returns The loaded database or a new empty database
+   */
+  private loadDatabase(): MappingDatabase {
+    try {
+      if (fs.existsSync(this.databasePath)) {
+        const data = fs.readFileSync(this.databasePath, 'utf8');
+        return JSON.parse(data) as MappingDatabase;
+      }
+    } catch (error) {
+      console.error(`Error loading mapping database: ${error}`);
+    }
+
+    // Return empty database if file doesn't exist or has errors
+    return { testIdentifiers: {} };
+  }
+
+  /**
+   * Saves the database to disk if there are changes
+   */
+  public saveDatabase(): void {
+    if (!this.hasChanges) {
+      return;
+    }
+
+    try {
+      // Ensure the directory exists
+      const dir = path.dirname(this.databasePath);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+
+      // Write to a temporary file first
+      const tempPath = `${this.databasePath}.tmp`;
+      fs.writeFileSync(tempPath, JSON.stringify(this.database, null, 2), 'utf8');
+
+      // Rename to the actual file (atomic operation)
+      fs.renameSync(tempPath, this.databasePath);
+
+      this.hasChanges = false;
+    } catch (error) {
+      console.error(`Error saving mapping database: ${error}`);
+    }
+  }
+
+  /**
+   * Gets the issue mapping for a test
+   *
    * @param testIdentifier The test identifier
-   * @returns The mapping, or undefined if not found
+   * @returns The issue mapping or undefined if not found
    */
-  public getMapping(testIdentifier: string): IssueMapping | undefined {
-    return this.storageClient.getMapping(testIdentifier);
+  public getIssueMapping(testIdentifier: TestIdentifier): TestIssueMapping | undefined {
+    return this.database.testIdentifiers[testIdentifier];
   }
 
   /**
-   * Set a mapping for a test identifier
-   * 
+   * Sets the issue mapping for a test
+   *
    * @param testIdentifier The test identifier
-   * @param issueNumber The GitHub issue number
-   * @param status The status of the issue
-   * @param gitInfo Git information
-   * @param testFilePath The test file path
-   * @param testName The test name
+   * @param mapping The issue mapping
    */
-  public setMapping(
-    testIdentifier: string, 
-    issueNumber: number, 
-    status: string, 
-    gitInfo: GitInfo, 
-    testFilePath: string, 
-    testName: string
-  ): void {
-    this.storageClient.setMapping(testIdentifier, issueNumber, status, gitInfo, testFilePath, testName);
+  public setIssueMapping(testIdentifier: TestIdentifier, mapping: TestIssueMapping): void {
+    this.database.testIdentifiers[testIdentifier] = mapping;
+    this.hasChanges = true;
   }
 
   /**
-   * Update a mapping for a test identifier
-   * 
+   * Updates the status of an issue
+   *
    * @param testIdentifier The test identifier
-   * @param updates Updates to apply to the mapping
-   * @param gitInfo Git information
-   * @param testFilePath The test file path
-   * @param testName The test name
+   * @param status The new status
+   * @returns Whether the update was successful
    */
-  public updateMapping(
-    testIdentifier: string, 
-    updates: Partial<IssueMapping>, 
-    gitInfo: GitInfo, 
-    testFilePath: string, 
-    testName: string
-  ): void {
-    this.storageClient.updateMapping(testIdentifier, updates, gitInfo, testFilePath, testName);
+  public updateIssueStatus(testIdentifier: TestIdentifier, status: IssueStatus): boolean {
+    const mapping = this.getIssueMapping(testIdentifier);
+    if (!mapping) {
+      return false;
+    }
+
+    mapping.status = status;
+    mapping.lastUpdate = new Date().toISOString();
+    this.hasChanges = true;
+    return true;
   }
 
   /**
-   * Get all mappings
-   * 
-   * @returns All mappings
+   * Gets all test identifiers with their mappings
+   *
+   * @returns An array of [testIdentifier, mapping] pairs
    */
-  public getAllMappings(): Record<string, IssueMapping> {
-    return this.storageClient.getAllMappings();
+  public getAllMappings(): [TestIdentifier, TestIssueMapping][] {
+    return Object.entries(this.database.testIdentifiers);
+  }
+
+  /**
+   * Removes a mapping from the database
+   *
+   * @param testIdentifier The test identifier
+   * @returns Whether the removal was successful
+   */
+  public removeMapping(testIdentifier: TestIdentifier): boolean {
+    if (this.database.testIdentifiers[testIdentifier]) {
+      delete this.database.testIdentifiers[testIdentifier];
+      this.hasChanges = true;
+      return true;
+    }
+    return false;
   }
 }
