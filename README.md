@@ -5,11 +5,27 @@
 </p>
 
 <p align="center">
+  <!-- Package Information -->
   <a href="https://www.npmjs.com/package/jouster"><img src="https://img.shields.io/npm/v/jouster.svg" alt="npm version"></a>
   <a href="https://www.npmjs.com/package/jouster"><img src="https://img.shields.io/npm/dm/jouster.svg" alt="npm downloads"></a>
+  <a href="https://bundlephobia.com/package/jouster"><img src="https://img.shields.io/bundlephobia/min/jouster" alt="Bundle Size"></a>
+  <a href="https://libraries.io/npm/jouster"><img src="https://img.shields.io/librariesio/release/npm/jouster" alt="Dependencies"></a>
+  <br/>
+  <!-- Build & Test Status -->
   <a href="https://github.com/TSavo/jouster/actions"><img src="https://github.com/TSavo/jouster/workflows/CI/badge.svg" alt="CI Status"></a>
   <a href="https://codecov.io/gh/TSavo/jouster"><img src="https://codecov.io/gh/TSavo/jouster/branch/main/graph/badge.svg" alt="Coverage Status"></a>
   <a href="https://github.com/TSavo/jouster/blob/main/LICENSE"><img src="https://img.shields.io/github/license/TSavo/jouster.svg" alt="License"></a>
+  <a href="https://img.shields.io/maintenance/yes/2025"><img src="https://img.shields.io/maintenance/yes/2025" alt="Maintenance"></a>
+  <br/>
+  <!-- Community & Support -->
+  <a href="https://github.com/TSavo/jouster/issues"><img src="https://img.shields.io/github/issues/TSavo/jouster" alt="GitHub Issues"></a>
+  <a href="https://github.com/TSavo/jouster/pulls"><img src="https://img.shields.io/github/issues-pr/TSavo/jouster" alt="GitHub Pull Requests"></a>
+  <a href="https://github.com/TSavo/jouster/stargazers"><img src="https://img.shields.io/github/stars/TSavo/jouster" alt="GitHub Stars"></a>
+  <br/>
+  <!-- Jouster-Specific -->
+  <a href="https://github.com/TSavo/jouster/issues?q=is%3Aissue+label%3Atest-failure"><img src="https://img.shields.io/github/issues/TSavo/jouster/test-failure?label=tests%20tracked" alt="Tests Tracked"></a>
+  <a href="https://github.com/TSavo/jouster"><img src="https://img.shields.io/badge/github-integrated-blue" alt="GitHub Integration"></a>
+  <a href="https://github.com/TSavo/jouster"><img src="https://img.shields.io/badge/jest-reporter-red" alt="Jest Reporter"></a>
 </p>
 
 ## Overview
@@ -200,6 +216,32 @@ Jouster consists of several modular components:
 ## Documentation
 
 For more detailed documentation, see the [Jouster Documentation](./docs/README.md).
+
+## Project Status
+
+Jouster uses shields (badges) to provide at-a-glance information about the project:
+
+### Package Information
+- **Version**: The current npm package version
+- **Downloads**: Monthly downloads from npm
+- **Bundle Size**: Minified package size
+- **Dependencies**: Status of dependencies
+
+### Build & Test Status
+- **CI Status**: Status of continuous integration builds
+- **Coverage**: Test coverage percentage
+- **License**: Project license
+- **Maintenance**: Active maintenance status
+
+### Community & Support
+- **Issues**: Number of open issues
+- **Pull Requests**: Number of open pull requests
+- **Stars**: Number of GitHub stars
+
+### Jouster-Specific
+- **Tests Tracked**: Number of tests being tracked with the test-failure label
+- **GitHub Integration**: Indicates GitHub integration capability
+- **Jest Reporter**: Indicates that Jouster is a Jest reporter
 
 ## License
 
