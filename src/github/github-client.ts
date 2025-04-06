@@ -55,8 +55,17 @@ export class GitHubClient implements IGitHubClient {
       fs.writeFileSync(tempFile, body, 'utf8');
 
       // Build the command
-      const labelsArg = labels.map(label => `--label "${label}"`).join(' ');
-      const command = `gh issue create --title "${title}" --body-file "${tempFile}" ${labelsArg}`;
+      // Only include labels that are not empty
+      const validLabels = labels.filter(label => label && label.trim() !== '');
+      console.log('[Jouster] Using labels:', validLabels);
+
+      let command = `gh issue create --title "${title}" --body-file "${tempFile}"`;
+
+      // Add labels if there are any valid ones
+      if (validLabels.length > 0) {
+        const labelsArg = validLabels.map(label => `--label "${label}"`).join(' ');
+        command += ` ${labelsArg}`;
+      }
 
       // Execute the command
       const { stdout } = await execAsync(command);
@@ -159,6 +168,39 @@ export class GitHubClient implements IGitHubClient {
       return {
         success: false,
         issueNumber,
+        error: errorMessage
+      };
+    }
+  }
+
+  /**
+   * Checks the status of a GitHub issue
+   *
+   * @param issueNumber The issue number
+   * @returns A promise that resolves to the result of the operation with the issue status
+   */
+  public async checkIssueStatus(issueNumber: number): Promise<{ success: boolean; status?: 'open' | 'closed'; error?: string }> {
+    try {
+      // Execute the command to get issue details in JSON format
+      const { stdout } = await execAsync(`gh issue view ${issueNumber} --json state`);
+
+      // Parse the JSON response
+      const response = JSON.parse(stdout);
+
+      // Map GitHub's state to our status format
+      const status = response.state === 'OPEN' ? 'open' : 'closed';
+
+      return {
+        success: true,
+        status
+      };
+    } catch (error) {
+      // Format the error message
+      const errorMessage = this.formatErrorMessage(error);
+
+      // Return the error result
+      return {
+        success: false,
         error: errorMessage
       };
     }

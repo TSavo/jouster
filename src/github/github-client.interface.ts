@@ -15,29 +15,37 @@ export interface IGitHubClient {
    * Check if GitHub CLI is available
    */
   isGitHubCliAvailable(): Promise<boolean>;
-  
+
   /**
    * Create a new GitHub issue
-   * 
+   *
    * @param title Issue title
    * @param body Issue body
    * @param labels Optional labels to apply to the issue
    */
   createIssue(title: string, body: string, labels?: string[]): Promise<IssueResult>;
-  
+
   /**
    * Reopen an existing GitHub issue
-   * 
+   *
    * @param issueNumber Issue number
    * @param comment Comment to add when reopening the issue
    */
   reopenIssue(issueNumber: number, comment: string): Promise<IssueResult>;
-  
+
   /**
    * Close an existing GitHub issue
-   * 
+   *
    * @param issueNumber Issue number
    * @param comment Comment to add when closing the issue
    */
   closeIssue(issueNumber: number, comment: string): Promise<IssueResult>;
+
+  /**
+   * Check the status of a GitHub issue
+   *
+   * @param issueNumber Issue number
+   * @returns Promise resolving to an object with success flag and status if successful
+   */
+  checkIssueStatus(issueNumber: number): Promise<{ success: boolean; status?: 'open' | 'closed'; error?: string }>;
 }

@@ -174,6 +174,43 @@ export class GitHubRestClient implements IGitHubClient {
   }
 
   /**
+   * Check the status of a GitHub issue
+   *
+   * @param issueNumber Issue number
+   * @returns Promise resolving to an object with success flag and status if successful
+   */
+  public async checkIssueStatus(issueNumber: number): Promise<{ success: boolean; status?: 'open' | 'closed'; error?: string }> {
+    try {
+      const url = `${this.baseUrl}/repos/${this.repo}/issues/${issueNumber}`;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: this.getHeaders()
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        return {
+          success: false,
+          error: `Error checking issue status: ${errorData.message} (${response.status} ${response.statusText})`
+        };
+      }
+
+      const data = await response.json();
+      const status = data.state === 'open' ? 'open' : 'closed';
+
+      return {
+        success: true,
+        status
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: `Error checking issue status: ${error instanceof Error ? error.message : String(error)}`
+      };
+    }
+  }
+
+  /**
    * Get headers for GitHub API requests
    */
   private getHeaders(): Record<string, string> {

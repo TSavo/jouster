@@ -54,8 +54,13 @@ export class IssueTrackerReporter {
    * Called when Jest starts running
    */
   public async onRunStart(): Promise<void> {
+    console.log('[Jouster] Starting test run');
+    console.log('[Jouster] Options:', JSON.stringify(this.options));
+
     try {
+      console.log('[Jouster] Initializing bug tracker');
       await this.initializeBugTracker();
+      console.log('[Jouster] Bug tracker initialized, isTrackerAvailable:', this.isTrackerAvailable);
     } catch (error) {
       this.handleInitializationError(error);
     }
@@ -100,6 +105,11 @@ export class IssueTrackerReporter {
    * Called when all tests complete
    */
   public async onRunComplete(): Promise<void> {
+    console.log('[Jouster] Test run complete');
+    console.log('[Jouster] Pending results:', this.pendingResults.length);
+    console.log('[Jouster] isTrackerAvailable:', this.isTrackerAvailable);
+    console.log('[Jouster] shouldProcessResults:', this.shouldProcessResults());
+
     try {
       await this.processTestResults();
     } catch (error) {
@@ -111,27 +121,63 @@ export class IssueTrackerReporter {
    * Process test results if conditions are met
    */
   private async processTestResults(): Promise<void> {
+    console.log('[Jouster] Processing test results');
+
     if (!this.shouldProcessResults()) {
+      console.log('[Jouster] Skipping test result processing');
       return;
     }
 
+    console.log('[Jouster] Will process', this.pendingResults.length, 'test results');
+
     for (const { test, testResult } of this.pendingResults) {
-      await this.processTestResult(test, testResult);
+      console.log('[Jouster] Processing test result:', test.path);
+      try {
+        await this.processTestResult(test, testResult);
+        console.log('[Jouster] Successfully processed test result');
+      } catch (error) {
+        console.error('[Jouster] Error processing test result:', this.formatError(error));
+      }
     }
+
+    console.log('[Jouster] Finished processing all test results');
   }
 
   /**
    * Check if test results should be processed
    */
   private shouldProcessResults(): boolean {
-    return this.isTrackerAvailable && (this.options.generateIssues || this.options.trackIssues);
+    console.log('[Jouster] Options for processing:', {
+      generateIssues: this.options.generateIssues,
+      trackIssues: this.options.trackIssues
+    });
+
+    // Default to true if options are not explicitly set to false
+    const generateIssues = this.options.generateIssues !== false;
+    const trackIssues = this.options.trackIssues !== false;
+
+    console.log('[Jouster] Effective options:', {
+      generateIssues,
+      trackIssues
+    });
+
+    return this.isTrackerAvailable && (generateIssues || trackIssues);
   }
 
   /**
    * Process a single test result
    */
   private async processTestResult(test: any, testResult: any): Promise<void> {
-    await this.issueManager.processTestFile(test.path, testResult, this.options);
+    console.log('[Jouster] Processing test file:', test.path);
+    console.log('[Jouster] Test result status:', testResult.numFailingTests > 0 ? 'FAILING' : 'PASSING');
+
+    try {
+      await this.issueManager.processTestFile(test.path, testResult, this.options);
+      console.log('[Jouster] Successfully processed test file');
+    } catch (error) {
+      console.error('[Jouster] Error processing test file:', this.formatError(error));
+      throw error; // Re-throw to be caught by the caller
+    }
   }
 
   /**
@@ -153,6 +199,9 @@ export class IssueTrackerReporter {
    * Check if bug tracker is available and warn if needed
    */
   private checkAndWarnAboutTracker(): void {
+    console.log('[Jouster] Checking bug tracker availability');
+    console.log('[Jouster] Bug tracker:', this.bugTracker ? 'provided' : 'not provided');
+
     if (!this.isTrackerAvailable && (this.options.generateIssues || this.options.trackIssues)) {
       console.warn(
         'Bug tracker is not available. Issue tracking will be disabled. ' +

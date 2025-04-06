@@ -2,10 +2,10 @@
   "name": "jouster",
   "version": "1.0.0",
   "description": "Stick it to your failing tests - A Jest reporter that tracks test failures as GitHub issues",
-  "main": "dist/index.js",
+  "main": "index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "jouster-setup": "dist/wizard/cli.js"
+    "jouster-setup": "dist/src/wizard/cli.js"
   },
   "scripts": {
     "build": "tsc",
@@ -49,6 +49,7 @@
   "files": [
     "dist",
     "templates",
-    "bin"
+    "bin",
+    "index.js"
   ]
 }

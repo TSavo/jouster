@@ -6,13 +6,13 @@
  */
 
 // Export the Jest reporter
-export { IssueTrackerReporter } from './jest/issue-tracker-reporter';
+export { IssueTrackerReporter } from './src/jest/issue-tracker-reporter';
 
 // Export utilities
-export { generateTestIdentifier, parseTestIdentifier, getTestDescription } from './utils';
+export { generateTestIdentifier, parseTestIdentifier, getTestDescription } from './src/utils/test-identifier';
 
 // Export components for advanced usage
-export { MappingStore } from './storage/mapping-store';
-export { GitHubClient } from './github/github-client';
-export { IssueManager } from './issues/issue-manager';
-export { TemplateManager } from './templates/template-manager';
+export { MappingStore } from './src/storage/mapping-store';
+export { GitHubClient } from './src/github/github-client';
+export { IssueManager } from './src/issues/issue-manager';
+export { TemplateManager } from './src/templates/template-manager';

@@ -25,7 +25,7 @@ export class GitHubBugTracker implements IBugTracker {
     githubClient: IGitHubClient,
     templateManager: ITemplateManager,
     mappingStore: IMappingStore,
-    labels: string[] = ['bug', 'test-failure']
+    labels: string[] = ['bug']
   ) {
     this.githubClient = githubClient;
     this.templateManager = templateManager;
@@ -37,11 +37,19 @@ export class GitHubBugTracker implements IBugTracker {
    * Initialize the bug tracker
    */
   public async initialize(): Promise<void> {
+    console.log('[Jouster] Initializing GitHub bug tracker');
+
     // Check if GitHub CLI is available
+    console.log('[Jouster] Checking if GitHub CLI is available');
     const isGitHubCliAvailable = await this.githubClient.isGitHubCliAvailable();
+    console.log('[Jouster] GitHub CLI available:', isGitHubCliAvailable);
+
     if (!isGitHubCliAvailable) {
+      console.error('[Jouster] GitHub CLI is not available');
       throw new Error('GitHub CLI is not available. Please install it and authenticate with `gh auth login`.');
     }
+
+    console.log('[Jouster] GitHub bug tracker initialized successfully');
   }
 
   /**
@@ -67,18 +75,84 @@ export class GitHubBugTracker implements IBugTracker {
       return null;
     }
 
+    // Check and sync the actual status from GitHub
+    await this.syncIssueStatus(testIdentifier, mapping.issueNumber);
+
+    // Get the mapping again in case it was updated
+    const updatedMapping = this.mappingStore.getMapping(testIdentifier);
+    if (!updatedMapping) {
+      return null;
+    }
+
     return {
-      id: mapping.issueNumber.toString(),
-      status: mapping.status as 'open' | 'closed',
+      id: updatedMapping.issueNumber.toString(),
+      status: updatedMapping.status as 'open' | 'closed',
       testIdentifier,
-      testFilePath: mapping.testFilePath,
-      testName: mapping.testName,
-      lastFailure: mapping.lastFailure,
-      lastUpdate: mapping.lastUpdate,
-      fixedBy: mapping.fixedBy,
-      fixCommit: mapping.fixCommit,
-      fixMessage: mapping.fixMessage
+      testFilePath: updatedMapping.testFilePath,
+      testName: updatedMapping.testName,
+      lastFailure: updatedMapping.lastFailure,
+      lastUpdate: updatedMapping.lastUpdate,
+      fixedBy: updatedMapping.fixedBy,
+      fixCommit: updatedMapping.fixCommit,
+      fixMessage: updatedMapping.fixMessage
     };
+  }
+
+  /**
+   * Sync the issue status with GitHub
+   *
+   * @param testIdentifier Test identifier
+   * @param issueNumber GitHub issue number
+   * @returns True if the status was synced, false otherwise
+   */
+  public async syncIssueStatus(testIdentifier: string, issueNumber: number): Promise<boolean> {
+    try {
+      console.log('[Jouster] Syncing issue status for:', testIdentifier, 'Issue number:', issueNumber);
+
+      // Get the current mapping
+      const mapping = this.mappingStore.getMapping(testIdentifier);
+      if (!mapping) {
+        console.log('[Jouster] No mapping found for test:', testIdentifier);
+        return false;
+      }
+
+      // Check the actual status on GitHub
+      const statusResult = await this.githubClient.checkIssueStatus(issueNumber);
+
+      if (!statusResult.success) {
+        console.error('[Jouster] Failed to check issue status:', statusResult.error);
+        return false;
+      }
+
+      const githubStatus = statusResult.status;
+      console.log('[Jouster] GitHub status:', githubStatus, 'Local status:', mapping.status);
+
+      // If the status is different, update the mapping
+      if (githubStatus !== mapping.status) {
+        console.log('[Jouster] Status mismatch, updating mapping');
+
+        // Get git information
+        const gitInfo = this.templateManager.getGitInfo();
+
+        // Update the mapping
+        this.mappingStore.updateMapping(
+          testIdentifier,
+          { status: githubStatus },
+          gitInfo,
+          mapping.testFilePath || '',
+          mapping.testName || ''
+        );
+
+        console.log('[Jouster] Mapping updated successfully');
+        return true;
+      }
+
+      console.log('[Jouster] Status is in sync, no update needed');
+      return true;
+    } catch (error) {
+      console.error('[Jouster] Error syncing issue status:', error);
+      return false;
+    }
   }
 
   /**
@@ -90,40 +164,62 @@ export class GitHubBugTracker implements IBugTracker {
    * @returns Bug information
    */
   public async createBug(testIdentifier: string, test: TestResult, testFilePath: string): Promise<BugInfo> {
+    console.log('[Jouster] Creating bug for test:', testIdentifier);
+    console.log('[Jouster] Test full name:', test.fullName);
+    console.log('[Jouster] Test file path:', testFilePath);
+
     // Generate issue title and body
     const title = `Test Failure: ${test.fullName}`;
-    const body = await this.templateManager.generateIssueBody(test, testFilePath);
+    console.log('[Jouster] Issue title:', title);
 
-    // Create the issue
-    const result = await this.githubClient.createIssue(title, body, this.labels);
+    try {
+      const body = await this.templateManager.generateIssueBody(test, testFilePath);
+      console.log('[Jouster] Generated issue body successfully');
 
-    if (!result.success || !result.issueNumber) {
-      throw new Error(`Failed to create issue: ${result.error}`);
+      // Create the issue
+      console.log('[Jouster] Creating GitHub issue');
+      const result = await this.githubClient.createIssue(title, body, this.labels);
+      console.log('[Jouster] GitHub issue creation result:', result);
+
+      if (!result.success || !result.issueNumber) {
+        console.error('[Jouster] Failed to create issue:', result.error);
+        throw new Error(`Failed to create issue: ${result.error}`);
+      }
+
+      // Get git information
+      console.log('[Jouster] Getting git information');
+      const gitInfo = this.templateManager.getGitInfo();
+      console.log('[Jouster] Git info:', gitInfo);
+
+      // Store the mapping
+      console.log('[Jouster] Storing mapping in database');
+      this.mappingStore.setMapping(
+        testIdentifier,
+        result.issueNumber,
+        'open',
+        gitInfo,
+        testFilePath,
+        test.fullName
+      );
+      console.log('[Jouster] Mapping stored successfully');
+
+      // Return bug information
+      const bugInfo = {
+        id: result.issueNumber.toString(),
+        status: 'open',
+        testIdentifier,
+        testFilePath,
+        testName: test.fullName,
+        lastFailure: new Date().toISOString(),
+        lastUpdate: new Date().toISOString()
+      };
+
+      console.log('[Jouster] Bug created successfully:', bugInfo);
+      return bugInfo;
+    } catch (error) {
+      console.error('[Jouster] Error creating bug:', error);
+      throw error;
     }
-
-    // Get git information
-    const gitInfo = this.templateManager.getGitInfo();
-
-    // Store the mapping
-    this.mappingStore.setMapping(
-      testIdentifier,
-      result.issueNumber,
-      'open',
-      gitInfo,
-      testFilePath,
-      test.fullName
-    );
-
-    // Return bug information
-    return {
-      id: result.issueNumber.toString(),
-      status: 'open',
-      testIdentifier,
-      testFilePath,
-      testName: test.fullName,
-      lastFailure: new Date().toISOString(),
-      lastUpdate: new Date().toISOString()
-    };
   }
 
   /**
