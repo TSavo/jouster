@@ -33,7 +33,7 @@ export class AnalyticsPlugin implements IssueTrackerPlugin {
 
   /**
    * Creates a new analytics plugin
-   * 
+   *
    * @param options Plugin options
    */
   constructor(options: { apiUrl: string; apiKey: string; projectId: string }) {
@@ -44,7 +44,7 @@ export class AnalyticsPlugin implements IssueTrackerPlugin {
 
   /**
    * Initialize the plugin
-   * 
+   *
    * @param config Configuration
    */
   public init(config: IssueTrackerConfig): void {
@@ -55,7 +55,7 @@ export class AnalyticsPlugin implements IssueTrackerPlugin {
 
   /**
    * Called before creating an issue
-   * 
+   *
    * @param test Test result
    * @param filePath Test file path
    */
@@ -90,7 +90,7 @@ export class AnalyticsPlugin implements IssueTrackerPlugin {
 
   /**
    * Called after closing an issue
-   * 
+   *
    * @param test Test result
    * @param filePath Test file path
    * @param issueNumber Issue number
@@ -98,7 +98,7 @@ export class AnalyticsPlugin implements IssueTrackerPlugin {
   public async afterCloseIssue(test: TestResult, filePath: string, issueNumber: number): Promise<void> {
     // Track the fix
     const testId = `${filePath}:${test.fullName}`;
-    
+
     // In a real implementation, this would send analytics data
     console.log(`Tracking test fix: ${testId}`);
     console.log(`Issue number: ${issueNumber}`);
@@ -111,7 +111,7 @@ export class AnalyticsPlugin implements IssueTrackerPlugin {
     //   filePath,
     //   issueNumber,
     //   fixTimestamp: new Date().toISOString(),
-    //   timeToFix: this.calculateTimeToFix(issueNumber)
+    //   timeToFix: 0 // In a real implementation, calculate time between issue creation and closure
     // };
     //
     // await fetch(`${this.apiUrl}/fixes`, {
@@ -122,16 +122,5 @@ export class AnalyticsPlugin implements IssueTrackerPlugin {
     //   },
     //   body: JSON.stringify(data)
     // });
-  }
-
-  /**
-   * Calculate time to fix an issue
-   * 
-   * @param issueNumber Issue number
-   * @returns Time to fix in milliseconds
-   */
-  private calculateTimeToFix(issueNumber: number): number {
-    // In a real implementation, this would calculate the time between issue creation and closure
-    return 0;
   }
 }

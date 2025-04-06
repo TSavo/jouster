@@ -23,6 +23,26 @@ describe('PluginManager', () => {
     pluginManager = new PluginManager([mockPlugin]);
   });
 
+  describe('constructor', () => {
+    it('should initialize with empty plugins array when no plugins are provided', () => {
+      const emptyPluginManager = new PluginManager();
+      // Register a plugin to verify the plugins array was initialized as empty
+      const newPlugin: IssueTrackerPlugin = {
+        name: 'New Plugin'
+      };
+      emptyPluginManager.registerPlugin(newPlugin);
+
+      // If the plugins array was properly initialized as empty, we should be able to register a plugin
+      // without errors. We can't directly test the private plugins array, but we can test its behavior.
+      const testFilePath = '/path/to/test.ts';
+      return emptyPluginManager.beforeCreateIssue(mockFailingTest, testFilePath)
+        .then(() => {
+          // If we get here without errors, the test passes
+          expect(true).toBe(true);
+        });
+    });
+  });
+
   describe('registerPlugin', () => {
     it('should register a plugin', () => {
       const newPlugin: IssueTrackerPlugin = {

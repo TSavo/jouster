@@ -115,15 +115,6 @@ export class GitHubBugTracker implements IBugTracker {
       this.logger.log('Test full name:', test.fullName);
       this.logger.log('Test file path:', testFilePath);
 
-      // Check if the issue exists
-      const mapping = this.mappingStore.getMapping(testIdentifier);
-      if (mapping) {
-        this.logger.log('Issue already exists for test:', testIdentifier);
-        return this.updateBug(testIdentifier, test, testFilePath);
-      } else {
-        this.logger.log('Creating bug for test:', testIdentifier);
-      }
-
       // Create a title for the issue
       const title = `Test Failure: ${test.fullName}`;
       this.logger.log('Issue title:', title);
@@ -175,13 +166,13 @@ export class GitHubBugTracker implements IBugTracker {
       this.logger.log('Mapping stored successfully');
 
       // Get the mapping
-      const createdMapping = this.mappingStore.getMapping(testIdentifier);
-      if (!createdMapping) {
+      const mapping = this.mappingStore.getMapping(testIdentifier);
+      if (!mapping) {
         throw new Error('Failed to get mapping after creating issue');
       }
 
       // Create the bug info
-      const bugInfo = this.mapToBugInfo(createdMapping, testIdentifier);
+      const bugInfo = this.mapToBugInfo(mapping, testIdentifier);
       this.logger.log('Bug created successfully:', bugInfo);
 
       return bugInfo;

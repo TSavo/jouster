@@ -8,21 +8,40 @@ import {
 } from '../types';
 
 /**
+ * Storage client interface
+ */
+export interface IStorageClient {
+  getMapping(testIdentifier: string): any;
+  setMapping(testIdentifier: string, issueNumber: number, status: string, gitInfo?: any, testFilePath?: string, testName?: string): void;
+  updateMapping(testIdentifier: string, updates: any, gitInfo?: any, testFilePath?: string, testName?: string): void;
+  getAllMappings(): Record<string, any>;
+}
+
+/**
  * Manages the persistent storage of test-to-issue mappings
  */
 export class MappingStore {
   private database: MappingDatabase;
   private databasePath: string;
   private hasChanges: boolean = false;
+  private storageClient?: IStorageClient;
 
   /**
    * Creates a new MappingStore instance
    *
-   * @param databasePath Path to the database file
+   * @param databasePathOrClient Path to the database file or storage client
    */
-  constructor(databasePath?: string) {
-    this.databasePath = typeof databasePath === 'string' ? databasePath : path.join(process.cwd(), 'test-issue-mapping.json');
-    this.database = this.loadDatabase();
+  constructor(databasePathOrClient?: string | IStorageClient) {
+    if (typeof databasePathOrClient === 'object' && databasePathOrClient !== null) {
+      // Use provided storage client
+      this.storageClient = databasePathOrClient;
+      this.databasePath = '';
+      this.database = { testIdentifiers: {} };
+    } else {
+      // Use file-based storage
+      this.databasePath = typeof databasePathOrClient === 'string' ? databasePathOrClient : path.join(process.cwd(), 'test-issue-mapping.json');
+      this.database = this.loadDatabase();
+    }
   }
 
   /**
@@ -73,13 +92,66 @@ export class MappingStore {
   }
 
   /**
-   * Gets the issue mapping for a test
+   * Gets the mapping for a test
+   *
+   * @param testIdentifier Test identifier
+   * @returns The mapping or undefined if not found
+   */
+  public getMapping(testIdentifier: TestIdentifier): TestIssueMapping | undefined {
+    if (this.storageClient) {
+      return this.storageClient.getMapping(testIdentifier);
+    }
+    return this.database.testIdentifiers[testIdentifier];
+  }
+
+  /**
+   * Gets the issue mapping for a test (alias for getMapping)
    *
    * @param testIdentifier The test identifier
    * @returns The issue mapping or undefined if not found
    */
   public getIssueMapping(testIdentifier: TestIdentifier): TestIssueMapping | undefined {
-    return this.database.testIdentifiers[testIdentifier];
+    return this.getMapping(testIdentifier);
+  }
+
+  /**
+   * Sets the mapping for a test
+   *
+   * @param testIdentifier The test identifier
+   * @param issueNumber The issue number
+   * @param status The issue status
+   * @param gitInfo Optional git information
+   * @param testFilePath Optional test file path
+   * @param testName Optional test name
+   */
+  public setMapping(
+    testIdentifier: TestIdentifier,
+    issueNumber: number,
+    status: string,
+    gitInfo?: { author?: string; commit?: string; message?: string },
+    testFilePath?: string,
+    testName?: string
+  ): void {
+    if (this.storageClient) {
+      this.storageClient.setMapping(testIdentifier, issueNumber, status, gitInfo, testFilePath, testName);
+      return;
+    }
+
+    const mapping: TestIssueMapping = {
+      issueNumber,
+      status,
+      lastFailure: new Date().toISOString(),
+      lastUpdate: new Date().toISOString(),
+      fixedBy: gitInfo?.author,
+      fixCommit: gitInfo?.commit,
+      fixMessage: gitInfo?.message,
+      testFilePath,
+      testName
+    };
+
+    this.database.testIdentifiers[testIdentifier] = mapping;
+    this.hasChanges = true;
+    this.saveDatabase();
   }
 
   /**
@@ -94,6 +166,58 @@ export class MappingStore {
   }
 
   /**
+   * Updates a mapping
+   *
+   * @param testIdentifier The test identifier
+   * @param updates The updates to apply
+   * @param gitInfo Optional git information
+   * @param testFilePath Optional test file path
+   * @param testName Optional test name
+   * @returns Whether the update was successful
+   */
+  public updateMapping(
+    testIdentifier: TestIdentifier,
+    updates: Partial<TestIssueMapping>,
+    gitInfo?: { author?: string; commit?: string; message?: string },
+    testFilePath?: string,
+    testName?: string
+  ): boolean {
+    if (this.storageClient) {
+      this.storageClient.updateMapping(testIdentifier, updates, gitInfo, testFilePath, testName);
+      return true;
+    }
+
+    const mapping = this.getIssueMapping(testIdentifier);
+    if (!mapping) {
+      return false;
+    }
+
+    // Apply updates
+    Object.assign(mapping, updates);
+
+    // Update git info if provided
+    if (gitInfo) {
+      mapping.fixedBy = gitInfo.author;
+      mapping.fixCommit = gitInfo.commit;
+      mapping.fixMessage = gitInfo.message;
+    }
+
+    // Update test info if provided
+    if (testFilePath) {
+      mapping.testFilePath = testFilePath;
+    }
+
+    if (testName) {
+      mapping.testName = testName;
+    }
+
+    mapping.lastUpdate = new Date().toISOString();
+    this.hasChanges = true;
+    this.saveDatabase();
+    return true;
+  }
+
+  /**
    * Updates the status of an issue
    *
    * @param testIdentifier The test identifier
@@ -101,24 +225,28 @@ export class MappingStore {
    * @returns Whether the update was successful
    */
   public updateIssueStatus(testIdentifier: TestIdentifier, status: IssueStatus): boolean {
-    const mapping = this.getIssueMapping(testIdentifier);
-    if (!mapping) {
-      return false;
-    }
-
-    mapping.status = status;
-    mapping.lastUpdate = new Date().toISOString();
-    this.hasChanges = true;
-    return true;
+    return this.updateMapping(testIdentifier, { status });
   }
 
   /**
-   * Gets all test identifiers with their mappings
+   * Gets all mappings
+   *
+   * @returns A record of test identifiers to mappings
+   */
+  public getAllMappings(): Record<TestIdentifier, TestIssueMapping> {
+    if (this.storageClient) {
+      return this.storageClient.getAllMappings();
+    }
+    return this.database.testIdentifiers;
+  }
+
+  /**
+   * Gets all test identifiers with their mappings as entries
    *
    * @returns An array of [testIdentifier, mapping] pairs
    */
-  public getAllMappings(): [TestIdentifier, TestIssueMapping][] {
-    return Object.entries(this.database.testIdentifiers);
+  public getAllMappingEntries(): [TestIdentifier, TestIssueMapping][] {
+    return Object.entries(this.getAllMappings());
   }
 
   /**

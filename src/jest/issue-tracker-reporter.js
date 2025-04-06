@@ -1,8 +1,8 @@
 "use strict";
 
-const GitHubClient = require('../github/github-client').GitHubClient;
-const IssueManager = require('../issues/issue-manager').IssueManager;
-const MappingStore = require('../storage/mapping-store').MappingStore;
+const { IssueManager } = require('../issues/issue-manager');
+const { MappingStore } = require('../storage/mapping-store');
+const { GitHubClient } = require('../github/github-client');
 
 /**
  * Jest reporter that tracks test failures and creates/closes GitHub issues
@@ -11,37 +11,95 @@ class IssueTrackerReporter {
   /**
    * Creates a new IssueTrackerReporter instance
    *
-   * @param globalConfig Jest global configuration
-   * @param reporterOptions Reporter options
+   * @param {Object} globalConfig - Jest global configuration
+   * @param {Object} reporterOptions - Reporter options
+   * @param {Object} deps - Dependencies (optional)
+   * @param {Function} deps.createIssueManager - Function to create an issue manager
+   * @param {Function} deps.createMappingStore - Function to create a mapping store
+   * @param {Function} deps.createGitHubClient - Function to create a GitHub client
+   * @param {Function} deps.getEnv - Function to get environment variables
+   * @param {Array} deps.getArgv - Function to get command line arguments
+   * @param {Function} deps.logger - Logger for output
    */
-  constructor(globalConfig, reporterOptions) {
+  constructor(globalConfig, reporterOptions, deps = {}) {
+    // Set up dependencies with defaults
+    this.createIssueManager = deps.createIssueManager || this._defaultCreateIssueManager.bind(this);
+    this.createMappingStore = deps.createMappingStore || this._defaultCreateMappingStore.bind(this);
+    this.createGitHubClient = deps.createGitHubClient || this._defaultCreateGitHubClient.bind(this);
+    this.getEnv = deps.getEnv || (() => process.env);
+    this.getArgv = deps.getArgv || (() => process.argv);
+    this.logger = deps.logger || console;
+
     // Parse options from environment variables or Jest command line arguments
+    const env = this.getEnv();
+    const argv = this.getArgv();
+
     this.options = {
-      generateIssues: process.env.GENERATE_ISSUES === 'true' || process.argv.includes('--generate-issues'),
-      trackIssues: process.env.TRACK_ISSUES === 'true' || process.argv.includes('--track-issues') || process.env.GENERATE_ISSUES === 'true' || process.argv.includes('--generate-issues'),
+      generateIssues: env.GENERATE_ISSUES === 'true' || argv.includes('--generate-issues'),
+      trackIssues: env.TRACK_ISSUES === 'true' || argv.includes('--track-issues') ||
+                  env.GENERATE_ISSUES === 'true' || argv.includes('--generate-issues'),
       databasePath: reporterOptions?.databasePath
     };
 
     // Initialize components
-    const mappingStore = new MappingStore(this.options.databasePath);
-    const githubClient = new GitHubClient();
-    this.issueManager = new IssueManager(mappingStore, githubClient);
+    this.mappingStore = this.createMappingStore(this.options.databasePath);
+    this.githubClient = this.createGitHubClient();
+    this.issueManager = this.createIssueManager(this.mappingStore, this.githubClient);
     this.pendingResults = [];
     this.isGitHubCliAvailable = false;
+  }
 
-    // We need to initialize synchronously, but we'll check GitHub CLI availability
-    // in the onRunStart method
+  /**
+   * Default implementation to create a mapping store
+   *
+   * @param {string} databasePath - Path to the database
+   * @returns {Object} A mapping store instance
+   */
+  _defaultCreateMappingStore(databasePath) {
+    return new MappingStore(databasePath);
+  }
+
+  /**
+   * Default implementation to create a GitHub client
+   *
+   * @returns {Object} A GitHub client instance
+   */
+  _defaultCreateGitHubClient() {
+    return new GitHubClient();
+  }
+
+  /**
+   * Default implementation to create an issue manager
+   *
+   * @param {Object} mappingStore - The mapping store
+   * @param {Object} githubClient - The GitHub client
+   * @returns {Object} An issue manager instance
+   */
+  _defaultCreateIssueManager(mappingStore, githubClient) {
+    return new IssueManager({
+      mappingStore,
+      githubClient
+    });
   }
 
   /**
    * Checks if the GitHub CLI is available
+   *
+   * @returns {Promise<boolean>} True if GitHub CLI is available, false otherwise
    */
   async checkGitHubCli() {
-    const githubClient = new GitHubClient();
-    this.isGitHubCliAvailable = await githubClient.isGitHubCliAvailable();
+    try {
+      this.isGitHubCliAvailable = await this.githubClient.isGitHubCliAvailable();
 
-    // Check if GitHub CLI is needed and warn if it's not available
-    this.checkAndWarnAboutGitHubCli();
+      // Check if GitHub CLI is needed and warn if it's not available
+      this.checkAndWarnAboutGitHubCli();
+
+      return this.isGitHubCliAvailable;
+    } catch (error) {
+      this.logger.error('[Issue Tracker] Error checking GitHub CLI availability:', error);
+      this.isGitHubCliAvailable = false;
+      return false;
+    }
   }
 
   /**
@@ -64,14 +122,17 @@ class IssueTrackerReporter {
 
   /**
    * Log a warning message
-   * @param message The message to log
+   *
+   * @param {string} message - The message to log
    */
   logWarning(message) {
-    console.warn(message);
+    this.logger.warn(message);
   }
 
   /**
    * Called when the test run starts
+   *
+   * @returns {Promise<void>}
    */
   async onRunStart() {
     // Check if GitHub CLI is available
@@ -87,7 +148,9 @@ class IssueTrackerReporter {
 
   /**
    * Called when a test completes
-   * @param test The test result
+   *
+   * @param {Object} test - The test context
+   * @param {Object} testResult - The test result
    */
   onTestResult(test, testResult) {
     // Store the test result for processing later
@@ -99,6 +162,8 @@ class IssueTrackerReporter {
 
   /**
    * Called when all tests complete
+   *
+   * @returns {Promise<void>}
    */
   async onRunComplete() {
     // Skip if GitHub CLI is not available
@@ -114,7 +179,7 @@ class IssueTrackerReporter {
           closeIssues: this.options.trackIssues
         });
       } catch (error) {
-        // Silently continue if processing fails
+        this.logger.error('[Issue Tracker] Error processing test results:', error);
       }
     }
   }

@@ -20,22 +20,58 @@ export class IssueTrackerReporter {
    *
    * @param globalConfig Jest global configuration
    * @param reporterOptions Reporter options
+   * @param issueManager Optional issue manager instance
+   * @param pluginManager Optional plugin manager instance
+   * @param bugTracker Optional bug tracker instance
    */
-  constructor(globalConfig: any, reporterOptions: any) {
+  constructor(
+    globalConfig: any,
+    reporterOptions: any,
+    issueManager?: any,
+    pluginManager?: any,
+    bugTracker?: any
+  ) {
     // Parse options from environment variables or Jest command line arguments
-    this.options = {
-      generateIssues: process.env.GENERATE_ISSUES === 'true' || process.argv.includes('--generate-issues'),
-      trackIssues: process.env.TRACK_ISSUES === 'true' || process.argv.includes('--track-issues') || process.env.GENERATE_ISSUES === 'true' || process.argv.includes('--generate-issues'),
-      databasePath: reporterOptions?.databasePath
-    };
+    this.options = this.initializeOptions(reporterOptions);
 
-    // Initialize components
-    const mappingStore = new MappingStore(this.options.databasePath);
-    const githubClient = new GitHubClient();
-    this.issueManager = new IssueManager(githubClient, mappingStore, this.options);
+    // Use provided issue manager or create a new one
+    if (issueManager) {
+      this.issueManager = issueManager;
+    } else {
+      // Initialize components
+      const mappingStore = new MappingStore(this.options.databasePath);
+      const githubClient = new GitHubClient();
+      this.issueManager = new IssueManager(githubClient, mappingStore, this.options);
+    }
 
     // Check if GitHub CLI is available
     this.checkGitHubCli();
+  }
+
+  /**
+   * Initializes the options object
+   *
+   * @param reporterOptions Reporter options from Jest
+   * @returns Initialized options object
+   */
+  private initializeOptions(reporterOptions: any): IssueTrackerOptions {
+    if (!reporterOptions) {
+      return {
+        generateIssues: process.env.GENERATE_ISSUES === 'true' || process.argv.includes('--generate-issues'),
+        trackIssues: process.env.TRACK_ISSUES === 'true' || process.argv.includes('--track-issues') || process.env.GENERATE_ISSUES === 'true' || process.argv.includes('--generate-issues')
+      };
+    }
+
+    return {
+      generateIssues: reporterOptions.generateIssues || process.env.GENERATE_ISSUES === 'true' || process.argv.includes('--generate-issues'),
+      trackIssues: reporterOptions.trackIssues || process.env.TRACK_ISSUES === 'true' || process.argv.includes('--track-issues') || process.env.GENERATE_ISSUES === 'true' || process.argv.includes('--generate-issues'),
+      databasePath: reporterOptions.databasePath,
+      templateDir: reporterOptions.templateDir,
+      defaultLabels: reporterOptions.defaultLabels,
+      githubLabels: reporterOptions.githubLabels,
+      closeIssues: reporterOptions.closeIssues !== false,
+      reopenIssues: reporterOptions.reopenIssues !== false
+    };
   }
 
   /**
@@ -47,6 +83,28 @@ export class IssueTrackerReporter {
 
     // If GitHub CLI is not available and we need it, show a warning
     this.checkAndWarnAboutGitHubCli();
+  }
+
+  /**
+   * Formats an error for logging
+   *
+   * @param error The error to format
+   * @returns Formatted error message
+   */
+  private formatError(error: any): string {
+    if (!error) {
+      return 'Unknown error';
+    }
+
+    if (error instanceof Error) {
+      return error.message || error.toString();
+    }
+
+    if (typeof error === 'string') {
+      return error;
+    }
+
+    return JSON.stringify(error);
   }
 
   /**
@@ -142,4 +200,6 @@ export class IssueTrackerReporter {
   }
 }
 
+// Export both as default and named export
+export default IssueTrackerReporter;
 module.exports = IssueTrackerReporter;

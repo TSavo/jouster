@@ -12,7 +12,7 @@ import { ITemplateManager } from './templates/template-manager.interface';
 import { IssueManager } from './issues/issue-manager';
 import { IIssueManager } from './issues/issue-manager.interface';
 import { PluginManager } from './plugins/plugin-manager';
-import { IssueTrackerReporter } from './jest/issue-tracker-reporter';
+import IssueTrackerReporter from './jest/issue-tracker-reporter';
 import { GitHubBugTracker } from './trackers/github/github-bug-tracker';
 import { FileBugTracker } from './trackers/file/file-bug-tracker';
 import { IBugTracker } from './trackers/bug-tracker.interface';
@@ -100,7 +100,14 @@ export function createTemplateManager(rawConfig?: Partial<IssueTrackerConfig>): 
  * @returns Plugin manager
  */
 export function createPluginManager(config?: Partial<IssueTrackerConfig>): PluginManager {
-  return new PluginManager(config?.plugins);
+  const plugins: any[] = [];
+
+  // Add custom plugins if provided
+  if (config?.plugins && Array.isArray(config.plugins)) {
+    plugins.push(...config.plugins);
+  }
+
+  return new PluginManager(plugins);
 }
 
 /**
@@ -109,12 +116,12 @@ export function createPluginManager(config?: Partial<IssueTrackerConfig>): Plugi
  * @param config Configuration
  * @returns Bug tracker
  */
-export function createBugTracker(config?: Partial<IssueTrackerConfig>): IBugTracker {
+export function createBugTracker(config?: Partial<IssueTrackerConfig>): any {
   if (config?.bugTracker) {
     return config.bugTracker;
   }
 
-  const type = config?.trackerType || defaultConfig.trackerType;
+  const type = config?.trackerType || 'github';
   const templateManager = createTemplateManager(config);
 
   if (type === 'github') {
@@ -170,8 +177,31 @@ export function createIssueManager(config?: Partial<IssueTrackerConfig>): IssueM
  * @param options Reporter options
  * @returns Issue tracker reporter
  */
-export function createIssueTrackerReporter(globalConfig: any, options: any): IssueTrackerReporter {
-  return new IssueTrackerReporter(globalConfig, options);
+export function createIssueTrackerReporter(
+  globalConfig: any,
+  options: any,
+  issueManager?: any,
+  pluginManager?: any,
+  bugTracker?: any
+): IssueTrackerReporter {
+  if (issueManager && pluginManager && bugTracker) {
+    return new IssueTrackerReporter(globalConfig, options, issueManager, pluginManager, bugTracker);
+  }
+
+  // Create components if not provided
+  if (!issueManager) {
+    issueManager = createIssueManager(options);
+  }
+
+  if (!pluginManager) {
+    pluginManager = createPluginManager(options);
+  }
+
+  if (!bugTracker) {
+    bugTracker = createBugTracker(options);
+  }
+
+  return new IssueTrackerReporter(globalConfig, options, issueManager, pluginManager, bugTracker);
 }
 
 // Default export

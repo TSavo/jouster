@@ -24,11 +24,11 @@ const TEST_FILE = path.join(TEST_DIR, 'sample.test.ts');
 const MAPPING_FILE = path.join(process.cwd(), 'test-issue-mapping.json');
 const JEST_CONFIG_FILE = path.join(TEST_DIR, 'jest.config.js');
 
-// Skip this test in CI environments or if GitHub CLI is not available
-const runE2ETests = process.env.RUN_E2E_TESTS === 'true';
+// Run these tests by default, but allow skipping in CI environments
+const skipE2ETests = process.env.SKIP_E2E_TESTS === 'true';
 
-// Only run these tests if explicitly enabled
-(runE2ETests ? describe : describe.skip)('Issue Tracker E2E Tests', () => {
+// Run these tests unless explicitly disabled
+(!skipE2ETests ? describe : describe.skip)('Issue Tracker E2E Tests', () => {
   let issueNumber: number | null = null;
 
   // Set up test environment

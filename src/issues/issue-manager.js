@@ -11,22 +11,52 @@ class IssueManager {
   /**
    * Creates a new IssueManager instance
    *
-   * @param mappingStore The mapping store
-   * @param githubClient The GitHub client
+   * @param {Object} deps - Dependencies
+   * @param {Object} deps.mappingStore - The mapping store
+   * @param {Object} deps.githubClient - The GitHub client
+   * @param {Object} deps.templateManager - The template manager (optional)
+   * @param {Function} deps.pathRelative - Function to get relative path (optional)
+   * @param {Function} deps.getCurrentDate - Function to get current date (optional)
+   * @param {Function} deps.generateTestId - Function to generate test ID (optional)
+   * @param {Function} deps.getTestDesc - Function to get test description (optional)
    */
-  constructor(mappingStore, githubClient) {
-    this.mappingStore = mappingStore;
-    this.githubClient = githubClient;
-    this.templateManager = new TemplateManager();
+  constructor(deps) {
+    // For backward compatibility
+    if (arguments.length === 2) {
+      const mappingStore = arguments[0];
+      const githubClient = arguments[1];
+      deps = { mappingStore, githubClient };
+    }
+
+    if (!deps || !deps.mappingStore || !deps.githubClient) {
+      throw new Error('Missing required dependencies: mappingStore and githubClient are required');
+    }
+
+    this.mappingStore = deps.mappingStore;
+    this.githubClient = deps.githubClient;
+    this.templateManager = deps.templateManager || new TemplateManager();
+
+    // Dependency injection for easier testing
+    this.pathRelative = deps.pathRelative || ((from, to) => path.relative(from, to));
+    this.getCurrentDate = deps.getCurrentDate || (() => new Date().toISOString());
+    this.generateTestId = deps.generateTestId || generateTestIdentifier;
+    this.getTestDesc = deps.getTestDesc || getTestDescription;
   }
 
   /**
    * Processes test results
    *
-   * @param testResults The test results
-   * @param options Options for processing
+   * @param {Array} testResults - The test results
+   * @param {Object} options - Options for processing
+   * @param {boolean} options.createIssues - Whether to create issues for failures
+   * @param {boolean} options.closeIssues - Whether to close issues for passes
+   * @returns {Promise<void>}
    */
   async processTestResults(testResults, options = { createIssues: true, closeIssues: true }) {
+    if (!testResults || !Array.isArray(testResults)) {
+      return;
+    }
+
     // Process each test file
     for (const result of testResults) {
       await this.processTestFile(result, options);
@@ -36,24 +66,33 @@ class IssueManager {
   /**
    * Processes a test file
    *
-   * @param testFile The test file
-   * @param options Options for processing
+   * @param {Object} testFile - The test file
+   * @param {Object} options - Options for processing
+   * @returns {Promise<void>}
    */
   async processTestFile(testFile, options) {
+    if (!testFile) {
+      return;
+    }
+
     const { testFilePath, testResults } = testFile;
 
-    // Skip if no test results
-    if (!testResults || testResults.length === 0) {
+    // Skip if no test results or no file path
+    if (!testResults || testResults.length === 0 || !testFilePath) {
       return;
     }
 
     // Get the relative path to the test file
-    const relativeFilePath = path.relative(process.cwd(), testFilePath);
+    const relativeFilePath = this.pathRelative(process.cwd(), testFilePath);
 
     // Process each test result
     for (const test of testResults) {
+      if (!test || !test.fullName) {
+        continue;
+      }
+
       // Generate a unique identifier for the test
-      const testIdentifier = generateTestIdentifier(relativeFilePath, test.fullName);
+      const testIdentifier = this.generateTestId(relativeFilePath, test.fullName);
 
       // Process the test result
       if (test.status === 'failed') {
@@ -73,18 +112,23 @@ class IssueManager {
   /**
    * Handles a failed test
    *
-   * @param testIdentifier The test identifier
-   * @param testFilePath The test file path
-   * @param test The test result
+   * @param {string} testIdentifier - The test identifier
+   * @param {string} testFilePath - The test file path
+   * @param {Object} test - The test result
+   * @returns {Promise<void>}
    */
   async handleFailedTest(testIdentifier, testFilePath, test) {
+    if (!testIdentifier || !testFilePath || !test) {
+      return;
+    }
+
     // Check if we already have an issue for this test
     const mapping = this.mappingStore.getMapping(testIdentifier);
 
     if (mapping && mapping.status === 'open') {
       // Issue already exists and is open, update the last failure time
       this.mappingStore.updateMapping(testIdentifier, {
-        lastFailure: new Date().toISOString()
+        lastFailure: this.getCurrentDate()
       }, {}, testFilePath, test.fullName);
     } else if (mapping && mapping.status === 'closed') {
       // Issue exists but is closed (regression), reopen it
@@ -95,12 +139,12 @@ class IssueManager {
         // Update the mapping
         this.mappingStore.updateMapping(testIdentifier, {
           status: 'open',
-          lastFailure: new Date().toISOString()
+          lastFailure: this.getCurrentDate()
         }, {}, testFilePath, test.fullName);
       }
     } else {
       // Create a new issue
-      const title = `Test Failure: ${getTestDescription(test.fullName)}`;
+      const title = `Test Failure: ${this.getTestDesc(test.fullName)}`;
       const body = this.templateManager.generateIssueBody(test, testFilePath);
 
       const result = await this.githubClient.createIssue(title, body, ['bug']);
@@ -118,11 +162,16 @@ class IssueManager {
   /**
    * Handles a passed test
    *
-   * @param testIdentifier The test identifier
-   * @param testFilePath The test file path
-   * @param test The test result
+   * @param {string} testIdentifier - The test identifier
+   * @param {string} testFilePath - The test file path
+   * @param {Object} test - The test result
+   * @returns {Promise<void>}
    */
   async handlePassedTest(testIdentifier, testFilePath, test) {
+    if (!testIdentifier || !testFilePath || !test) {
+      return;
+    }
+
     // Check if we have an issue for this test
     const mapping = this.mappingStore.getMapping(testIdentifier);
 
@@ -142,8 +191,6 @@ class IssueManager {
       }
     }
   }
-
-  // The generateIssueBody method has been replaced by the template manager
 }
 
 module.exports = { IssueManager };

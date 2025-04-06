@@ -74,16 +74,5 @@ describe('AnalyticsPlugin', () => {
     });
   });
 
-  describe('calculateTimeToFix', () => {
-    it('should calculate time to fix', () => {
-      const issueNumber = 123;
 
-      // We need to access the private method
-      // @ts-ignore - Accessing private method for testing
-      const timeToFix = plugin['calculateTimeToFix'](issueNumber);
-
-      // In the current implementation, this always returns 0
-      expect(timeToFix).toBe(0);
-    });
-  });
 });

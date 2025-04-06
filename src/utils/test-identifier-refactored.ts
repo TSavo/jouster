@@ -11,7 +11,7 @@ export interface GenerateTestIdentifierOptions {
 
 /**
  * Normalizes a file path to use forward slashes
- *
+ * 
  * @param filePath The file path to normalize
  * @returns The normalized file path
  */
@@ -21,7 +21,7 @@ export function normalizePath(filePath: string): string {
 
 /**
  * Gets the relative path from the project root
- *
+ * 
  * @param filePath The absolute file path
  * @param cwd The current working directory (defaults to process.cwd())
  * @returns The relative path
@@ -33,7 +33,7 @@ export function getRelativePath(filePath: string, cwd: string = process.cwd()): 
 
 /**
  * Extracts the suite name and test name from a full test name
- *
+ * 
  * @param fullName The full test name (e.g. "Suite > Nested Suite > Test Name")
  * @returns An object with the suite name and test name
  */
@@ -41,20 +41,20 @@ export function extractTestNameParts(fullName: string): { suiteName: string; tes
   const parts = fullName.split(' > ');
   const testName = parts.pop() || 'Unknown Test';
   const suiteName = parts.join(' > ') || 'Default Suite';
-
+  
   return { suiteName, testName };
 }
 
 /**
  * Generates a unique identifier for a test from a file path and full name
- *
+ * 
  * @param filePath The test file path
  * @param fullName The full test name
  * @param options Additional options
  * @returns A unique identifier string
  */
 export function generateIdentifierFromPath(
-  filePath: string,
+  filePath: string, 
   fullName: string,
   options: GenerateTestIdentifierOptions = {}
 ): TestIdentifier {
@@ -64,17 +64,17 @@ export function generateIdentifierFromPath(
 
   // Get the relative path from the project root
   const relativePath = getRelativePath(filePath, options.cwd);
-
+  
   // Extract the suite name and test name
   const { suiteName, testName } = extractTestNameParts(fullName);
-
+  
   // Combine file path, suite name, and test name
   return `${relativePath}:${suiteName}:${testName}`;
 }
 
 /**
  * Generates a unique identifier for a test from a TestResult object
- *
+ * 
  * @param testResult The test result object
  * @param options Additional options
  * @returns A unique identifier string
@@ -89,13 +89,13 @@ export function generateIdentifierFromTestResult(
 
   // Get the relative path from the project root
   const relativePath = getRelativePath(testResult.testFilePath, options.cwd);
-
+  
   // Get the suite name and test name
-  const suiteName = testResult.testSuiteName ||
-                   (testResult.ancestorTitles?.join(' > ')) ||
+  const suiteName = testResult.testSuiteName || 
+                   (testResult.ancestorTitles?.join(' > ')) || 
                    'Default Suite';
   const testName = testResult.testName || testResult.title || 'Unknown Test';
-
+  
   // Combine file path, suite name, and test name
   return `${relativePath}:${suiteName}:${testName}`;
 }
@@ -109,7 +109,7 @@ export function generateIdentifierFromTestResult(
  * @returns A unique identifier string
  */
 export function generateTestIdentifier(
-  testResult: TestResult | string,
+  testResult: TestResult | string, 
   fullName?: string,
   options: GenerateTestIdentifierOptions = {}
 ): TestIdentifier {
@@ -117,7 +117,7 @@ export function generateTestIdentifier(
   if (typeof testResult === 'string') {
     return generateIdentifierFromPath(testResult, fullName as string, options);
   }
-
+  
   // Handle TestResult object
   return generateIdentifierFromTestResult(testResult, options);
 }
@@ -134,16 +134,16 @@ export function parseTestIdentifier(identifier: TestIdentifier): {
   testName: string;
 } {
   const parts = identifier.split(':');
-
+  
   // Handle the case where the file path might contain colons
   if (parts.length < 3) {
     throw new Error(`Invalid test identifier: ${identifier}`);
   }
-
+  
   const testName = parts.pop() as string;
   const suiteName = parts.pop() as string;
   const filePath = parts.join(':');
-
+  
   return {
     filePath,
     suiteName,

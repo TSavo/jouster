@@ -39,6 +39,7 @@ export interface IssueTrackerOptions {
   templateDir?: string;
   defaultLabels?: string[];
   githubLabels?: string[];
+  config?: any;
 }
 
 /**
