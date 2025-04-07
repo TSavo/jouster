@@ -22,36 +22,55 @@ Welcome to the Jouster documentation! Jouster is a powerful tool that helps you 
    - [Environment Variables](./usage-guide.md#environment-variables)
    - [Integration with CI/CD](./usage-guide.md#integration-with-cicd)
 
-4. [Templating](./templating.md)
-   - [Template Overview](./templating.md#template-overview)
-   - [Available Variables](./templating.md#available-variables)
-   - [Customizing Templates](./templating.md#customizing-templates)
-   - [Template Examples](./templating.md#template-examples)
+4. [Test Runners](./test-runners.md)
+   - [Jest](./test-runners/jest.md)
+   - [Mocha](./test-runners/mocha.md)
+   - [AVA](./test-runners/ava.md)
+   - [Tape](./test-runners/tape.md)
+   - [Jasmine](./test-runners/jasmine.md)
+   - [Vitest](./test-runners/vitest.md)
+   - [Cypress](./test-runners/cypress.md)
+   - [Playwright](./test-runners/playwright.md)
+   - [TestCafe](./test-runners/testcafe.md)
+   - [Karma](./test-runners/karma.md)
+   - [Generic](./test-runners/generic.md)
 
-5. [Advanced Features](./advanced-features.md)
+5. [Templates](./templates.md)
+   - [Template Types](./templates.md#template-types)
+   - [Custom Templates](./templates.md#custom-templates)
+   - [Template Variables](./templates.md#template-variables)
+   - [Template Helpers](./templates.md#template-helpers)
+   - [Template Validation](./templates.md#template-validation)
+   - [Template Preview](./templates.md#template-preview)
+   - [Template Gallery](./template-gallery.md)
+   - [Template Inheritance](./template-inheritance.md)
+   - [Template Partials](./template-partials.md)
+   - [Template Versioning](./template-versioning.md)
+
+6. [Advanced Features](./advanced-features.md)
    - [Hooks](./advanced-features.md#hooks)
    - [Plugins](./advanced-features.md#plugins)
    - [Custom Templates](./advanced-features.md#custom-templates)
    - [File-based Bug Tracking](./advanced-features.md#file-based-bug-tracking)
 
-6. [API Reference](./api-reference.md)
+7. [API Reference](./api-reference.md)
    - [Core APIs](./api-reference.md#core-apis)
    - [Configuration Options](./api-reference.md#configuration-options)
    - [Plugin Development](./api-reference.md#plugin-development)
    - [Hook Development](./api-reference.md#hook-development)
 
-7. [Troubleshooting](./troubleshooting.md)
+8. [Troubleshooting](./troubleshooting.md)
    - [Common Issues](./troubleshooting.md#common-issues)
    - [Debugging](./troubleshooting.md#debugging)
    - [FAQ](./troubleshooting.md#faq)
 
-8. [Contributing](./contributing.md)
+9. [Contributing](./contributing.md)
    - [Development Setup](./contributing.md#development-setup)
    - [Code Style](./contributing.md#code-style)
    - [Testing](./contributing.md#testing)
    - [Pull Request Process](./contributing.md#pull-request-process)
 
-9. [Examples](./examples/README.md)
+10. [Examples](./examples/README.md)
    - [Basic Example](./examples/basic-example.md)
    - [Custom Templates](./examples/custom-templates.md)
    - [Custom Hooks](./examples/custom-hooks.md)
@@ -59,7 +78,7 @@ Welcome to the Jouster documentation! Jouster is a powerful tool that helps you 
 
 ## About Jouster
 
-Jouster is designed to streamline the process of tracking and managing test failures in your Jest test suite. By automatically creating GitHub issues for failing tests and closing them when tests pass, Jouster helps you:
+Jouster is designed to streamline the process of tracking and managing test failures in your test suite. It supports multiple test runners including Jest, Mocha, AVA, Tape, Jasmine, Vitest, Cypress, Playwright, TestCafe, and Karma. By automatically creating GitHub issues for failing tests and closing them when tests pass, Jouster helps you:
 
 - Keep track of failing tests without manual intervention
 - Maintain a clear history of test failures and fixes
