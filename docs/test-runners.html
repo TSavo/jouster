@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Runners - Jouster Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #0366d6;
+        }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            background-color: #f6f8fa;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        pre {
+            background-color: #f6f8fa;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 16px;
+            overflow: auto;
+        }
+        code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 85%;
+            background-color: rgba(27, 31, 35, 0.05);
+            border-radius: 3px;
+            padding: 0.2em 0.4em;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e4e8;
+            font-size: 14px;
+            color: #586069;
+        }
+        .nav {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="./index.html">Home</a>
+    </div>
+
+    <div class="container">
+        <h1>Test Runners</h1>
+        <p>Jouster supports multiple test runners, allowing you to use your preferred testing framework while still benefiting from Jouster's issue tracking capabilities. This document provides an overview of the supported test runners and common configuration options.</p>
+    </div>
+
+    <div class="section">
+        <h2>Supported Test Runners</h2>
+        <p>Jouster supports the following test runners:</p>
+        <ul>
+            <li><a href="./test-runners/jest.html">Jest</a> - A delightful JavaScript Testing Framework with a focus on simplicity</li>
+            <li><a href="./test-runners/mocha.html">Mocha</a> - A feature-rich JavaScript test framework running on Node.js and in the browser</li>
+            <li><a href="./test-runners/ava.html">AVA</a> - A test runner for Node.js with a concise API, detailed error output, and process isolation</li>
+            <li><a href="./test-runners/tape.html">Tape</a> - A TAP-producing test harness for Node.js and browsers</li>
+            <li><a href="./test-runners/jasmine.html">Jasmine</a> - A behavior-driven development framework for testing JavaScript code</li>
+            <li><a href="./test-runners/vitest.html">Vitest</a> - A Vite-native testing framework with a focus on speed and simplicity</li>
+            <li><a href="./test-runners/cypress.html">Cypress</a> - A next-generation front-end testing tool built for the modern web</li>
+            <li><a href="./test-runners/playwright.html">Playwright</a> - A framework for Web Testing and Automation</li>
+            <li><a href="./test-runners/testcafe.html">TestCafe</a> - A Node.js tool to automate end-to-end web testing</li>
+            <li><a href="./test-runners/karma.html">Karma</a> - A test runner that runs tests in real browsers</li>
+            <li><a href="./test-runners/generic.html">Generic</a> - A generic test runner for any command-line test tool</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Common Configuration</h2>
+        <p>All test runners share some common configuration options:</p>
+        <pre><code>module.exports = {
+  // ... other configuration
+  testRunnerType: 'auto', // 'jest', 'mocha', 'ava', 'tape', 'jasmine', 'vitest', 'cypress', 'playwright', 'testcafe', 'karma', 'generic', or 'auto'
+  testRunnerOptions: {
+    // Test runner-specific options
+  }
+};</code></pre>
+        <p>The <code>testRunnerType</code> option specifies which test runner to use. If set to <code>'auto'</code>, Jouster will attempt to detect the test runner based on your project's dependencies.</p>
+    </div>
+
+    <div class="section">
+        <h2>Running Tests with Different Test Runners</h2>
+        <p>Jouster provides a CLI command for running tests with different test runners:</p>
+        <pre><code>npx jouster run-tests --test-runner &lt;runner-name&gt; [options] [files]</code></pre>
+        <p>For example:</p>
+        <pre><code># Run tests with Jest
+npx jouster run-tests --test-runner jest src/__tests__
+
+# Run tests with Mocha
+npx jouster run-tests --test-runner mocha --mocha-ui tdd test/**/*.js</code></pre>
+    </div>
+
+    <div class="section">
+        <h2>Auto-Detection</h2>
+        <p>Jouster can automatically detect the test runner based on your project's dependencies. To use auto-detection, set <code>testRunnerType</code> to <code>'auto'</code>:</p>
+        <pre><code>module.exports = {
+  // ... other configuration
+  testRunnerType: 'auto'
+};</code></pre>
+        <p>Jouster will check for the following dependencies in order:</p>
+        <ol>
+            <li>Jest</li>
+            <li>Mocha</li>
+            <li>AVA</li>
+            <li>Tape</li>
+            <li>Jasmine</li>
+            <li>Vitest</li>
+            <li>Cypress</li>
+            <li>Playwright</li>
+            <li>TestCafe</li>
+            <li>Karma</li>
+        </ol>
+        <p>If none of these dependencies are found, Jouster will fall back to the Jest test runner.</p>
+    </div>
+
+    <div class="section">
+        <h2>Best Practices</h2>
+        <h3>1. Use the Right Test Runner for the Job</h3>
+        <ul>
+            <li>Use <strong>Jest</strong> for unit and integration tests in JavaScript/TypeScript projects</li>
+            <li>Use <strong>Mocha</strong> for flexible, customizable testing</li>
+            <li>Use <strong>AVA</strong> for concurrent test execution</li>
+            <li>Use <strong>Tape</strong> for simple, TAP-producing tests</li>
+            <li>Use <strong>Jasmine</strong> for behavior-driven development</li>
+            <li>Use <strong>Vitest</strong> for Vite-based projects</li>
+            <li>Use <strong>Cypress</strong> for end-to-end testing of web applications</li>
+            <li>Use <strong>Playwright</strong> for cross-browser end-to-end testing</li>
+            <li>Use <strong>TestCafe</strong> for end-to-end testing without browser plugins</li>
+            <li>Use <strong>Karma</strong> for testing in real browsers</li>
+        </ul>
+
+        <h3>2. Configure for Your Environment</h3>
+        <ul>
+            <li>Use headless browsers in CI environments</li>
+            <li>Use headed browsers for local development</li>
+            <li>Adjust concurrency based on available resources</li>
+            <li>Use appropriate timeouts for your tests</li>
+        </ul>
+
+        <h3>3. Use Consistent Reporting</h3>
+        <ul>
+            <li>Use the same reporter across all test runners</li>
+            <li>Configure reporters to provide the information you need</li>
+            <li>Use JSON reporters for machine-readable output</li>
+        </ul>
+
+        <h3>4. Optimize for Performance</h3>
+        <ul>
+            <li>Run tests in parallel when possible</li>
+            <li>Use appropriate concurrency settings</li>
+            <li>Skip unnecessary setup and teardown</li>
+            <li>Use fast browsers for end-to-end tests</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Troubleshooting</h2>
+        <p>For troubleshooting specific to each test runner, see the individual test runner documentation. For general troubleshooting, see the <a href="./troubleshooting.html">Troubleshooting Guide</a>.</p>
+    </div>
+
+    <div class="footer">
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+    </div>
+</body>
+</html>
