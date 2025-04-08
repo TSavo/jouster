@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jouster Documentation</title>
+  <style>
+    /* Basic styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #24292e;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .wrapper {
+      display: flex;
+    }
+    
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      border-right: 1px solid #e1e4e8;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 20px 40px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #0366d6;
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+    
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .nav-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-list li {
+      margin-bottom: 8px;
+    }
+    
+    .nav-section {
+      margin-bottom: 20px;
+    }
+    
+    .nav-section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #0366d6;
+    }
+    
+    .nav-subsection {
+      padding-left: 15px;
+    }
+    
+    /* Feature grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .feature-card {
+      background-color: #f6f8fa;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #0366d6;
+    }
+    
+    .feature-title {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .feature-description {
+      margin: 0;
+      font-size: 14px;
+      color: #24292e;
+      opacity: 0.9;
+    }
+    
+    /* Dark mode toggle */
+    .dark-mode-container {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+    }
+    
+    .dark-mode-label {
+      margin-right: 10px;
+      font-size: 14px;
+    }
+    
+    .dark-mode-toggle {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    
+    .dark-mode-toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .dark-mode-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #e1e4e8;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    
+    .dark-mode-slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .dark-mode-slider {
+      background-color: #0366d6;
+    }
+    
+    input:checked + .dark-mode-slider:before {
+      transform: translateX(26px);
+    }
+    
+    /* Search */
+    .search-container {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #e1e4e8;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode h1, 
+    body.dark-mode h2, 
+    body.dark-mode h3, 
+    body.dark-mode h4, 
+    body.dark-mode h5, 
+    body.dark-mode h6 {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode a {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .sidebar {
+      border-right-color: #30363d;
+    }
+    
+    body.dark-mode .feature-card {
+      background-color: #161b22;
+      border-color: #30363d;
+    }
+    
+    body.dark-mode .feature-icon {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .feature-description {
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode .search-input {
+      background-color: #0d1117;
+      border-color: #30363d;
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode pre, 
+    body.dark-mode code {
+      background-color: #161b22;
+      border-color: #30363d;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e1e4e8;
+      }
+      
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="./assets/images/logo.svg" alt="Jouster Logo">
+        <h1>Jouster</h1>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
+      </div>
+      
+      <div class="dark-mode-container">
+        <span class="dark-mode-label">Dark Mode</span>
+        <label class="dark-mode-toggle">
+          <input type="checkbox" id="dark-mode-toggle">
+          <span class="dark-mode-slider"></span>
+        </label>
+      </div>
+      
+      <nav>
+        <div class="nav-section">
+          <div class="nav-section-title">Getting Started</div>
+          <ul class="nav-list">
+            <li><a href="./index.html">Introduction</a></li>
+            <li><a href="./getting-started.html">Installation</a></li>
+            <li><a href="./setup-wizard.html">Setup Wizard</a></li>
+            <li><a href="./usage-guide.html">Usage Guide</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Test Runners</div>
+          <ul class="nav-list">
+            <li><a href="./test-runners.html">Overview</a></li>
+            <li class="nav-subsection">
+              <ul class="nav-list">
+                <li><a href="./test-runners/jest.html">Jest</a></li>
+                <li><a href="./test-runners/mocha.html">Mocha</a></li>
+                <li><a href="./test-runners/ava.html">AVA</a></li>
+                <li><a href="./test-runners/tape.html">Tape</a></li>
+                <li><a href="./test-runners/jasmine.html">Jasmine</a></li>
+                <li><a href="./test-runners/vitest.html">Vitest</a></li>
+                <li><a href="./test-runners/cypress.html">Cypress</a></li>
+                <li><a href="./test-runners/playwright.html">Playwright</a></li>
+                <li><a href="./test-runners/testcafe.html">TestCafe</a></li>
+                <li><a href="./test-runners/karma.html">Karma</a></li>
+                <li><a href="./test-runners/generic.html">Generic</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Core Concepts</div>
+          <ul class="nav-list">
+            <li><a href="./core-concepts.html">How Jouster Works</a></li>
+            <li><a href="./core-concepts.html#test-identification">Test Identification</a></li>
+            <li><a href="./core-concepts.html#issue-lifecycle">Issue Lifecycle</a></li>
+            <li><a href="./core-concepts.html#mapping-database">Mapping Database</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Advanced Features</div>
+          <ul class="nav-list">
+            <li><a href="./advanced-features.html">Overview</a></li>
+            <li><a href="./templates.html">Templates</a></li>
+            <li><a href="./advanced-features.html#hooks">Hooks</a></li>
+            <li><a href="./advanced-features.html#plugins">Plugins</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Resources</div>
+          <ul class="nav-list">
+            <li><a href="./api-reference.html">API Reference</a></li>
+            <li><a href="./troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="./contributing.html">Contributing</a></li>
+            <li><a href="./examples/README.html">Examples</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <h1>Jouster Documentation</h1>
+      
+      <p>Welcome to the Jouster documentation! Jouster is a powerful tool that helps you "stick it to your failing tests" by automatically creating GitHub issues for failing tests and closing them when tests pass.</p>
+      
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-bug"></i></div>
+          <h3 class="feature-title">Automated Issue Tracking</h3>
+          <p class="feature-description">Automatically create GitHub issues for failing tests and close them when tests pass, keeping your test status organized.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-code"></i></div>
+          <h3 class="feature-title">Multiple Test Runners</h3>
+          <p class="feature-description">Support for Jest, Mocha, AVA, Tape, Jasmine, Vitest, Cypress, Playwright, TestCafe, and Karma test runners.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-file-alt"></i></div>
+          <h3 class="feature-title">Customizable Templates</h3>
+          <p class="feature-description">Create custom issue templates with detailed test failure information to help developers quickly understand and fix issues.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+          <h3 class="feature-title">Regression Detection</h3>
+          <p class="feature-description">Automatically reopen issues when tests start failing again, helping you catch regressions quickly.</p>
+        </div>
+      </div>
+      
+      <h2>Getting Started</h2>
+      
+      <h3>Installation</h3>
+      <p>Install Jouster using npm:</p>
+      <pre><code>npm install --save-dev jouster</code></pre>
+      
+      <p>Or using yarn:</p>
+      <pre><code>yarn add --dev jouster</code></pre>
+      
+      <h3>Quick Setup</h3>
+      <p>Run the setup wizard to configure Jouster for your project:</p>
+      <pre><code>npx jouster setup</code></pre>
+      
+      <p>This will guide you through setting up Jouster with your preferred test runner and GitHub repository.</p>
+      
+      <h3>Basic Usage</h3>
+      <p>Run your tests with Jouster:</p>
+      <pre><code>npx jouster run-tests</code></pre>
+      
+      <p>Jouster will run your tests, create issues for failing tests, and close issues for passing tests.</p>
+      
+      <h2>About Jouster</h2>
+      
+      <p>Jouster is designed to streamline the process of tracking and managing test failures in your test suite. It supports multiple test runners including Jest, Mocha, AVA, Tape, Jasmine, Vitest, Cypress, Playwright, TestCafe, and Karma. By automatically creating GitHub issues for failing tests and closing them when tests pass, Jouster helps you:</p>
+      
+      <ul>
+        <li>Keep track of failing tests without manual intervention</li>
+        <li>Maintain a clear history of test failures and fixes</li>
+        <li>Provide detailed information about test failures to developers</li>
+        <li>Close issues automatically when tests start passing</li>
+        <li>Reopen issues when tests start failing again (regression handling)</li>
+      </ul>
+      
+      <p>Jouster is built with a focus on performance, reliability, and extensibility, making it suitable for projects of all sizes.</p>
+      
+      <footer>
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+      </footer>
+    </main>
+  </div>
+  
+  <script>
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Check for saved theme preference or use the system preference
+    const currentTheme = localStorage.getItem('theme') || 
+                        (prefersDarkScheme.matches ? 'dark' : 'light');
+    
+    // Set initial theme
+    if (currentTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+      darkModeToggle.checked = true;
+    }
+    
+    // Add toggle event listener
+    darkModeToggle.addEventListener('change', function() {
+      if (this.checked) {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+    
+    // Make nav sections collapsible
+    const navSectionTitles = document.querySelectorAll('.nav-section-title');
+    
+    navSectionTitles.forEach(title => {
+      title.addEventListener('click', function() {
+        this.classList.toggle('collapsed');
+        const navList = this.nextElementSibling;
+        navList.classList.toggle('collapsed');
+      });
+    });
+    
+    // Simple search functionality
+    const searchInput = document.getElementById('search-input');
+    
+    searchInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        const query = this.value.toLowerCase().trim();
+        if (query) {
+          // For now, just redirect to the test runners page if searching for a test runner
+          if (query.includes('jest') || query.includes('mocha') || 
+              query.includes('ava') || query.includes('tape') || 
+              query.includes('jasmine') || query.includes('vitest') || 
+              query.includes('cypress') || query.includes('playwright') || 
+              query.includes('testcafe') || query.includes('karma') || 
+              query.includes('test runner')) {
+            window.location.href = './test-runners.html';
+          } else if (query.includes('template')) {
+            window.location.href = './templates.html';
+          } else if (query.includes('setup') || query.includes('install')) {
+            window.location.href = './getting-started.html';
+          } else {
+            alert('Search functionality is under development. Please use the navigation menu.');
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
