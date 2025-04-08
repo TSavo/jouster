@@ -3,3 +3,19 @@ title: Jouster Documentation
 description: Documentation for Jouster - A tool to track and manage test failures
 baseurl: "/jouster"
 url: "https://tsavo.github.io"
+
+# Build settings
+markdown: kramdown
+
+# Custom settings
+logo: /assets/images/logo.svg
+github_username: TSavo
+repository: TSavo/jouster
+
+# Default layout
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: "default"

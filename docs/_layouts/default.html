@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <link rel="icon" href="{{ '/assets/images/logo.svg' | relative_url }}" type="image/svg+xml">
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="{{ '/assets/images/logo.svg' | relative_url }}" alt="Jouster Logo">
+        <h1>Jouster</h1>
+      </div>
+      
+      <nav>
+        <div class="nav-section">
+          <div class="nav-section-title">Getting Started</div>
+          <ul class="nav-list">
+            <li><a href="{{ '/index.html' | relative_url }}">Introduction</a></li>
+            <li><a href="{{ '/getting-started.html' | relative_url }}">Installation</a></li>
+            <li><a href="{{ '/setup-wizard.html' | relative_url }}">Setup Wizard</a></li>
+            <li><a href="{{ '/usage-guide.html' | relative_url }}">Usage Guide</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Core Concepts</div>
+          <ul class="nav-list">
+            <li><a href="{{ '/core-concepts.html' | relative_url }}">How Jouster Works</a></li>
+            <li><a href="{{ '/core-concepts.html#test-identification' | relative_url }}">Test Identification</a></li>
+            <li><a href="{{ '/core-concepts.html#issue-lifecycle' | relative_url }}">Issue Lifecycle</a></li>
+            <li><a href="{{ '/core-concepts.html#mapping-database' | relative_url }}">Mapping Database</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Test Runners</div>
+          <ul class="nav-list">
+            <li><a href="{{ '/test-runners.html' | relative_url }}">Overview</a></li>
+            <li class="nav-subsection">
+              <ul class="nav-list">
+                <li><a href="{{ '/test-runners/jest.html' | relative_url }}">Jest</a></li>
+                <li><a href="{{ '/test-runners/mocha.html' | relative_url }}">Mocha</a></li>
+                <li><a href="{{ '/test-runners/ava.html' | relative_url }}">AVA</a></li>
+                <li><a href="{{ '/test-runners/tape.html' | relative_url }}">Tape</a></li>
+                <li><a href="{{ '/test-runners/jasmine.html' | relative_url }}">Jasmine</a></li>
+                <li><a href="{{ '/test-runners/vitest.html' | relative_url }}">Vitest</a></li>
+                <li><a href="{{ '/test-runners/cypress.html' | relative_url }}">Cypress</a></li>
+                <li><a href="{{ '/test-runners/playwright.html' | relative_url }}">Playwright</a></li>
+                <li><a href="{{ '/test-runners/testcafe.html' | relative_url }}">TestCafe</a></li>
+                <li><a href="{{ '/test-runners/karma.html' | relative_url }}">Karma</a></li>
+                <li><a href="{{ '/test-runners/generic.html' | relative_url }}">Generic</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Advanced Features</div>
+          <ul class="nav-list">
+            <li><a href="{{ '/advanced-features.html' | relative_url }}">Overview</a></li>
+            <li><a href="{{ '/templates.html' | relative_url }}">Templates</a></li>
+            <li><a href="{{ '/advanced-features.html#hooks' | relative_url }}">Hooks</a></li>
+            <li><a href="{{ '/advanced-features.html#plugins' | relative_url }}">Plugins</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Resources</div>
+          <ul class="nav-list">
+            <li><a href="{{ '/api-reference.html' | relative_url }}">API Reference</a></li>
+            <li><a href="{{ '/troubleshooting.html' | relative_url }}">Troubleshooting</a></li>
+            <li><a href="{{ '/contributing.html' | relative_url }}">Contributing</a></li>
+            <li><a href="{{ '/examples/README.html' | relative_url }}">Examples</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <header>
+        {% assign url_parts = page.url | split: '/' %}
+        <ul class="breadcrumbs">
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          
+          {% if url_parts.size > 2 %}
+            {% assign parent_path = url_parts[1] | append: '.html' %}
+            <li><a href="{{ parent_path | prepend: '/' | relative_url }}">{{ url_parts[1] | capitalize }}</a></li>
+          {% endif %}
+          
+          <li class="current">{{ page.title }}</li>
+        </ul>
+      </header>
+      
+      <div class="content">
+        {{ content }}
+      </div>
+      
+      <footer>
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
