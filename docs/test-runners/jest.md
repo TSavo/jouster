@@ -1,3 +1,8 @@
+---
+layout: default
+title: Jest Test Runner
+---
+
 # Jest Test Runner
 
 [Jest](https://jestjs.io/) is a delightful JavaScript Testing Framework with a focus on simplicity. Jouster provides seamless integration with Jest, allowing you to track test failures and manage issues automatically.
@@ -205,9 +210,9 @@ jest.mock('./database');
 test('should fetch user', async () => {
   const user = { id: 1, name: 'John' };
   require('./database').getUser.mockResolvedValue(user);
-  
+
   const result = await getUser(1);
-  
+
   expect(result).toEqual(user);
 });
 ```

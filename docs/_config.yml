@@ -1,0 +1,5 @@
+theme: jekyll-theme-minimal
+title: Jouster Documentation
+description: Documentation for Jouster - A tool to track and manage test failures
+baseurl: "/jouster"
+url: "https://tsavo.github.io"

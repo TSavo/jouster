@@ -1,3 +1,8 @@
+---
+layout: default
+title: Test Runners
+---
+
 # Test Runners
 
 Jouster supports multiple test runners, allowing you to use your preferred testing framework while still benefiting from Jouster's issue tracking capabilities. This document provides an overview of the supported test runners and common configuration options.
@@ -6,17 +11,17 @@ Jouster supports multiple test runners, allowing you to use your preferred testi
 
 Jouster supports the following test runners:
 
-- [Jest](./test-runners/jest.md) - A delightful JavaScript Testing Framework with a focus on simplicity
-- [Mocha](./test-runners/mocha.md) - A feature-rich JavaScript test framework running on Node.js and in the browser
-- [AVA](./test-runners/ava.md) - A test runner for Node.js with a concise API, detailed error output, and process isolation
-- [Tape](./test-runners/tape.md) - A TAP-producing test harness for Node.js and browsers
-- [Jasmine](./test-runners/jasmine.md) - A behavior-driven development framework for testing JavaScript code
-- [Vitest](./test-runners/vitest.md) - A Vite-native testing framework with a focus on speed and simplicity
-- [Cypress](./test-runners/cypress.md) - A next-generation front-end testing tool built for the modern web
-- [Playwright](./test-runners/playwright.md) - A framework for Web Testing and Automation
-- [TestCafe](./test-runners/testcafe.md) - A Node.js tool to automate end-to-end web testing
-- [Karma](./test-runners/karma.md) - A test runner that runs tests in real browsers
-- [Generic](./test-runners/generic.md) - A generic test runner for any command-line test tool
+- [Jest](./test-runners/jest.html) - A delightful JavaScript Testing Framework with a focus on simplicity
+- [Mocha](./test-runners/mocha.html) - A feature-rich JavaScript test framework running on Node.js and in the browser
+- [AVA](./test-runners/ava.html) - A test runner for Node.js with a concise API, detailed error output, and process isolation
+- [Tape](./test-runners/tape.html) - A TAP-producing test harness for Node.js and browsers
+- [Jasmine](./test-runners/jasmine.html) - A behavior-driven development framework for testing JavaScript code
+- [Vitest](./test-runners/vitest.html) - A Vite-native testing framework with a focus on speed and simplicity
+- [Cypress](./test-runners/cypress.html) - A next-generation front-end testing tool built for the modern web
+- [Playwright](./test-runners/playwright.html) - A framework for Web Testing and Automation
+- [TestCafe](./test-runners/testcafe.html) - A Node.js tool to automate end-to-end web testing
+- [Karma](./test-runners/karma.html) - A test runner that runs tests in real browsers
+- [Generic](./test-runners/generic.html) - A generic test runner for any command-line test tool
 
 ## Common Configuration
 
