@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup Wizard - Jouster Documentation</title>
+  
+  <!-- CSS files -->
+  <link rel="stylesheet" href="./assets/css/search.css">
+  <link rel="stylesheet" href="./assets/css/collapsible.css">
+  <link rel="stylesheet" href="./assets/css/code-highlight.css">
+  <link rel="stylesheet" href="./assets/css/interactive-demos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- JavaScript files -->
+  <script src="./assets/js/search-index.js" defer></script>
+  <script src="./assets/js/search-core.js" defer></script>
+  <script src="./assets/js/search-ui.js" defer></script>
+  <script src="./assets/js/collapsible.js" defer></script>
+  <script src="./assets/js/code-highlight.js" defer></script>
+  <script src="./assets/js/interactive-demos.js" defer></script>
+  <script src="./assets/js/main.js" defer></script>
+  
+  <style>
+    /* Basic styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #24292e;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .wrapper {
+      display: flex;
+    }
+    
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      border-right: 1px solid #e1e4e8;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 20px 40px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #0366d6;
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+    
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .nav-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-list li {
+      margin-bottom: 8px;
+    }
+    
+    .nav-section {
+      margin-bottom: 20px;
+    }
+    
+    .nav-section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #0366d6;
+    }
+    
+    .nav-subsection {
+      padding-left: 15px;
+    }
+    
+    /* Wizard steps */
+    .wizard-steps {
+      counter-reset: step;
+      margin: 30px 0;
+    }
+    
+    .wizard-step {
+      position: relative;
+      padding: 20px 20px 20px 70px;
+      margin-bottom: 20px;
+      background-color: #f6f8fa;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+    }
+    
+    .wizard-step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      width: 36px;
+      height: 36px;
+      background-color: #0366d6;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    
+    .wizard-step h3 {
+      margin-top: 0;
+    }
+    
+    /* Terminal output */
+    .terminal {
+      background-color: #0d1117;
+      color: #c9d1d9;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    .terminal .prompt {
+      color: #7ee787;
+    }
+    
+    .terminal .input {
+      color: #c9d1d9;
+    }
+    
+    .terminal .output {
+      color: #8b949e;
+    }
+    
+    .terminal .highlight {
+      color: #ff7b72;
+    }
+    
+    /* Enhanced badge */
+    .enhanced-badge {
+      display: inline-block;
+      background-color: #2ea44f;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode h1, 
+    body.dark-mode h2, 
+    body.dark-mode h3, 
+    body.dark-mode h4, 
+    body.dark-mode h5, 
+    body.dark-mode h6 {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode a {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .sidebar {
+      border-right-color: #30363d;
+    }
+    
+    body.dark-mode .wizard-step {
+      background-color: #161b22;
+      border-color: #30363d;
+    }
+    
+    body.dark-mode .wizard-step::before {
+      background-color: #58a6ff;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e1e4e8;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="./assets/images/logo.svg" alt="Jouster Logo">
+        <h1>Jouster</h1>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
+        <div id="search-results" class="search-results"></div>
+      </div>
+      
+      <div class="dark-mode-container">
+        <span class="dark-mode-label">Dark Mode</span>
+        <label class="dark-mode-toggle">
+          <input type="checkbox" id="dark-mode-toggle">
+          <span class="dark-mode-slider"></span>
+        </label>
+      </div>
+      
+      <nav>
+        <div class="nav-section">
+          <div class="nav-section-title">Getting Started</div>
+          <ul class="nav-list">
+            <li><a href="./main.html">Introduction</a></li>
+            <li><a href="./getting-started-enhanced.html">Installation</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="./setup-wizard.html">Setup Wizard</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="./usage-guide.html">Usage Guide</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Test Runners</div>
+          <ul class="nav-list">
+            <li><a href="./test-runners-enhanced.html">Overview</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li class="nav-subsection">
+              <ul class="nav-list">
+                <li><a href="./test-runners/jest-enhanced.html">Jest</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/mocha-enhanced.html">Mocha</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/ava.html">AVA</a></li>
+                <li><a href="./test-runners/tape.html">Tape</a></li>
+                <li><a href="./test-runners/jasmine.html">Jasmine</a></li>
+                <li><a href="./test-runners/vitest.html">Vitest</a></li>
+                <li><a href="./test-runners/cypress.html">Cypress</a></li>
+                <li><a href="./test-runners/playwright.html">Playwright</a></li>
+                <li><a href="./test-runners/testcafe.html">TestCafe</a></li>
+                <li><a href="./test-runners/karma.html">Karma</a></li>
+                <li><a href="./test-runners/generic.html">Generic</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Core Concepts</div>
+          <ul class="nav-list">
+            <li><a href="./core-concepts.html">How Jouster Works</a></li>
+            <li><a href="./core-concepts.html#test-identification">Test Identification</a></li>
+            <li><a href="./core-concepts.html#issue-lifecycle">Issue Lifecycle</a></li>
+            <li><a href="./core-concepts.html#mapping-database">Mapping Database</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Advanced Features</div>
+          <ul class="nav-list">
+            <li><a href="./advanced-features.html">Overview</a></li>
+            <li><a href="./templates.html">Templates</a></li>
+            <li><a href="./advanced-features.html#hooks">Hooks</a></li>
+            <li><a href="./advanced-features.html#plugins">Plugins</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Resources</div>
+          <ul class="nav-list">
+            <li><a href="./api-reference.html">API Reference</a></li>
+            <li><a href="./troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="./contributing.html">Contributing</a></li>
+            <li><a href="./examples/README.html">Examples</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <h1>Jouster Setup Wizard</h1>
+      
+      <p>The Jouster Setup Wizard is an interactive tool that helps you configure Jouster for your project. It guides you through the process of setting up Jouster with your preferred test runner and GitHub repository.</p>
+      
+      <h2 class="collapsible-header">Running the Setup Wizard</h2>
+      <div class="collapsible-content">
+        <p>To run the Setup Wizard, use the following command:</p>
+        
+        <pre><code class="language-bash">npx jouster setup</code></pre>
+        
+        <p>This will start an interactive wizard that will guide you through the setup process.</p>
+        
+        <div class="terminal">
+          <div><span class="prompt">$</span> <span class="input">npx jouster setup</span></div>
+          <div class="output">
+            <br>
+            <span class="highlight">Welcome to the Jouster Setup Wizard!</span><br>
+            <br>
+            This wizard will help you configure Jouster for your project.<br>
+            <br>
+            ? What test runner are you using? (Use arrow keys)<br>
+            ❯ Jest<br>
+            &nbsp;&nbsp;Mocha<br>
+            &nbsp;&nbsp;AVA<br>
+            &nbsp;&nbsp;Tape<br>
+            &nbsp;&nbsp;Jasmine<br>
+            &nbsp;&nbsp;Vitest<br>
+            &nbsp;&nbsp;Cypress<br>
+          </div>
+        </div>
+      </div>
+      
+      <h2 class="collapsible-header">Setup Wizard Steps</h2>
+      <div class="collapsible-content">
+        <div class="wizard-steps">
+          <div class="wizard-step">
+            <h3>Choose a Test Runner</h3>
+            <p>The first step is to choose the test runner you're using in your project. Jouster supports the following test runners:</p>
+            <ul>
+              <li>Jest</li>
+              <li>Mocha</li>
+              <li>AVA</li>
+              <li>Tape</li>
+              <li>Jasmine</li>
+              <li>Vitest</li>
+              <li>Cypress</li>
+              <li>Playwright</li>
+              <li>TestCafe</li>
+              <li>Karma</li>
+              <li>Generic (any command-line test tool)</li>
+            </ul>
+            <p>The wizard will detect installed test runners in your project and suggest the most appropriate one.</p>
+          </div>
+          
+          <div class="wizard-step">
+            <h3>Configure Test Runner Options</h3>
+            <p>Next, you'll configure options specific to your chosen test runner. For example, if you chose Jest, you might configure:</p>
+            <ul>
+              <li>Test pattern (e.g., <code>**/*.test.js</code>)</li>
+              <li>Test timeout</li>
+              <li>Whether to collect coverage information</li>
+              <li>Additional Jest options</li>
+            </ul>
+            <div class="terminal">
+              <div class="output">
+                ? What test pattern should Jouster use? <span class="input">**/*.test.js</span><br>
+                ? What test timeout should Jouster use (in milliseconds)? <span class="input">5000</span><br>
+                ? Should Jouster collect coverage information? <span class="input">Yes</span><br>
+              </div>
+            </div>
+          </div>
+          
+          <div class="wizard-step">
+            <h3>Choose an Issue Tracker</h3>
+            <p>Jouster can create issues in GitHub or in a local file system. Choose the issue tracker you want to use:</p>
+            <ul>
+              <li>GitHub (requires GitHub CLI or a GitHub token)</li>
+              <li>File (creates issues as files in a local directory)</li>
+            </ul>
+            <div class="terminal">
+              <div class="output">
+                ? What issue tracker would you like to use? (Use arrow keys)<br>
+                ❯ GitHub<br>
+                &nbsp;&nbsp;File<br>
+              </div>
+            </div>
+          </div>
+          
+          <div class="wizard-step">
+            <h3>Configure GitHub Integration</h3>
+            <p>If you chose GitHub as your issue tracker, you'll need to configure GitHub integration:</p>
+            <ul>
+              <li>GitHub repository (owner/repo)</li>
+              <li>GitHub labels to apply to issues</li>
+              <li>Whether to use the GitHub CLI or REST API</li>
+              <li>GitHub token (if using REST API)</li>
+            </ul>
+            <div class="terminal">
+              <div class="output">
+                ? What GitHub repository should Jouster use? <span class="input">TSavo/jouster</span><br>
+                ? What labels should Jouster apply to issues? <span class="input">bug,test-failure</span><br>
+                ? Should Jouster use the GitHub CLI or REST API? <span class="input">CLI</span><br>
+              </div>
+            </div>
+          </div>
+          
+          <div class="wizard-step">
+            <h3>Configure Issue Templates</h3>
+            <p>Jouster uses templates to generate GitHub issues for failing tests. You can customize these templates:</p>
+            <ul>
+              <li>Use default templates</li>
+              <li>Customize templates</li>
+              <li>Specify a template directory</li>
+            </ul>
+            <div class="terminal">
+              <div class="output">
+                ? Would you like to customize issue templates? <span class="input">No</span><br>
+              </div>
+            </div>
+          </div>
+          
+          <div class="wizard-step">
+            <h3>Save Configuration</h3>
+            <p>Finally, the wizard will save your configuration to a <code>jouster.config.js</code> file in your project root:</p>
+            <div class="terminal">
+              <div class="output">
+                <span class="highlight">Configuration saved to jouster.config.js!</span><br>
+                <br>
+                You can now run Jouster with:<br>
+                <br>
+                <span class="prompt">$</span> <span class="input">npx jouster run-tests</span><br>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h2 class="collapsible-header">Configuration File</h2>
+      <div class="collapsible-content">
+        <p>The Setup Wizard generates a <code>jouster.config.js</code> file with your configuration. Here's an example:</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  // Test runner configuration
+  testRunnerType: 'jest',
+  testRunnerOptions: {
+    jest: {
+      testPattern: '**/*.test.js',
+      timeout: 5000,
+      coverage: true
+    }
+  },
+  
+  // Issue tracker configuration
+  trackerType: 'github',
+  githubOptions: {
+    repo: 'TSavo/jouster',
+    labels: ['bug', 'test-failure'],
+    useRest: false
+  },
+  
+  // Template configuration
+  templateDir: './node_modules/jouster/templates',
+  
+  // Database configuration
+  databasePath: './test-issue-mapping.json'
+};</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Manual Configuration</h2>
+      <div class="collapsible-content">
+        <p>If you prefer to configure Jouster manually, you can create a <code>jouster.config.js</code> file in your project root with the following structure:</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  // Test runner configuration
+  testRunnerType: 'jest', // 'jest', 'mocha', 'ava', 'tape', 'jasmine', 'vitest', 'cypress', 'playwright', 'testcafe', 'karma', 'generic'
+  testRunnerOptions: {
+    // Options specific to the chosen test runner
+    jest: {
+      // Jest-specific options
+      testPattern: '**/*.test.js',
+      timeout: 5000,
+      coverage: true
+    }
+  },
+  
+  // Issue tracker configuration
+  trackerType: 'github', // 'github' or 'file'
+  githubOptions: {
+    // GitHub-specific options (if trackerType is 'github')
+    repo: 'owner/repo',
+    labels: ['bug', 'test-failure'],
+    useRest: false, // Whether to use the REST API instead of the CLI
+    token: process.env.GITHUB_TOKEN // Required if useRest is true
+  },
+  fileOptions: {
+    // File-specific options (if trackerType is 'file')
+    bugsDir: './bugs'
+  },
+  
+  // Template configuration
+  templateDir: './templates', // Path to custom templates
+  
+  // Database configuration
+  databasePath: './test-issue-mapping.json', // Path to the database file
+  
+  // Advanced options
+  hooks: [], // Custom hooks
+  plugins: [] // Custom plugins
+};</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Next Steps</h2>
+      <div class="collapsible-content">
+        <p>After running the Setup Wizard, you can:</p>
+        
+        <ul>
+          <li>Run Jouster with <code>npx jouster run-tests</code></li>
+          <li>Customize issue templates (see <a href="./templates.html">Templates</a>)</li>
+          <li>Add custom hooks or plugins (see <a href="./advanced-features.html">Advanced Features</a>)</li>
+          <li>Configure CI integration (see <a href="./usage-guide.html">Usage Guide</a>)</li>
+        </ul>
+      </div>
+      
+      <footer>
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
