@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generic Test Runner - Jouster Documentation</title>
+  
+  <!-- CSS files -->
+  <link rel="stylesheet" href="../assets/css/search.css">
+  <link rel="stylesheet" href="../assets/css/collapsible.css">
+  <link rel="stylesheet" href="../assets/css/code-highlight.css">
+  <link rel="stylesheet" href="../assets/css/interactive-demos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- JavaScript files -->
+  <script src="../assets/js/search-index.js" defer></script>
+  <script src="../assets/js/search-core.js" defer></script>
+  <script src="../assets/js/search-ui.js" defer></script>
+  <script src="../assets/js/collapsible.js" defer></script>
+  <script src="../assets/js/code-highlight.js" defer></script>
+  <script src="../assets/js/interactive-demos.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
+  
+  <style>
+    /* Basic styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #24292e;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .wrapper {
+      display: flex;
+    }
+    
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      border-right: 1px solid #e1e4e8;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 20px 40px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #0366d6;
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+    
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .nav-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-list li {
+      margin-bottom: 8px;
+    }
+    
+    .nav-section {
+      margin-bottom: 20px;
+    }
+    
+    .nav-section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #0366d6;
+    }
+    
+    .nav-subsection {
+      padding-left: 15px;
+    }
+    
+    /* Enhanced badge */
+    .enhanced-badge {
+      display: inline-block;
+      background-color: #2ea44f;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode h1, 
+    body.dark-mode h2, 
+    body.dark-mode h3, 
+    body.dark-mode h4, 
+    body.dark-mode h5, 
+    body.dark-mode h6 {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode a {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .sidebar {
+      border-right-color: #30363d;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e1e4e8;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="../assets/images/logo.svg" alt="Jouster Logo">
+        <h1>Jouster</h1>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
+        <div id="search-results" class="search-results"></div>
+      </div>
+      
+      <div class="dark-mode-container">
+        <span class="dark-mode-label">Dark Mode</span>
+        <label class="dark-mode-toggle">
+          <input type="checkbox" id="dark-mode-toggle">
+          <span class="dark-mode-slider"></span>
+        </label>
+      </div>
+      
+      <nav>
+        <div class="nav-section">
+          <div class="nav-section-title">Getting Started</div>
+          <ul class="nav-list">
+            <li><a href="../main.html">Introduction</a></li>
+            <li><a href="../getting-started-enhanced.html">Installation</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="../setup-wizard.html">Setup Wizard</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="../usage-guide.html">Usage Guide</a> <span class="enhanced-badge">Enhanced</span></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Test Runners</div>
+          <ul class="nav-list">
+            <li><a href="../test-runners-enhanced.html">Overview</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li class="nav-subsection">
+              <ul class="nav-list">
+                <li><a href="./jest-enhanced.html">Jest</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./mocha-enhanced.html">Mocha</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./ava.html">AVA</a></li>
+                <li><a href="./tape.html">Tape</a></li>
+                <li><a href="./jasmine.html">Jasmine</a></li>
+                <li><a href="./vitest.html">Vitest</a></li>
+                <li><a href="./cypress.html">Cypress</a></li>
+                <li><a href="./playwright.html">Playwright</a></li>
+                <li><a href="./testcafe.html">TestCafe</a></li>
+                <li><a href="./karma.html">Karma</a></li>
+                <li><a href="./generic.html">Generic</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Core Concepts</div>
+          <ul class="nav-list">
+            <li><a href="../core-concepts.html">How Jouster Works</a></li>
+            <li><a href="../core-concepts.html#test-identification">Test Identification</a></li>
+            <li><a href="../core-concepts.html#issue-lifecycle">Issue Lifecycle</a></li>
+            <li><a href="../core-concepts.html#mapping-database">Mapping Database</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Advanced Features</div>
+          <ul class="nav-list">
+            <li><a href="../advanced-features.html">Overview</a></li>
+            <li><a href="../templates.html">Templates</a></li>
+            <li><a href="../advanced-features.html#hooks">Hooks</a></li>
+            <li><a href="../advanced-features.html#plugins">Plugins</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Resources</div>
+          <ul class="nav-list">
+            <li><a href="../api-reference.html">API Reference</a></li>
+            <li><a href="../troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="../contributing.html">Contributing</a></li>
+            <li><a href="../examples/README.html">Examples</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <h1>Generic Test Runner</h1>
+      
+      <p>The Generic Test Runner in Jouster allows you to integrate with any test runner, even if it's not directly supported. This is useful for custom test runners or less common ones that aren't built into Jouster.</p>
+      
+      <h2 class="collapsible-header">How It Works</h2>
+      <div class="collapsible-content">
+        <p>The Generic Test Runner works by executing a command and parsing its output to identify test failures. You can configure how Jouster should run your tests and how it should interpret the results.</p>
+        
+        <p>The basic flow is:</p>
+        <ol>
+          <li>Jouster executes your test command</li>
+          <li>It captures the output (stdout and stderr)</li>
+          <li>It parses the output using your configured patterns to identify test failures</li>
+          <li>It creates or updates issues for failing tests</li>
+        </ol>
+      </div>
+      
+      <h2 class="collapsible-header">Configuration</h2>
+      <div class="collapsible-content">
+        <p>Jouster provides several configuration options for the Generic Test Runner:</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  // ... other configuration
+  testRunnerType: 'generic',
+  testRunnerOptions: {
+    generic: {
+      command: 'npm test', // Command to run tests
+      cwd: '.', // Working directory for the command
+      env: {}, // Environment variables
+      failurePattern: /FAIL|ERROR/i, // Pattern to identify test failures
+      testNamePattern: /Test: (.+)/, // Pattern to extract test names
+      testFilePattern: /File: (.+)/, // Pattern to extract test file names
+      errorPattern: /Error: (.+)/, // Pattern to extract error messages
+      stackTracePattern: /at .+ \((.+):(\d+):(\d+)\)/, // Pattern to extract stack traces
+      exitCodeIndicatesFailure: true, // Whether non-zero exit code indicates failure
+      timeout: 30000 // Timeout in milliseconds
+    }
+  }
+};</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Usage Examples</h2>
+      <div class="collapsible-content">
+        <h3>Basic Usage</h3>
+        <pre><code class="language-bash">npx jouster run-tests --test-runner generic</code></pre>
+        
+        <h3>With Custom Command</h3>
+        <pre><code class="language-bash">npx jouster run-tests --test-runner generic --generic-command "python -m unittest discover"</code></pre>
+        
+        <h3>With Custom Patterns</h3>
+        <pre><code class="language-bash">npx jouster run-tests --test-runner generic --generic-failure-pattern "FAILED" --generic-test-name-pattern "Test case: (.+)"</code></pre>
+        
+        <h3>With Custom Working Directory</h3>
+        <pre><code class="language-bash">npx jouster run-tests --test-runner generic --generic-cwd "./tests"</code></pre>
+        
+        <h3>With Custom Environment Variables</h3>
+        <pre><code class="language-bash">npx jouster run-tests --test-runner generic --generic-env '{"NODE_ENV":"test","DEBUG":"true"}'</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Example Configurations</h2>
+      <div class="collapsible-content">
+        <h3>Python unittest</h3>
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  testRunnerType: 'generic',
+  testRunnerOptions: {
+    generic: {
+      command: 'python -m unittest discover',
+      failurePattern: /FAIL|ERROR/i,
+      testNamePattern: /test_(.+) \((.+)\)/,
+      errorPattern: /^(.+Error:.+)$/m,
+      stackTracePattern: /File "(.+)", line (\d+)/
+    }
+  }
+};</code></pre>
+        
+        <h3>RSpec (Ruby)</h3>
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  testRunnerType: 'generic',
+  testRunnerOptions: {
+    generic: {
+      command: 'bundle exec rspec',
+      failurePattern: /Failures:/,
+      testNamePattern: /^\s*\d+\)\s+(.+)$/m,
+      errorPattern: /^\s+Failure\/Error:\s+(.+)$/m,
+      stackTracePattern: /# (.+):(\d+)/
+    }
+  }
+};</code></pre>
+        
+        <h3>PHPUnit</h3>
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  testRunnerType: 'generic',
+  testRunnerOptions: {
+    generic: {
+      command: './vendor/bin/phpunit',
+      failurePattern: /FAILURES/,
+      testNamePattern: /^\s*\d+\)\s+(.+)::(.+)$/m,
+      errorPattern: /^\s+(.+)$/m,
+      stackTracePattern: /^\s+(.+):(\d+)$/m
+    }
+  }
+};</code></pre>
+        
+        <h3>Go Test</h3>
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  testRunnerType: 'generic',
+  testRunnerOptions: {
+    generic: {
+      command: 'go test ./...',
+      failurePattern: /FAIL/,
+      testNamePattern: /--- FAIL: (.+) \((.+)\)/,
+      errorPattern: /^\s+(.+)$/m,
+      stackTracePattern: /^\s+(.+):(\d+):/m
+    }
+  }
+};</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Custom Test Identification</h2>
+      <div class="collapsible-content">
+        <p>The Generic Test Runner uses regular expressions to identify tests and their failures. You need to configure these patterns to match your test runner's output format.</p>
+        
+        <h3>Key Patterns</h3>
+        <ul>
+          <li><strong>failurePattern</strong>: Pattern to identify that a test has failed</li>
+          <li><strong>testNamePattern</strong>: Pattern to extract the name of the failing test</li>
+          <li><strong>testFilePattern</strong>: Pattern to extract the file containing the failing test</li>
+          <li><strong>errorPattern</strong>: Pattern to extract the error message</li>
+          <li><strong>stackTracePattern</strong>: Pattern to extract the stack trace</li>
+        </ul>
+        
+        <p>Each pattern should include at least one capture group (in parentheses) to extract the relevant information.</p>
+        
+        <h3>Example Test Output and Patterns</h3>
+        <pre><code class="language-text">FAIL: test_login (tests.test_auth.TestAuth)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tests/test_auth.py", line 42, in test_login
+    self.assertEqual(response.status_code, 200)
+AssertionError: 401 != 200</code></pre>
+        
+        <p>For this output, you might use these patterns:</p>
+        <pre><code class="language-javascript">failurePattern: /FAIL:/,
+testNamePattern: /FAIL: (.+) \((.+)\)/,
+testFilePattern: /File "(.+)", line/,
+errorPattern: /AssertionError: (.+)/,
+stackTracePattern: /File "(.+)", line (\d+)/</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Troubleshooting</h2>
+      <div class="collapsible-content">
+        <h3>Common Issues</h3>
+        
+        <h4>Tests Not Running</h4>
+        <ul>
+          <li>Check that the command is correct</li>
+          <li>Check that the working directory is correct</li>
+          <li>Check that any required environment variables are set</li>
+          <li>Try running the command manually to see if it works</li>
+        </ul>
+        
+        <h4>Tests Running but Not Detecting Failures</h4>
+        <ul>
+          <li>Check that the failurePattern matches your test output</li>
+          <li>Check that exitCodeIndicatesFailure is set correctly</li>
+          <li>Try running the command manually and check the output</li>
+        </ul>
+        
+        <h4>Tests Running but Not Extracting Test Names</h4>
+        <ul>
+          <li>Check that the testNamePattern matches your test output</li>
+          <li>Check that the pattern includes a capture group</li>
+          <li>Try testing your pattern with a regex tester</li>
+        </ul>
+        
+        <h4>Tests Running but Not Creating Issues</h4>
+        <ul>
+          <li>Check that issue tracking is enabled</li>
+          <li>Check that the GitHub client is configured correctly</li>
+          <li>Check that the test names are being extracted correctly</li>
+        </ul>
+      </div>
+      
+      <h2 class="collapsible-header">Advanced Usage</h2>
+      <div class="collapsible-content">
+        <h3>Custom Output Parsing</h3>
+        <p>For more complex output parsing, you can use a custom parser function:</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  testRunnerType: 'generic',
+  testRunnerOptions: {
+    generic: {
+      command: 'npm test',
+      parseOutput: function(output) {
+        // Parse the output and return an array of test results
+        const results = [];
+        
+        // Example: Parse output line by line
+        const lines = output.split('\n');
+        let currentTest = null;
+        
+        for (const line of lines) {
+          if (line.includes('FAIL')) {
+            // Extract test name
+            const match = line.match(/FAIL: (.+)/);
+            if (match) {
+              currentTest = {
+                name: match[1],
+                file: null,
+                error: null,
+                stackTrace: []
+              };
+              results.push(currentTest);
+            }
+          } else if (currentTest && line.includes('File')) {
+            // Extract file name
+            const match = line.match(/File "(.+)", line (\d+)/);
+            if (match) {
+              currentTest.file = match[1];
+              currentTest.stackTrace.push({
+                file: match[1],
+                line: parseInt(match[2], 10)
+              });
+            }
+          } else if (currentTest && line.includes('Error')) {
+            // Extract error message
+            const match = line.match(/Error: (.+)/);
+            if (match) {
+              currentTest.error = match[1];
+            }
+          }
+        }
+        
+        return results;
+      }
+    }
+  }
+};</code></pre>
+        
+        <h3>Custom Issue Creation</h3>
+        <p>You can also customize how issues are created:</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  testRunnerType: 'generic',
+  testRunnerOptions: {
+    generic: {
+      command: 'npm test',
+      createIssue: function(test, options) {
+        // Create a custom issue object
+        return {
+          title: `Test failure: ${test.name}`,
+          body: `
+## Test Failure
+
+**Test:** ${test.name}
+**File:** ${test.file}
+**Error:** ${test.error}
+
+### Stack Trace
+\`\`\`
+${test.stackTrace.map(frame => `${frame.file}:${frame.line}`).join('\n')}
+\`\`\`
+          `,
+          labels: ['bug', 'test-failure', 'priority-high']
+        };
+      }
+    }
+  }
+};</code></pre>
+      </div>
+      
+      <footer>
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
