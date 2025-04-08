@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Core Concepts - Jouster Documentation</title>
+  
+  <!-- CSS files -->
+  <link rel="stylesheet" href="./assets/css/search.css">
+  <link rel="stylesheet" href="./assets/css/collapsible.css">
+  <link rel="stylesheet" href="./assets/css/code-highlight.css">
+  <link rel="stylesheet" href="./assets/css/interactive-demos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- JavaScript files -->
+  <script src="./assets/js/search-index.js" defer></script>
+  <script src="./assets/js/search-core.js" defer></script>
+  <script src="./assets/js/search-ui.js" defer></script>
+  <script src="./assets/js/collapsible.js" defer></script>
+  <script src="./assets/js/code-highlight.js" defer></script>
+  <script src="./assets/js/interactive-demos.js" defer></script>
+  <script src="./assets/js/main.js" defer></script>
+  
+  <style>
+    /* Basic styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #24292e;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .wrapper {
+      display: flex;
+    }
+    
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      border-right: 1px solid #e1e4e8;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 20px 40px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #0366d6;
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+    
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .nav-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-list li {
+      margin-bottom: 8px;
+    }
+    
+    .nav-section {
+      margin-bottom: 20px;
+    }
+    
+    .nav-section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #0366d6;
+    }
+    
+    .nav-subsection {
+      padding-left: 15px;
+    }
+    
+    /* Enhanced badge */
+    .enhanced-badge {
+      display: inline-block;
+      background-color: #2ea44f;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode h1, 
+    body.dark-mode h2, 
+    body.dark-mode h3, 
+    body.dark-mode h4, 
+    body.dark-mode h5, 
+    body.dark-mode h6 {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode a {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .sidebar {
+      border-right-color: #30363d;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e1e4e8;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="./assets/images/logo.svg" alt="Jouster Logo">
+        <h1>Jouster</h1>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
+        <div id="search-results" class="search-results"></div>
+      </div>
+      
+      <div class="dark-mode-container">
+        <span class="dark-mode-label">Dark Mode</span>
+        <label class="dark-mode-toggle">
+          <input type="checkbox" id="dark-mode-toggle">
+          <span class="dark-mode-slider"></span>
+        </label>
+      </div>
+      
+      <nav>
+        <div class="nav-section">
+          <div class="nav-section-title">Getting Started</div>
+          <ul class="nav-list">
+            <li><a href="./main.html">Introduction</a></li>
+            <li><a href="./getting-started-enhanced.html">Installation</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="./setup-wizard.html">Setup Wizard</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="./usage-guide.html">Usage Guide</a> <span class="enhanced-badge">Enhanced</span></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Test Runners</div>
+          <ul class="nav-list">
+            <li><a href="./test-runners-enhanced.html">Overview</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li class="nav-subsection">
+              <ul class="nav-list">
+                <li><a href="./test-runners/jest-enhanced.html">Jest</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/mocha-enhanced.html">Mocha</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/ava.html">AVA</a></li>
+                <li><a href="./test-runners/tape.html">Tape</a></li>
+                <li><a href="./test-runners/jasmine.html">Jasmine</a></li>
+                <li><a href="./test-runners/vitest.html">Vitest</a></li>
+                <li><a href="./test-runners/cypress.html">Cypress</a></li>
+                <li><a href="./test-runners/playwright.html">Playwright</a></li>
+                <li><a href="./test-runners/testcafe.html">TestCafe</a></li>
+                <li><a href="./test-runners/karma.html">Karma</a></li>
+                <li><a href="./test-runners/generic.html">Generic</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Core Concepts</div>
+          <ul class="nav-list">
+            <li><a href="./core-concepts.html">How Jouster Works</a></li>
+            <li><a href="./core-concepts.html#test-identification">Test Identification</a></li>
+            <li><a href="./core-concepts.html#issue-lifecycle">Issue Lifecycle</a></li>
+            <li><a href="./core-concepts.html#mapping-database">Mapping Database</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Advanced Features</div>
+          <ul class="nav-list">
+            <li><a href="./advanced-features.html">Overview</a></li>
+            <li><a href="./templates.html">Templates</a></li>
+            <li><a href="./advanced-features.html#hooks">Hooks</a></li>
+            <li><a href="./advanced-features.html#plugins">Plugins</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Resources</div>
+          <ul class="nav-list">
+            <li><a href="./api-reference.html">API Reference</a></li>
+            <li><a href="./troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="./contributing.html">Contributing</a></li>
+            <li><a href="./examples/README.html">Examples</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <h1>Core Concepts</h1>
+      
+      <p>Understanding the core concepts behind Jouster will help you get the most out of the tool. This page explains how Jouster works under the hood and the key concepts that drive its functionality.</p>
+      
+      <h2 class="collapsible-header">How Jouster Works</h2>
+      <div class="collapsible-content">
+        <p>Jouster works by integrating with your test runner and bug tracking system to automate the process of creating, updating, and closing issues for failing tests. Here's a high-level overview of how Jouster works:</p>
+        
+        <ol>
+          <li><strong>Test Execution</strong>: Jouster runs your tests using your preferred test runner (Jest, Mocha, etc.).</li>
+          <li><strong>Test Result Analysis</strong>: It analyzes the test results to identify failing tests.</li>
+          <li><strong>Test Identification</strong>: For each failing test, Jouster generates a unique identifier based on the test name and location.</li>
+          <li><strong>Mapping Database</strong>: Jouster maintains a mapping database that associates test identifiers with issue IDs.</li>
+          <li><strong>Issue Management</strong>: Based on the test results and the mapping database, Jouster creates, updates, or closes issues in your bug tracking system.</li>
+        </ol>
+        
+        <p>This process is fully automated, allowing you to focus on fixing the failing tests rather than managing the issues manually.</p>
+      </div>
+      
+      <h2 class="collapsible-header" id="test-identification">Test Identification</h2>
+      <div class="collapsible-content">
+        <p>Test identification is a critical part of Jouster's functionality. Jouster needs to be able to uniquely identify each test to track its status over time. Here's how test identification works:</p>
+        
+        <h3>Test Identifiers</h3>
+        <p>Jouster generates a unique identifier for each test based on:</p>
+        <ul>
+          <li><strong>Test Name</strong>: The name or description of the test.</li>
+          <li><strong>Test File</strong>: The file containing the test.</li>
+          <li><strong>Test Location</strong>: The location of the test within the file (line number, etc.).</li>
+        </ul>
+        
+        <p>This identifier is used to track the test across multiple runs, even if the test is moved within the file or the file is renamed.</p>
+        
+        <h3>Test Identification Strategies</h3>
+        <p>Different test runners provide different information about tests, so Jouster uses different strategies to identify tests depending on the test runner:</p>
+        
+        <h4>Jest</h4>
+        <pre><code class="language-javascript">// Jest provides detailed information about tests
+// Jouster uses the test name, file path, and line number
+test('should add two numbers', () => {
+  expect(add(1, 2)).toBe(3);
+});</code></pre>
+        
+        <h4>Mocha</h4>
+        <pre><code class="language-javascript">// Mocha provides the test name and file path
+// Jouster uses the test name and file path
+describe('Calculator', () => {
+  it('should add two numbers', () => {
+    expect(add(1, 2)).to.equal(3);
+  });
+});</code></pre>
+        
+        <h4>AVA</h4>
+        <pre><code class="language-javascript">// AVA provides the test name and file path
+// Jouster uses the test name and file path
+test('should add two numbers', t => {
+  t.is(add(1, 2), 3);
+});</code></pre>
+        
+        <p>For other test runners, Jouster uses similar strategies based on the information provided by the test runner.</p>
+      </div>
+      
+      <h2 class="collapsible-header" id="issue-lifecycle">Issue Lifecycle</h2>
+      <div class="collapsible-content">
+        <p>Jouster manages the lifecycle of issues based on the status of the corresponding tests. Here's how the issue lifecycle works:</p>
+        
+        <h3>Issue Creation</h3>
+        <p>When a test fails for the first time, Jouster creates a new issue in your bug tracking system. The issue includes:</p>
+        <ul>
+          <li><strong>Title</strong>: A descriptive title based on the test name.</li>
+          <li><strong>Description</strong>: A detailed description of the failure, including the error message and stack trace.</li>
+          <li><strong>Labels</strong>: Labels to categorize the issue (e.g., "bug", "test-failure").</li>
+          <li><strong>Assignee</strong>: The person responsible for fixing the issue (if configured).</li>
+        </ul>
+        
+        <p>Jouster then adds an entry to the mapping database to associate the test identifier with the issue ID.</p>
+        
+        <h3>Issue Closure</h3>
+        <p>When a previously failing test starts passing, Jouster closes the corresponding issue in your bug tracking system. This indicates that the issue has been resolved.</p>
+        
+        <h3>Issue Reopening</h3>
+        <p>If a test starts failing again after it was fixed, Jouster reopens the corresponding issue in your bug tracking system. This helps you track regressions and ensures that issues are not lost over time.</p>
+        
+        <h3>Issue Updates</h3>
+        <p>When a test continues to fail, Jouster updates the corresponding issue with the latest failure information. This helps you track the status of the issue over time.</p>
+      </div>
+      
+      <h2 class="collapsible-header" id="mapping-database">Mapping Database</h2>
+      <div class="collapsible-content">
+        <p>The mapping database is a key component of Jouster's functionality. It stores the mapping between test identifiers and issue IDs, allowing Jouster to track the status of tests over time.</p>
+        
+        <h3>Database Structure</h3>
+        <p>The mapping database is a simple JSON file that contains entries for each test that has failed. Each entry includes:</p>
+        <ul>
+          <li><strong>Test Identifier</strong>: The unique identifier for the test.</li>
+          <li><strong>Issue ID</strong>: The ID of the corresponding issue in your bug tracking system.</li>
+          <li><strong>Status</strong>: The current status of the issue (open, closed, etc.).</li>
+          <li><strong>Last Updated</strong>: The timestamp of the last update to the issue.</li>
+        </ul>
+        
+        <h3>Database Location</h3>
+        <p>By default, the mapping database is stored in a file named <code>test-issue-mapping.json</code> in the root of your project. You can configure the location of the database in your Jouster configuration file.</p>
+        
+        <h3>Database Management</h3>
+        <p>Jouster provides commands to manage the mapping database:</p>
+        <ul>
+          <li><strong>list-issues</strong>: List all issues in the mapping database.</li>
+          <li><strong>clean-database</strong>: Remove entries for tests that no longer exist.</li>
+        </ul>
+        
+        <pre><code class="language-bash">npx jouster list-issues
+npx jouster clean-database</code></pre>
+      </div>
+      
+      <footer>
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

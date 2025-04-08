@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Features - Jouster Documentation</title>
+  
+  <!-- CSS files -->
+  <link rel="stylesheet" href="./assets/css/search.css">
+  <link rel="stylesheet" href="./assets/css/collapsible.css">
+  <link rel="stylesheet" href="./assets/css/code-highlight.css">
+  <link rel="stylesheet" href="./assets/css/interactive-demos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- JavaScript files -->
+  <script src="./assets/js/search-index.js" defer></script>
+  <script src="./assets/js/search-core.js" defer></script>
+  <script src="./assets/js/search-ui.js" defer></script>
+  <script src="./assets/js/collapsible.js" defer></script>
+  <script src="./assets/js/code-highlight.js" defer></script>
+  <script src="./assets/js/interactive-demos.js" defer></script>
+  <script src="./assets/js/main.js" defer></script>
+  
+  <style>
+    /* Basic styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #24292e;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .wrapper {
+      display: flex;
+    }
+    
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      border-right: 1px solid #e1e4e8;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 20px 40px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #0366d6;
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+    
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .nav-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-list li {
+      margin-bottom: 8px;
+    }
+    
+    .nav-section {
+      margin-bottom: 20px;
+    }
+    
+    .nav-section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #0366d6;
+    }
+    
+    .nav-subsection {
+      padding-left: 15px;
+    }
+    
+    /* Enhanced badge */
+    .enhanced-badge {
+      display: inline-block;
+      background-color: #2ea44f;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode h1, 
+    body.dark-mode h2, 
+    body.dark-mode h3, 
+    body.dark-mode h4, 
+    body.dark-mode h5, 
+    body.dark-mode h6 {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode a {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .sidebar {
+      border-right-color: #30363d;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e1e4e8;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="./assets/images/logo.svg" alt="Jouster Logo">
+        <h1>Jouster</h1>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
+        <div id="search-results" class="search-results"></div>
+      </div>
+      
+      <div class="dark-mode-container">
+        <span class="dark-mode-label">Dark Mode</span>
+        <label class="dark-mode-toggle">
+          <input type="checkbox" id="dark-mode-toggle">
+          <span class="dark-mode-slider"></span>
+        </label>
+      </div>
+      
+      <nav>
+        <div class="nav-section">
+          <div class="nav-section-title">Getting Started</div>
+          <ul class="nav-list">
+            <li><a href="./main.html">Introduction</a></li>
+            <li><a href="./getting-started-enhanced.html">Installation</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="./setup-wizard.html">Setup Wizard</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="./usage-guide.html">Usage Guide</a> <span class="enhanced-badge">Enhanced</span></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Test Runners</div>
+          <ul class="nav-list">
+            <li><a href="./test-runners-enhanced.html">Overview</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li class="nav-subsection">
+              <ul class="nav-list">
+                <li><a href="./test-runners/jest-enhanced.html">Jest</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/mocha-enhanced.html">Mocha</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/ava.html">AVA</a></li>
+                <li><a href="./test-runners/tape.html">Tape</a></li>
+                <li><a href="./test-runners/jasmine.html">Jasmine</a></li>
+                <li><a href="./test-runners/vitest.html">Vitest</a></li>
+                <li><a href="./test-runners/cypress.html">Cypress</a></li>
+                <li><a href="./test-runners/playwright.html">Playwright</a></li>
+                <li><a href="./test-runners/testcafe.html">TestCafe</a></li>
+                <li><a href="./test-runners/karma.html">Karma</a></li>
+                <li><a href="./test-runners/generic.html">Generic</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Core Concepts</div>
+          <ul class="nav-list">
+            <li><a href="./core-concepts.html">How Jouster Works</a></li>
+            <li><a href="./core-concepts.html#test-identification">Test Identification</a></li>
+            <li><a href="./core-concepts.html#issue-lifecycle">Issue Lifecycle</a></li>
+            <li><a href="./core-concepts.html#mapping-database">Mapping Database</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Advanced Features</div>
+          <ul class="nav-list">
+            <li><a href="./advanced-features.html">Overview</a></li>
+            <li><a href="./templates.html">Templates</a></li>
+            <li><a href="./advanced-features.html#hooks">Hooks</a></li>
+            <li><a href="./advanced-features.html#plugins">Plugins</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Resources</div>
+          <ul class="nav-list">
+            <li><a href="./api-reference.html">API Reference</a></li>
+            <li><a href="./troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="./contributing.html">Contributing</a></li>
+            <li><a href="./examples/README.html">Examples</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <h1>Advanced Features</h1>
+      
+      <p>Jouster provides several advanced features that allow you to customize its behavior and extend its functionality. This page covers these advanced features and how to use them.</p>
+      
+      <h2 class="collapsible-header">Configuration</h2>
+      <div class="collapsible-content">
+        <p>Jouster can be configured using a configuration file or command-line options. The configuration file is a JavaScript file that exports a configuration object.</p>
+        
+        <h3>Configuration File</h3>
+        <p>By default, Jouster looks for a configuration file named <code>jouster.config.js</code> in the root of your project. You can specify a different configuration file using the <code>--config</code> option.</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  testRunnerType: 'jest',
+  issueManager: 'github',
+  github: {
+    owner: 'TSavo',
+    repo: 'jouster',
+    token: process.env.GITHUB_TOKEN
+  },
+  templates: {
+    open: './templates/open.md',
+    close: './templates/close.md',
+    reopen: './templates/reopen.md'
+  },
+  hooks: {
+    beforeRun: './hooks/before-run.js',
+    afterRun: './hooks/after-run.js',
+    beforeIssueCreate: './hooks/before-issue-create.js',
+    afterIssueCreate: './hooks/after-issue-create.js',
+    beforeIssueClose: './hooks/before-issue-close.js',
+    afterIssueClose: './hooks/after-issue-close.js',
+    beforeIssueReopen: './hooks/before-issue-reopen.js',
+    afterIssueReopen: './hooks/after-issue-reopen.js'
+  },
+  plugins: [
+    './plugins/custom-plugin.js'
+  ]
+};</code></pre>
+        
+        <h3>Command-Line Options</h3>
+        <p>You can also configure Jouster using command-line options. These options override the configuration in the configuration file.</p>
+        
+        <pre><code class="language-bash">npx jouster run-tests --test-runner jest --tracker-type github --github-owner TSavo --github-repo jouster</code></pre>
+        
+        <p>For a complete list of command-line options, see the <a href="./usage-guide.html">Usage Guide</a>.</p>
+      </div>
+      
+      <h2 class="collapsible-header">Templates</h2>
+      <div class="collapsible-content">
+        <p>Jouster uses templates to generate the content of issues. You can customize these templates to include additional information or format the content differently.</p>
+        
+        <p>For detailed information about templates, see the <a href="./templates.html">Templates</a> page.</p>
+      </div>
+      
+      <h2 class="collapsible-header" id="hooks">Hooks</h2>
+      <div class="collapsible-content">
+        <p>Hooks allow you to execute custom code at specific points in Jouster's execution. You can use hooks to customize Jouster's behavior or integrate it with other tools.</p>
+        
+        <h3>Available Hooks</h3>
+        <p>Jouster provides the following hooks:</p>
+        <ul>
+          <li><strong>beforeRun</strong>: Executed before running tests.</li>
+          <li><strong>afterRun</strong>: Executed after running tests.</li>
+          <li><strong>beforeIssueCreate</strong>: Executed before creating an issue.</li>
+          <li><strong>afterIssueCreate</strong>: Executed after creating an issue.</li>
+          <li><strong>beforeIssueClose</strong>: Executed before closing an issue.</li>
+          <li><strong>afterIssueClose</strong>: Executed after closing an issue.</li>
+          <li><strong>beforeIssueReopen</strong>: Executed before reopening an issue.</li>
+          <li><strong>afterIssueReopen</strong>: Executed after reopening an issue.</li>
+        </ul>
+        
+        <h3>Hook Implementation</h3>
+        <p>Hooks are implemented as JavaScript modules that export a function. The function receives a context object that contains information about the current execution.</p>
+        
+        <pre><code class="language-javascript">// hooks/before-run.js
+module.exports = function(context) {
+  console.log('Running tests with Jouster...');
+  console.log('Test runner:', context.config.testRunnerType);
+  console.log('Issue manager:', context.config.issueManager);
+  
+  // You can modify the context object to affect Jouster's behavior
+  context.config.testRunnerOptions.jest.bail = true;
+  
+  // You can also return a promise to perform asynchronous operations
+  return Promise.resolve();
+};</code></pre>
+        
+        <h3>Hook Context</h3>
+        <p>The context object passed to hooks contains the following properties:</p>
+        <ul>
+          <li><strong>config</strong>: The current configuration.</li>
+          <li><strong>testRunner</strong>: The test runner instance.</li>
+          <li><strong>issueManager</strong>: The issue manager instance.</li>
+          <li><strong>mappingStore</strong>: The mapping store instance.</li>
+          <li><strong>testResults</strong>: The test results (only available in afterRun and later hooks).</li>
+          <li><strong>issue</strong>: The issue being created, closed, or reopened (only available in issue-related hooks).</li>
+          <li><strong>test</strong>: The test associated with the issue (only available in issue-related hooks).</li>
+        </ul>
+      </div>
+      
+      <h2 class="collapsible-header" id="plugins">Plugins</h2>
+      <div class="collapsible-content">
+        <p>Plugins allow you to extend Jouster's functionality with custom features. You can use plugins to add new test runners, issue managers, or other functionality.</p>
+        
+        <h3>Plugin Implementation</h3>
+        <p>Plugins are implemented as JavaScript modules that export a function. The function receives a Jouster instance and can modify it to add new functionality.</p>
+        
+        <pre><code class="language-javascript">// plugins/custom-plugin.js
+module.exports = function(jouster) {
+  // Add a new test runner
+  jouster.addTestRunner('custom', require('./custom-test-runner'));
+  
+  // Add a new issue manager
+  jouster.addIssueManager('custom', require('./custom-issue-manager'));
+  
+  // Add a new command
+  jouster.addCommand('custom-command', require('./custom-command'));
+  
+  // Add a new hook
+  jouster.addHook('customHook', require('./custom-hook'));
+};</code></pre>
+        
+        <h3>Plugin Registration</h3>
+        <p>Plugins are registered in the configuration file using the <code>plugins</code> property. The property is an array of plugin module paths or plugin objects.</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  // ... other configuration
+  plugins: [
+    './plugins/custom-plugin.js',
+    require('./plugins/another-plugin')
+  ]
+};</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Custom Test Runners</h2>
+      <div class="collapsible-content">
+        <p>Jouster supports several test runners out of the box, but you can also create custom test runners to support other test frameworks.</p>
+        
+        <h3>Test Runner Implementation</h3>
+        <p>A test runner is a JavaScript module that exports an object with the following methods:</p>
+        <ul>
+          <li><strong>run</strong>: Runs the tests and returns the results.</li>
+          <li><strong>parseResults</strong>: Parses the test results into a standard format.</li>
+          <li><strong>generateTestId</strong>: Generates a unique identifier for a test.</li>
+        </ul>
+        
+        <pre><code class="language-javascript">// custom-test-runner.js
+module.exports = {
+  run: async function(options) {
+    // Run the tests and return the results
+    const { spawn } = require('child_process');
+    const child = spawn('custom-test-runner', ['--reporter', 'json']);
+    
+    let stdout = '';
+    child.stdout.on('data', (data) => {
+      stdout += data.toString();
+    });
+    
+    return new Promise((resolve, reject) => {
+      child.on('close', (code) => {
+        if (code === 0) {
+          resolve(stdout);
+        } else {
+          reject(new Error(`Test runner exited with code ${code}`));
+        }
+      });
+    });
+  },
+  
+  parseResults: function(results) {
+    // Parse the results into a standard format
+    const parsedResults = JSON.parse(results);
+    
+    return {
+      passed: parsedResults.passed,
+      failed: parsedResults.failed,
+      tests: parsedResults.tests.map((test) => ({
+        name: test.name,
+        file: test.file,
+        status: test.status,
+        error: test.error
+      }))
+    };
+  },
+  
+  generateTestId: function(test) {
+    // Generate a unique identifier for the test
+    return `${test.file}:${test.name}`;
+  }
+};</code></pre>
+        
+        <h3>Test Runner Registration</h3>
+        <p>Custom test runners are registered using the <code>addTestRunner</code> method in a plugin:</p>
+        
+        <pre><code class="language-javascript">// plugins/custom-plugin.js
+module.exports = function(jouster) {
+  jouster.addTestRunner('custom', require('./custom-test-runner'));
+};</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Custom Issue Managers</h2>
+      <div class="collapsible-content">
+        <p>Jouster supports GitHub and file-based issue managers out of the box, but you can also create custom issue managers to support other bug tracking systems.</p>
+        
+        <h3>Issue Manager Implementation</h3>
+        <p>An issue manager is a JavaScript module that exports an object with the following methods:</p>
+        <ul>
+          <li><strong>createIssue</strong>: Creates a new issue.</li>
+          <li><strong>closeIssue</strong>: Closes an issue.</li>
+          <li><strong>reopenIssue</strong>: Reopens a closed issue.</li>
+          <li><strong>getIssue</strong>: Gets information about an issue.</li>
+        </ul>
+        
+        <pre><code class="language-javascript">// custom-issue-manager.js
+module.exports = {
+  createIssue: async function(issue, options) {
+    // Create a new issue in the bug tracking system
+    const response = await fetch('https://api.example.com/issues', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${options.token}`
+      },
+      body: JSON.stringify({
+        title: issue.title,
+        body: issue.body,
+        labels: issue.labels
+      })
+    });
+    
+    const data = await response.json();
+    
+    return {
+      id: data.id,
+      url: data.url
+    };
+  },
+  
+  closeIssue: async function(issueId, options) {
+    // Close an issue in the bug tracking system
+    await fetch(`https://api.example.com/issues/${issueId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${options.token}`
+      },
+      body: JSON.stringify({
+        state: 'closed'
+      })
+    });
+  },
+  
+  reopenIssue: async function(issueId, options) {
+    // Reopen a closed issue in the bug tracking system
+    await fetch(`https://api.example.com/issues/${issueId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${options.token}`
+      },
+      body: JSON.stringify({
+        state: 'open'
+      })
+    });
+  },
+  
+  getIssue: async function(issueId, options) {
+    // Get information about an issue in the bug tracking system
+    const response = await fetch(`https://api.example.com/issues/${issueId}`, {
+      headers: {
+        'Authorization': `Bearer ${options.token}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    return {
+      id: data.id,
+      title: data.title,
+      body: data.body,
+      state: data.state,
+      url: data.url
+    };
+  }
+};</code></pre>
+        
+        <h3>Issue Manager Registration</h3>
+        <p>Custom issue managers are registered using the <code>addIssueManager</code> method in a plugin:</p>
+        
+        <pre><code class="language-javascript">// plugins/custom-plugin.js
+module.exports = function(jouster) {
+  jouster.addIssueManager('custom', require('./custom-issue-manager'));
+};</code></pre>
+      </div>
+      
+      <footer>
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
