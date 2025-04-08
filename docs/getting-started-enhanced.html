@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started - Jouster Documentation</title>
+  
+  <!-- CSS files -->
+  <link rel="stylesheet" href="./assets/css/search.css">
+  <link rel="stylesheet" href="./assets/css/collapsible.css">
+  <link rel="stylesheet" href="./assets/css/code-highlight.css">
+  <link rel="stylesheet" href="./assets/css/interactive-demos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- JavaScript files -->
+  <script src="./assets/js/search-index.js" defer></script>
+  <script src="./assets/js/search-core.js" defer></script>
+  <script src="./assets/js/search-ui.js" defer></script>
+  <script src="./assets/js/collapsible.js" defer></script>
+  <script src="./assets/js/code-highlight.js" defer></script>
+  <script src="./assets/js/interactive-demos.js" defer></script>
+  <script src="./assets/js/main.js" defer></script>
+  
+  <style>
+    /* Basic styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #24292e;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .wrapper {
+      display: flex;
+    }
+    
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      border-right: 1px solid #e1e4e8;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 20px 40px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #0366d6;
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+    
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .nav-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-list li {
+      margin-bottom: 8px;
+    }
+    
+    .nav-section {
+      margin-bottom: 20px;
+    }
+    
+    .nav-section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #0366d6;
+    }
+    
+    .nav-subsection {
+      padding-left: 15px;
+    }
+    
+    /* Tip box */
+    .tip-box {
+      background-color: #f1f8ff;
+      border-left: 4px solid #0366d6;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 3px;
+    }
+    
+    .tip-box strong {
+      color: #0366d6;
+    }
+    
+    /* Step cards */
+    .step-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .step-card {
+      background-color: #f6f8fa;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .step-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .step-number {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-color: #0366d6;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 30px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    
+    .step-title {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    /* Enhanced badge */
+    .enhanced-badge {
+      display: inline-block;
+      background-color: #2ea44f;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode h1, 
+    body.dark-mode h2, 
+    body.dark-mode h3, 
+    body.dark-mode h4, 
+    body.dark-mode h5, 
+    body.dark-mode h6 {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode a {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .sidebar {
+      border-right-color: #30363d;
+    }
+    
+    body.dark-mode .tip-box {
+      background-color: #161b22;
+      border-left-color: #58a6ff;
+    }
+    
+    body.dark-mode .tip-box strong {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .step-card {
+      background-color: #161b22;
+      border-color: #30363d;
+    }
+    
+    body.dark-mode .step-number {
+      background-color: #58a6ff;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e1e4e8;
+      }
+      
+      .step-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="./assets/images/logo.svg" alt="Jouster Logo">
+        <h1>Jouster</h1>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
+        <div id="search-results" class="search-results"></div>
+      </div>
+      
+      <div class="dark-mode-container">
+        <span class="dark-mode-label">Dark Mode</span>
+        <label class="dark-mode-toggle">
+          <input type="checkbox" id="dark-mode-toggle">
+          <span class="dark-mode-slider"></span>
+        </label>
+      </div>
+      
+      <nav>
+        <div class="nav-section">
+          <div class="nav-section-title">Getting Started</div>
+          <ul class="nav-list">
+            <li><a href="./main.html">Introduction</a></li>
+            <li><a href="./getting-started-enhanced.html">Installation</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="./setup-wizard.html">Setup Wizard</a></li>
+            <li><a href="./usage-guide.html">Usage Guide</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Test Runners</div>
+          <ul class="nav-list">
+            <li><a href="./test-runners-enhanced.html">Overview</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li class="nav-subsection">
+              <ul class="nav-list">
+                <li><a href="./test-runners/jest-enhanced.html">Jest</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/mocha-enhanced.html">Mocha</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/ava.html">AVA</a></li>
+                <li><a href="./test-runners/tape.html">Tape</a></li>
+                <li><a href="./test-runners/jasmine.html">Jasmine</a></li>
+                <li><a href="./test-runners/vitest.html">Vitest</a></li>
+                <li><a href="./test-runners/cypress.html">Cypress</a></li>
+                <li><a href="./test-runners/playwright.html">Playwright</a></li>
+                <li><a href="./test-runners/testcafe.html">TestCafe</a></li>
+                <li><a href="./test-runners/karma.html">Karma</a></li>
+                <li><a href="./test-runners/generic.html">Generic</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Core Concepts</div>
+          <ul class="nav-list">
+            <li><a href="./core-concepts.html">How Jouster Works</a></li>
+            <li><a href="./core-concepts.html#test-identification">Test Identification</a></li>
+            <li><a href="./core-concepts.html#issue-lifecycle">Issue Lifecycle</a></li>
+            <li><a href="./core-concepts.html#mapping-database">Mapping Database</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Advanced Features</div>
+          <ul class="nav-list">
+            <li><a href="./advanced-features.html">Overview</a></li>
+            <li><a href="./templates.html">Templates</a></li>
+            <li><a href="./advanced-features.html#hooks">Hooks</a></li>
+            <li><a href="./advanced-features.html#plugins">Plugins</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Resources</div>
+          <ul class="nav-list">
+            <li><a href="./api-reference.html">API Reference</a></li>
+            <li><a href="./troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="./contributing.html">Contributing</a></li>
+            <li><a href="./examples/README.html">Examples</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <h1>Getting Started with Jouster</h1>
+      
+      <p>This guide will help you get up and running with Jouster quickly. Jouster is a powerful tool that automatically creates GitHub issues for failing tests and closes them when tests pass.</p>
+      
+      <div class="tip-box">
+        <p><strong>Tip:</strong> The easiest way to get started is to use our Setup Wizard, which automatically configures Jouster for your project:</p>
+        <pre><code class="language-bash">npx jouster-setup</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Installation</h2>
+      <div class="collapsible-content">
+        <p>You can install Jouster using npm or yarn:</p>
+        
+        <pre><code class="language-bash"># Using npm
+npm install --save-dev jouster
+
+# Using yarn
+yarn add --dev jouster</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Quick Start</h2>
+      <div class="collapsible-content">
+        <div class="step-cards">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3 class="step-title">Configure Jest</h3>
+            <p>Add Jouster to your Jest configuration in <code>jest.config.js</code>:</p>
+            <pre><code class="language-javascript">module.exports = {
+  // ... your other Jest configuration
+  reporters: [
+    'default',
+    ['jouster', {
+      generateIssues: true,
+      trackIssues: true
+    }]
+  ]
+};</code></pre>
+            <p>Alternatively, you can create a separate configuration file for running tests with Jouster:</p>
+            <pre><code class="language-javascript">// jest.with-tracking.js
+const baseConfig = require('./jest.config');
+
+module.exports = {
+  ...baseConfig,
+  reporters: [
+    'default',
+    ['jouster', {
+      generateIssues: true,
+      trackIssues: true
+    }]
+  ]
+};</code></pre>
+          </div>
+          
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3 class="step-title">Add Scripts to package.json</h3>
+            <p>Add the following scripts to your <code>package.json</code>:</p>
+            <pre><code class="language-json">{
+  "scripts": {
+    "test": "jest",
+    "test:with-tracking": "jest --config=jest.with-tracking.js"
+  }
+}</code></pre>
+          </div>
+          
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3 class="step-title">Ensure GitHub CLI is Installed</h3>
+            <p>Jouster uses the GitHub CLI (<code>gh</code>) to interact with GitHub. Make sure it's installed and authenticated:</p>
+            <pre><code class="language-bash"># Install GitHub CLI (if not already installed)
+# macOS
+brew install gh
+
+# Windows
+winget install --id GitHub.cli
+
+# Linux
+sudo apt install gh
+
+# Authenticate with GitHub
+gh auth login</code></pre>
+          </div>
+          
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <h3 class="step-title">Run Tests with Tracking</h3>
+            <p>Now you can run your tests with issue tracking:</p>
+            <pre><code class="language-bash">npm run test:with-tracking</code></pre>
+            <p>This will:</p>
+            <ol>
+              <li>Run your tests</li>
+              <li>Create GitHub issues for any failing tests</li>
+              <li>Close GitHub issues for any tests that are now passing</li>
+              <li>Reopen issues when tests start failing again (regression handling)</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      
+      <h2 class="collapsible-header">Configuration</h2>
+      <div class="collapsible-content">
+        <p>Jouster can be configured through the Jest reporter options or environment variables.</p>
+        
+        <h3>Reporter Options</h3>
+        <pre><code class="language-javascript">// In your Jest configuration
+reporters: [
+  'default',
+  ['jouster', {
+    // Whether to generate issues for failing tests
+    generateIssues: true,
+
+    // Whether to track issues for failing tests
+    trackIssues: true,
+
+    // Whether to close issues for passing tests
+    closeIssues: true,
+
+    // Whether to reopen issues for failing tests
+    reopenIssues: true,
+
+    // Path to the database file
+    databasePath: 'test-issue-mapping.json',
+
+    // Default labels for issues
+    defaultLabels: ['bug', 'test-failure'],
+
+    // Bug tracker type ('github' or 'file')
+    trackerType: 'github',
+
+    // Path to the bugs directory (for file tracker)
+    bugsDir: './bugs',
+
+    // GitHub labels to apply to issues
+    githubLabels: ['bug', 'test-failure'],
+
+    // Whether to use the REST API instead of the CLI
+    githubUseRest: false,
+
+    // GitHub personal access token (required when using REST API)
+    githubToken: process.env.GITHUB_TOKEN,
+
+    // GitHub repository in the format 'owner/repo' (required when using REST API)
+    githubRepo: 'owner/repo',
+
+    // Path to the template directory
+    templateDir: './templates',
+
+    // Test pattern filters
+    testFilters: {
+      // Patterns to include (glob patterns)
+      include: ['**/*.test.ts'],
+      // Patterns to exclude (glob patterns)
+      exclude: ['**/*.skip.test.ts']
+    },
+
+    // Branch filters for issue creation
+    branchFilters: {
+      // Branches to include (regex patterns)
+      include: ['^feature/', '^bugfix/'],
+      // Branches to exclude (regex patterns)
+      exclude: ['^dependabot/']
+    },
+
+    // Template exceptions for specific test types
+    templateExceptions: {
+      // Test patterns to skip issue creation for (glob patterns)
+      skipIssueCreation: ['**/*.flaky.test.ts'],
+      // Custom templates for specific test types
+      customTemplates: [
+        {
+          pattern: '**/*.integration.test.ts',
+          template: 'integration-issue-template.hbs'
+        }
+      ]
+    },
+
+    // Template data hooks
+    hooks: []
+  }]
+]</code></pre>
+        
+        <h3>Environment Variables</h3>
+        <pre><code class="language-bash"># Whether to generate issues for failing tests
+GENERATE_ISSUES=true
+
+# Whether to track issues for failing tests
+TRACK_ISSUES=true
+
+# Whether to close issues for passing tests
+CLOSE_ISSUES=true
+
+# Whether to reopen issues for failing tests
+REOPEN_ISSUES=true
+
+# Path to the database file
+DATABASE_PATH=test-issue-mapping.json
+
+# Default labels for issues
+DEFAULT_LABELS=bug,test-failure
+
+# Bug tracker type ('github' or 'file')
+TRACKER_TYPE=github
+
+# Path to the bugs directory (for file tracker)
+BUGS_DIR=./bugs
+
+# GitHub labels to apply to issues
+GITHUB_LABELS=bug,test-failure
+
+# Whether to use the REST API instead of the CLI
+GITHUB_USE_REST=false
+
+# GitHub personal access token (required when using REST API)
+GITHUB_TOKEN=your-token
+
+# GitHub repository in the format 'owner/repo' (required when using REST API)
+GITHUB_REPO=owner/repo
+
+# Path to the template directory
+TEMPLATE_DIR=./templates</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Interactive Demo: Configuration Generator</h2>
+      <div class="collapsible-content">
+        <p>Try out this interactive demo to generate a Jouster configuration based on your preferences:</p>
+        
+        <div class="demo-container">
+          <pre class="demo-code"><code class="language-javascript">// Generate Jouster configuration based on user preferences
+function generateJousterConfig(options = {}) {
+  const config = {
+    generateIssues: options.generateIssues !== undefined ? options.generateIssues : true,
+    trackIssues: options.trackIssues !== undefined ? options.trackIssues : true,
+    closeIssues: options.closeIssues !== undefined ? options.closeIssues : true,
+    reopenIssues: options.reopenIssues !== undefined ? options.reopenIssues : true,
+    databasePath: options.databasePath || 'test-issue-mapping.json',
+    defaultLabels: options.defaultLabels || ['bug', 'test-failure'],
+    trackerType: options.trackerType || 'github',
+  };
+  
+  // Add GitHub-specific options if using GitHub tracker
+  if (config.trackerType === 'github') {
+    config.githubLabels = options.githubLabels || ['bug', 'test-failure'];
+    config.githubUseRest = options.githubUseRest !== undefined ? options.githubUseRest : false;
+    
+    if (config.githubUseRest) {
+      config.githubToken = options.githubToken || 'process.env.GITHUB_TOKEN';
+      config.githubRepo = options.githubRepo || 'owner/repo';
+    }
+  } else if (config.trackerType === 'file') {
+    config.bugsDir = options.bugsDir || './bugs';
+  }
+  
+  // Add template options if provided
+  if (options.templateDir) {
+    config.templateDir = options.templateDir;
+  }
+  
+  // Add test filters if provided
+  if (options.testFilters) {
+    config.testFilters = options.testFilters;
+  }
+  
+  // Add branch filters if provided
+  if (options.branchFilters) {
+    config.branchFilters = options.branchFilters;
+  }
+  
+  // Generate Jest configuration with Jouster reporter
+  const jestConfig = {
+    reporters: [
+      'default',
+      ['jouster', config]
+    ]
+  };
+  
+  return {
+    jestConfig,
+    packageJsonScripts: {
+      "test": "jest",
+      "test:with-tracking": "jest --config=jest.with-tracking.js"
+    },
+    environmentVariables: Object.entries(config)
+      .filter(([key, value]) => typeof value !== 'object')
+      .map(([key, value]) => {
+        // Convert camelCase to UPPER_SNAKE_CASE
+        const envKey = key.replace(/([A-Z])/g, '_$1').toUpperCase();
+        return `${envKey}=${typeof value === 'boolean' ? value : JSON.stringify(value)}`;
+      })
+      .join('\n')
+  };
+}
+
+// Example configurations
+const defaultConfig = generateJousterConfig();
+
+const githubRestConfig = generateJousterConfig({
+  githubUseRest: true,
+  githubToken: 'your-github-token',
+  githubRepo: 'your-username/your-repo'
+});
+
+const fileTrackerConfig = generateJousterConfig({
+  trackerType: 'file',
+  bugsDir: './test-failures'
+});
+
+const customTemplateConfig = generateJousterConfig({
+  templateDir: './custom-templates',
+  testFilters: {
+    include: ['**/*.test.ts'],
+    exclude: ['**/*.skip.test.ts']
+  },
+  branchFilters: {
+    include: ['^feature/', '^bugfix/'],
+    exclude: ['^dependabot/']
+  }
+});
+
+return {
+  default: defaultConfig,
+  githubRest: githubRestConfig,
+  fileTracker: fileTrackerConfig,
+  customTemplate: customTemplateConfig
+};</code></pre>
+          <div class="demo-result">Click "Run" to see the result</div>
+        </div>
+      </div>
+      
+      <h2 class="collapsible-header">Next Steps</h2>
+      <div class="collapsible-content">
+        <p>Now that you have Jouster set up, you might want to:</p>
+        
+        <ul>
+          <li>Learn about <a href="./core-concepts.html">Core Concepts</a> to understand how Jouster works</li>
+          <li>Explore the <a href="./usage-guide.html">Usage Guide</a> for more advanced usage scenarios</li>
+          <li>Customize your issue templates with the <a href="./templates.html">Templating Guide</a></li>
+          <li>Add custom hooks or plugins with the <a href="./advanced-features.html">Advanced Features Guide</a></li>
+        </ul>
+      </div>
+      
+      <footer>
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
