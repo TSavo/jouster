@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Troubleshooting - Jouster Documentation</title>
-  
+
   <!-- CSS files -->
   <link rel="stylesheet" href="./assets/css/search.css">
   <link rel="stylesheet" href="./assets/css/collapsible.css">
@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="./assets/css/interactive-demos.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <!-- JavaScript files -->
   <script src="./assets/js/search-index.js" defer></script>
   <script src="./assets/js/search-core.js" defer></script>
@@ -21,7 +21,7 @@
   <script src="./assets/js/code-highlight.js" defer></script>
   <script src="./assets/js/interactive-demos.js" defer></script>
   <script src="./assets/js/main.js" defer></script>
-  
+
   <style>
     /* Basic styles */
     body {
@@ -32,78 +32,78 @@
       margin: 0 auto;
       padding: 20px;
     }
-    
+
     .wrapper {
       display: flex;
     }
-    
+
     .sidebar {
       width: 260px;
       padding: 20px;
       border-right: 1px solid #e1e4e8;
     }
-    
+
     .main-content {
       flex: 1;
       padding: 20px 40px;
     }
-    
+
     h1, h2, h3, h4, h5, h6 {
       color: #0366d6;
       margin-top: 24px;
       margin-bottom: 16px;
     }
-    
+
     a {
       color: #0366d6;
       text-decoration: none;
     }
-    
+
     a:hover {
       text-decoration: underline;
     }
-    
+
     .logo {
       display: flex;
       align-items: center;
       margin-bottom: 20px;
     }
-    
+
     .logo img {
       width: 40px;
       height: 40px;
       margin-right: 10px;
     }
-    
+
     .logo h1 {
       margin: 0;
       font-size: 24px;
     }
-    
+
     .nav-list {
       list-style-type: none;
       padding: 0;
       margin: 0;
     }
-    
+
     .nav-list li {
       margin-bottom: 8px;
     }
-    
+
     .nav-section {
       margin-bottom: 20px;
     }
-    
+
     .nav-section-title {
       font-weight: 600;
       margin-bottom: 10px;
       color: #0366d6;
     }
-    
+
     .nav-subsection {
       padding-left: 15px;
     }
-    
+
     /* Enhanced badge */
     .enhanced-badge {
       display: inline-block;
@@ -116,36 +116,36 @@
       margin-left: 8px;
       vertical-align: middle;
     }
-    
+
     /* Dark mode styles */
     body.dark-mode {
       background-color: #0d1117;
       color: #c9d1d9;
     }
-    
-    body.dark-mode h1, 
-    body.dark-mode h2, 
-    body.dark-mode h3, 
-    body.dark-mode h4, 
-    body.dark-mode h5, 
+
+    body.dark-mode h1,
+    body.dark-mode h2,
+    body.dark-mode h3,
+    body.dark-mode h4,
+    body.dark-mode h5,
     body.dark-mode h6 {
       color: #58a6ff;
     }
-    
+
     body.dark-mode a {
       color: #58a6ff;
     }
-    
+
     body.dark-mode .sidebar {
       border-right-color: #30363d;
     }
-    
+
     /* Responsive design */
     @media (max-width: 768px) {
       .wrapper {
         flex-direction: column;
       }
-      
+
       .sidebar {
         width: 100%;
         border-right: none;
@@ -161,12 +161,12 @@
         <img src="./assets/images/logo.svg" alt="Jouster Logo">
         <h1>Jouster</h1>
       </div>
-      
+
       <div class="search-container">
         <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
         <div id="search-results" class="search-results"></div>
       </div>
-      
+
       <div class="dark-mode-container">
         <span class="dark-mode-label">Dark Mode</span>
         <label class="dark-mode-toggle">
@@ -174,7 +174,7 @@
           <span class="dark-mode-slider"></span>
         </label>
       </div>
-      
+
       <nav>
         <div class="nav-section">
           <div class="nav-section-title">Getting Started</div>
@@ -185,7 +185,7 @@
             <li><a href="./usage-guide.html">Usage Guide</a> <span class="enhanced-badge">Enhanced</span></li>
           </ul>
         </div>
-        
+
         <div class="nav-section">
           <div class="nav-section-title">Test Runners</div>
           <ul class="nav-list">
@@ -207,7 +207,7 @@
             </li>
           </ul>
         </div>
-        
+
         <div class="nav-section">
           <div class="nav-section-title">Core Concepts</div>
           <ul class="nav-list">
@@ -217,7 +217,7 @@
             <li><a href="./core-concepts.html#mapping-database">Mapping Database</a></li>
           </ul>
         </div>
-        
+
         <div class="nav-section">
           <div class="nav-section-title">Advanced Features</div>
           <ul class="nav-list">
@@ -227,7 +227,7 @@
             <li><a href="./advanced-features.html#plugins">Plugins</a></li>
           </ul>
         </div>
-        
+
         <div class="nav-section">
           <div class="nav-section-title">Resources</div>
           <ul class="nav-list">
@@ -239,12 +239,12 @@
         </div>
       </nav>
     </aside>
-    
+
     <main class="main-content">
       <h1>Troubleshooting</h1>
-      
+
       <p>This page provides solutions to common issues you might encounter when using Jouster. If you're having trouble with Jouster, check this page for solutions to common problems.</p>
-      
+
       <h2 class="collapsible-header">Installation Issues</h2>
       <div class="collapsible-content">
         <h3>npm install fails</h3>
@@ -255,19 +255,19 @@
           <li>Try installing with the <code>--no-optional</code> flag: <code>npm install --no-optional jouster</code></li>
           <li>Check your network connection and proxy settings</li>
         </ul>
-        
+
         <h3>Peer dependency warnings</h3>
         <p>Jouster has peer dependencies on various test runners. If you see warnings about missing peer dependencies, you can install them manually:</p>
         <pre><code class="language-bash">npm install --save-dev jest mocha</code></pre>
         <p>Or you can ignore the warnings if you're not using those test runners.</p>
-        
+
         <h3>Node.js version compatibility</h3>
         <p>Jouster requires Node.js version 14 or later. If you're using an older version of Node.js, you'll need to upgrade:</p>
         <pre><code class="language-bash">nvm install 14
 nvm use 14</code></pre>
         <p>Or download the latest version from <a href="https://nodejs.org/" target="_blank">nodejs.org</a>.</p>
       </div>
-      
+
       <h2 class="collapsible-header">Configuration Issues</h2>
       <div class="collapsible-content">
         <h3>Configuration file not found</h3>
@@ -277,7 +277,7 @@ nvm use 14</code></pre>
           <li>The configuration file should be in the root of your project</li>
           <li>You can specify a different configuration file using the <code>--config</code> option: <code>npx jouster run-tests --config ./path/to/config.js</code></li>
         </ul>
-        
+
         <h3>Invalid configuration</h3>
         <p>If your configuration file is invalid, Jouster will show an error message. Make sure your configuration file is valid JavaScript and exports an object:</p>
         <pre><code class="language-javascript">// jouster.config.js
@@ -290,7 +290,7 @@ module.exports = {
     token: process.env.GITHUB_TOKEN
   }
 };</code></pre>
-        
+
         <h3>Environment variables not set</h3>
         <p>If you're using environment variables in your configuration file, make sure they're set:</p>
         <pre><code class="language-bash"># Linux/macOS
@@ -306,7 +306,7 @@ module.exports = {
   // ... configuration
 };</code></pre>
       </div>
-      
+
       <h2 class="collapsible-header">Test Runner Issues</h2>
       <div class="collapsible-content">
         <h3>Test runner not found</h3>
@@ -316,7 +316,7 @@ module.exports = {
           <li>Configure Jouster to use the test runner: <code>testRunnerType: 'jest'</code></li>
           <li>Make sure the test runner is in your PATH</li>
         </ul>
-        
+
         <h3>Tests not running</h3>
         <p>If your tests aren't running, check the following:</p>
         <ul>
@@ -324,7 +324,7 @@ module.exports = {
           <li>Check that your test runner is configured correctly</li>
           <li>Try running the tests directly with the test runner: <code>npx jest</code></li>
         </ul>
-        
+
         <h3>Tests running but not failing</h3>
         <p>If your tests are running but not failing when they should, check the following:</p>
         <ul>
@@ -333,7 +333,7 @@ module.exports = {
           <li>Try running the tests directly with the test runner: <code>npx jest</code></li>
         </ul>
       </div>
-      
+
       <h2 class="collapsible-header">Issue Manager Issues</h2>
       <div class="collapsible-content">
         <h3>GitHub authentication failed</h3>
@@ -344,7 +344,7 @@ module.exports = {
           <li>Verify that your token is not expired</li>
           <li>Try creating a new token: <a href="https://github.com/settings/tokens" target="_blank">GitHub Tokens</a></li>
         </ul>
-        
+
         <h3>Issues not being created</h3>
         <p>If issues aren't being created for failing tests, check the following:</p>
         <ul>
@@ -353,7 +353,7 @@ module.exports = {
           <li>Verify that the repository exists and you have access to it</li>
           <li>Check the mapping database to see if the test is already mapped to an issue</li>
         </ul>
-        
+
         <h3>Issues not being closed</h3>
         <p>If issues aren't being closed for passing tests, check the following:</p>
         <ul>
@@ -363,7 +363,7 @@ module.exports = {
           <li>Check the mapping database to see if the test is mapped to the correct issue</li>
         </ul>
       </div>
-      
+
       <h2 class="collapsible-header">Mapping Database Issues</h2>
       <div class="collapsible-content">
         <h3>Mapping database not found</h3>
@@ -373,7 +373,7 @@ module.exports = {
           <li>The mapping database file should be in the root of your project</li>
           <li>You can specify a different mapping database file using the <code>--mapping-file</code> option: <code>npx jouster run-tests --mapping-file ./path/to/mapping.json</code></li>
         </ul>
-        
+
         <h3>Mapping database corrupted</h3>
         <p>If your mapping database is corrupted, you can try to fix it or create a new one:</p>
         <ul>
@@ -381,7 +381,7 @@ module.exports = {
           <li>Create a new mapping database file: <code>echo "{}" > test-issue-mapping.json</code></li>
           <li>Run Jouster with the <code>--clean-database</code> option: <code>npx jouster clean-database</code></li>
         </ul>
-        
+
         <h3>Duplicate test identifiers</h3>
         <p>If you have duplicate test identifiers, Jouster might not be able to map tests to issues correctly. To fix this:</p>
         <ul>
@@ -390,7 +390,7 @@ module.exports = {
           <li>Clean the mapping database: <code>npx jouster clean-database</code></li>
         </ul>
       </div>
-      
+
       <h2 class="collapsible-header">Template Issues</h2>
       <div class="collapsible-content">
         <h3>Template not found</h3>
@@ -400,7 +400,7 @@ module.exports = {
           <li>Make sure the path to the template is correct in your configuration</li>
           <li>You can specify a different template using the <code>--template-open</code>, <code>--template-close</code>, and <code>--template-reopen</code> options</li>
         </ul>
-        
+
         <h3>Template variables not working</h3>
         <p>If template variables aren't being replaced with actual values, check the following:</p>
         <ul>
@@ -408,7 +408,7 @@ module.exports = {
           <li>Check that the variables are available in the context</li>
           <li>Try using a simpler template to see if it works</li>
         </ul>
-        
+
         <h3>Template helpers not working</h3>
         <p>If template helpers aren't working, check the following:</p>
         <ul>
@@ -417,22 +417,22 @@ module.exports = {
           <li>Try using a simpler template to see if it works</li>
         </ul>
       </div>
-      
+
       <h2 class="collapsible-header">Common Error Messages</h2>
       <div class="collapsible-content">
         <h3>Error: Cannot find module 'jouster'</h3>
         <p>This error means that Jouster is not installed or not in your node_modules directory. To fix it:</p>
         <pre><code class="language-bash">npm install --save-dev jouster</code></pre>
-        
+
         <h3>Error: Cannot find module 'jest'</h3>
         <p>This error means that Jest is not installed or not in your node_modules directory. To fix it:</p>
         <pre><code class="language-bash">npm install --save-dev jest</code></pre>
-        
+
         <h3>Error: Cannot find configuration file</h3>
         <p>This error means that Jouster can't find your configuration file. To fix it:</p>
         <pre><code class="language-bash">npx jouster init</code></pre>
         <p>This will create a default configuration file in the root of your project.</p>
-        
+
         <h3>Error: GitHub API rate limit exceeded</h3>
         <p>This error means that you've exceeded GitHub's API rate limit. To fix it:</p>
         <ul>
@@ -440,7 +440,7 @@ module.exports = {
           <li>Use a GitHub token with higher rate limits</li>
           <li>Reduce the number of API calls you're making</li>
         </ul>
-        
+
         <h3>Error: Permission denied</h3>
         <p>This error means that you don't have permission to access a file or directory. To fix it:</p>
         <ul>
@@ -449,7 +449,7 @@ module.exports = {
           <li>Run Jouster with elevated privileges (not recommended): <code>sudo npx jouster</code></li>
         </ul>
       </div>
-      
+
       <h2 class="collapsible-header">Getting Help</h2>
       <div class="collapsible-content">
         <h3>Documentation</h3>
@@ -460,26 +460,26 @@ module.exports = {
           <li><a href="./usage-guide.html">Usage Guide</a></li>
           <li><a href="./api-reference.html">API Reference</a></li>
         </ul>
-        
+
         <h3>GitHub Issues</h3>
         <p>If you've found a bug or have a feature request, you can create an issue on GitHub:</p>
         <ul>
           <li><a href="https://github.com/TSavo/jouster/issues" target="_blank">Jouster Issues</a></li>
         </ul>
-        
+
         <h3>Community</h3>
         <p>If you need help from the community, you can join the Jouster community:</p>
         <ul>
           <li><a href="https://github.com/TSavo/jouster/discussions" target="_blank">GitHub Discussions</a></li>
         </ul>
-        
+
         <h3>Contact</h3>
         <p>If you need to contact the maintainers directly, you can email them:</p>
         <ul>
-          <li>Email: <a href="mailto:evilgenius@nefariousplan.com">evilgenius@nefariousplan.com</a></li>
+          <li>Email: evilgenius@nefariousplan.com</li>
         </ul>
       </div>
-      
+
       <footer>
         <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
       </footer>
