@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jouster Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #0366d6;
+        }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            background-color: #f6f8fa;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e4e8;
+            font-size: 14px;
+            color: #586069;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jouster Documentation</h1>
+        <p>Welcome to the Jouster documentation! Jouster is a powerful tool that helps you "stick it to your failing tests" by automatically creating GitHub issues for failing tests and closing them when tests pass.</p>
+    </div>
+
+    <div class="section">
+        <h2>Test Runners</h2>
+        <p>Jouster supports multiple test runners, allowing you to use your preferred testing framework while still benefiting from Jouster's issue tracking capabilities.</p>
+        <ul>
+            <li><a href="./docs/test-runners.html">Test Runners Overview</a></li>
+            <li><a href="./docs/test-runners/jest.html">Jest</a></li>
+            <li><a href="./docs/test-runners/mocha.html">Mocha</a></li>
+            <li><a href="./docs/test-runners/ava.html">AVA</a></li>
+            <li><a href="./docs/test-runners/tape.html">Tape</a></li>
+            <li><a href="./docs/test-runners/jasmine.html">Jasmine</a></li>
+            <li><a href="./docs/test-runners/vitest.html">Vitest</a></li>
+            <li><a href="./docs/test-runners/cypress.html">Cypress</a></li>
+            <li><a href="./docs/test-runners/playwright.html">Playwright</a></li>
+            <li><a href="./docs/test-runners/testcafe.html">TestCafe</a></li>
+            <li><a href="./docs/test-runners/karma.html">Karma</a></li>
+            <li><a href="./docs/test-runners/generic.html">Generic</a></li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>About Jouster</h2>
+        <p>Jouster is designed to streamline the process of tracking and managing test failures in your test suite. It supports multiple test runners including Jest, Mocha, AVA, Tape, Jasmine, Vitest, Cypress, Playwright, TestCafe, and Karma. By automatically creating GitHub issues for failing tests and closing them when tests pass, Jouster helps you:</p>
+        <ul>
+            <li>Keep track of failing tests without manual intervention</li>
+            <li>Maintain a clear history of test failures and fixes</li>
+            <li>Provide detailed information about test failures to developers</li>
+            <li>Close issues automatically when tests start passing</li>
+            <li>Reopen issues when tests start failing again (regression handling)</li>
+        </ul>
+        <p>Jouster is built with a focus on performance, reliability, and extensibility, making it suitable for projects of all sizes.</p>
+    </div>
+
+    <div class="footer">
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+    </div>
+</body>
+</html>
