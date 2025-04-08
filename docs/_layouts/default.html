@@ -3,11 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-  <link rel="icon" href="{{ '/assets/images/logo.svg' | relative_url }}" type="image/svg+xml">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="{{ '/assets/js/main.js' | relative_url }}" defer></script>
+  <title>{% if page.title %}{{ page.title }} - {% endif %}Jouster Documentation</title>
+  <style>
+    /* Basic styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #24292e;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .wrapper {
+      display: flex;
+    }
+
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      border-right: 1px solid #e1e4e8;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px 40px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: #0366d6;
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .nav-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-list li {
+      margin-bottom: 8px;
+    }
+
+    .nav-section {
+      margin-bottom: 20px;
+    }
+
+    .nav-section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #0366d6;
+    }
+
+    .nav-subsection {
+      padding-left: 15px;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e1e4e8;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="wrapper">
@@ -15,19 +106,6 @@
       <div class="logo">
         <img src="{{ '/assets/images/logo.svg' | relative_url }}" alt="Jouster Logo">
         <h1>Jouster</h1>
-      </div>
-
-      <div class="search-container">
-        <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
-        <ul id="search-results" class="search-results"></ul>
-      </div>
-
-      <div class="dark-mode-container">
-        <span class="dark-mode-label">Dark Mode</span>
-        <label class="dark-mode-toggle">
-          <input type="checkbox" id="dark-mode-toggle">
-          <span class="dark-mode-slider"></span>
-        </label>
       </div>
 
       <nav>
@@ -38,16 +116,6 @@
             <li><a href="{{ '/getting-started.html' | relative_url }}">Installation</a></li>
             <li><a href="{{ '/setup-wizard.html' | relative_url }}">Setup Wizard</a></li>
             <li><a href="{{ '/usage-guide.html' | relative_url }}">Usage Guide</a></li>
-          </ul>
-        </div>
-
-        <div class="nav-section">
-          <div class="nav-section-title">Core Concepts</div>
-          <ul class="nav-list">
-            <li><a href="{{ '/core-concepts.html' | relative_url }}">How Jouster Works</a></li>
-            <li><a href="{{ '/core-concepts.html#test-identification' | relative_url }}">Test Identification</a></li>
-            <li><a href="{{ '/core-concepts.html#issue-lifecycle' | relative_url }}">Issue Lifecycle</a></li>
-            <li><a href="{{ '/core-concepts.html#mapping-database' | relative_url }}">Mapping Database</a></li>
           </ul>
         </div>
 
@@ -74,16 +142,6 @@
         </div>
 
         <div class="nav-section">
-          <div class="nav-section-title">Advanced Features</div>
-          <ul class="nav-list">
-            <li><a href="{{ '/advanced-features.html' | relative_url }}">Overview</a></li>
-            <li><a href="{{ '/templates.html' | relative_url }}">Templates</a></li>
-            <li><a href="{{ '/advanced-features.html#hooks' | relative_url }}">Hooks</a></li>
-            <li><a href="{{ '/advanced-features.html#plugins' | relative_url }}">Plugins</a></li>
-          </ul>
-        </div>
-
-        <div class="nav-section">
           <div class="nav-section-title">Resources</div>
           <ul class="nav-list">
             <li><a href="{{ '/api-reference.html' | relative_url }}">API Reference</a></li>
@@ -96,20 +154,6 @@
     </aside>
 
     <main class="main-content">
-      <header>
-        {% assign url_parts = page.url | split: '/' %}
-        <ul class="breadcrumbs">
-          <li><a href="{{ '/' | relative_url }}">Home</a></li>
-
-          {% if url_parts.size > 2 %}
-            {% assign parent_path = url_parts[1] | append: '.html' %}
-            <li><a href="{{ parent_path | prepend: '/' | relative_url }}">{{ url_parts[1] | capitalize }}</a></li>
-          {% endif %}
-
-          <li class="current">{{ page.title }}</li>
-        </ul>
-      </header>
-
       <div class="content">
         {{ content }}
       </div>
