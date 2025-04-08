@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contributing - Jouster Documentation</title>
+  
+  <!-- CSS files -->
+  <link rel="stylesheet" href="./assets/css/search.css">
+  <link rel="stylesheet" href="./assets/css/collapsible.css">
+  <link rel="stylesheet" href="./assets/css/code-highlight.css">
+  <link rel="stylesheet" href="./assets/css/interactive-demos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- JavaScript files -->
+  <script src="./assets/js/search-index.js" defer></script>
+  <script src="./assets/js/search-core.js" defer></script>
+  <script src="./assets/js/search-ui.js" defer></script>
+  <script src="./assets/js/collapsible.js" defer></script>
+  <script src="./assets/js/code-highlight.js" defer></script>
+  <script src="./assets/js/interactive-demos.js" defer></script>
+  <script src="./assets/js/main.js" defer></script>
+  
+  <style>
+    /* Basic styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #24292e;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .wrapper {
+      display: flex;
+    }
+    
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      border-right: 1px solid #e1e4e8;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 20px 40px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #0366d6;
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+    
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .nav-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-list li {
+      margin-bottom: 8px;
+    }
+    
+    .nav-section {
+      margin-bottom: 20px;
+    }
+    
+    .nav-section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #0366d6;
+    }
+    
+    .nav-subsection {
+      padding-left: 15px;
+    }
+    
+    /* Enhanced badge */
+    .enhanced-badge {
+      display: inline-block;
+      background-color: #2ea44f;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode h1, 
+    body.dark-mode h2, 
+    body.dark-mode h3, 
+    body.dark-mode h4, 
+    body.dark-mode h5, 
+    body.dark-mode h6 {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode a {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .sidebar {
+      border-right-color: #30363d;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e1e4e8;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="./assets/images/logo.svg" alt="Jouster Logo">
+        <h1>Jouster</h1>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
+        <div id="search-results" class="search-results"></div>
+      </div>
+      
+      <div class="dark-mode-container">
+        <span class="dark-mode-label">Dark Mode</span>
+        <label class="dark-mode-toggle">
+          <input type="checkbox" id="dark-mode-toggle">
+          <span class="dark-mode-slider"></span>
+        </label>
+      </div>
+      
+      <nav>
+        <div class="nav-section">
+          <div class="nav-section-title">Getting Started</div>
+          <ul class="nav-list">
+            <li><a href="./main.html">Introduction</a></li>
+            <li><a href="./getting-started-enhanced.html">Installation</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="./setup-wizard.html">Setup Wizard</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="./usage-guide.html">Usage Guide</a> <span class="enhanced-badge">Enhanced</span></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Test Runners</div>
+          <ul class="nav-list">
+            <li><a href="./test-runners-enhanced.html">Overview</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li class="nav-subsection">
+              <ul class="nav-list">
+                <li><a href="./test-runners/jest-enhanced.html">Jest</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/mocha-enhanced.html">Mocha</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/ava.html">AVA</a></li>
+                <li><a href="./test-runners/tape.html">Tape</a></li>
+                <li><a href="./test-runners/jasmine.html">Jasmine</a></li>
+                <li><a href="./test-runners/vitest.html">Vitest</a></li>
+                <li><a href="./test-runners/cypress.html">Cypress</a></li>
+                <li><a href="./test-runners/playwright.html">Playwright</a></li>
+                <li><a href="./test-runners/testcafe.html">TestCafe</a></li>
+                <li><a href="./test-runners/karma.html">Karma</a></li>
+                <li><a href="./test-runners/generic.html">Generic</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Core Concepts</div>
+          <ul class="nav-list">
+            <li><a href="./core-concepts.html">How Jouster Works</a></li>
+            <li><a href="./core-concepts.html#test-identification">Test Identification</a></li>
+            <li><a href="./core-concepts.html#issue-lifecycle">Issue Lifecycle</a></li>
+            <li><a href="./core-concepts.html#mapping-database">Mapping Database</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Advanced Features</div>
+          <ul class="nav-list">
+            <li><a href="./advanced-features.html">Overview</a></li>
+            <li><a href="./templates.html">Templates</a></li>
+            <li><a href="./advanced-features.html#hooks">Hooks</a></li>
+            <li><a href="./advanced-features.html#plugins">Plugins</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Resources</div>
+          <ul class="nav-list">
+            <li><a href="./api-reference.html">API Reference</a></li>
+            <li><a href="./troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="./contributing.html">Contributing</a></li>
+            <li><a href="./examples/README.html">Examples</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <h1>Contributing to Jouster</h1>
+      
+      <p>Thank you for your interest in contributing to Jouster! This page provides guidelines and information for contributing to the project.</p>
+      
+      <h2 class="collapsible-header">Code of Conduct</h2>
+      <div class="collapsible-content">
+        <p>We expect all contributors to follow our Code of Conduct. By participating in this project, you agree to abide by its terms.</p>
+        
+        <h3>Our Pledge</h3>
+        <p>In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.</p>
+        
+        <h3>Our Standards</h3>
+        <p>Examples of behavior that contributes to creating a positive environment include:</p>
+        <ul>
+          <li>Using welcoming and inclusive language</li>
+          <li>Being respectful of differing viewpoints and experiences</li>
+          <li>Gracefully accepting constructive criticism</li>
+          <li>Focusing on what is best for the community</li>
+          <li>Showing empathy towards other community members</li>
+        </ul>
+        
+        <p>Examples of unacceptable behavior by participants include:</p>
+        <ul>
+          <li>The use of sexualized language or imagery and unwelcome sexual attention or advances</li>
+          <li>Trolling, insulting/derogatory comments, and personal or political attacks</li>
+          <li>Public or private harassment</li>
+          <li>Publishing others' private information, such as a physical or electronic address, without explicit permission</li>
+          <li>Other conduct which could reasonably be considered inappropriate in a professional setting</li>
+        </ul>
+      </div>
+      
+      <h2 class="collapsible-header">Getting Started</h2>
+      <div class="collapsible-content">
+        <h3>Fork the Repository</h3>
+        <p>To contribute to Jouster, you'll need to fork the repository:</p>
+        <ol>
+          <li>Go to the <a href="https://github.com/TSavo/jouster" target="_blank">Jouster repository</a> on GitHub</li>
+          <li>Click the "Fork" button in the top-right corner</li>
+          <li>Clone your fork to your local machine: <code>git clone https://github.com/YOUR_USERNAME/jouster.git</code></li>
+          <li>Add the original repository as a remote: <code>git remote add upstream https://github.com/TSavo/jouster.git</code></li>
+        </ol>
+        
+        <h3>Set Up the Development Environment</h3>
+        <p>To set up the development environment:</p>
+        <ol>
+          <li>Install Node.js (version 14 or later)</li>
+          <li>Install dependencies: <code>npm install</code></li>
+          <li>Build the project: <code>npm run build</code></li>
+          <li>Run tests: <code>npm test</code></li>
+        </ol>
+      </div>
+      
+      <h2 class="collapsible-header">Development Workflow</h2>
+      <div class="collapsible-content">
+        <h3>Branching Strategy</h3>
+        <p>We use a simple branching strategy:</p>
+        <ul>
+          <li><code>main</code>: The main branch contains the latest stable release</li>
+          <li><code>develop</code>: The development branch contains the latest development changes</li>
+          <li>Feature branches: Created from <code>develop</code> for new features</li>
+          <li>Bugfix branches: Created from <code>develop</code> for bug fixes</li>
+        </ul>
+        
+        <h3>Creating a Branch</h3>
+        <p>To create a new branch:</p>
+        <pre><code class="language-bash">git checkout develop
+git pull upstream develop
+git checkout -b feature/your-feature-name</code></pre>
+        
+        <h3>Making Changes</h3>
+        <p>When making changes:</p>
+        <ul>
+          <li>Follow the code style of the project</li>
+          <li>Write tests for your changes</li>
+          <li>Make sure all tests pass: <code>npm test</code></li>
+          <li>Update documentation if necessary</li>
+        </ul>
+        
+        <h3>Committing Changes</h3>
+        <p>When committing changes:</p>
+        <ul>
+          <li>Use descriptive commit messages</li>
+          <li>Reference issue numbers in your commit messages: <code>Fix #123: Add support for XYZ</code></li>
+          <li>Make small, focused commits rather than large, sweeping changes</li>
+        </ul>
+        
+        <h3>Submitting a Pull Request</h3>
+        <p>To submit a pull request:</p>
+        <ol>
+          <li>Push your branch to your fork: <code>git push origin feature/your-feature-name</code></li>
+          <li>Go to the <a href="https://github.com/TSavo/jouster" target="_blank">Jouster repository</a> on GitHub</li>
+          <li>Click the "New pull request" button</li>
+          <li>Select your branch and fill out the pull request template</li>
+          <li>Submit the pull request</li>
+        </ol>
+      </div>
+      
+      <h2 class="collapsible-header">Coding Standards</h2>
+      <div class="collapsible-content">
+        <h3>Code Style</h3>
+        <p>We use ESLint and Prettier to enforce code style. To check your code style:</p>
+        <pre><code class="language-bash">npm run lint</code></pre>
+        <p>To automatically fix code style issues:</p>
+        <pre><code class="language-bash">npm run lint:fix</code></pre>
+        
+        <h3>TypeScript</h3>
+        <p>We use TypeScript for type safety. Make sure your code passes the TypeScript compiler:</p>
+        <pre><code class="language-bash">npm run build</code></pre>
+        
+        <h3>Testing</h3>
+        <p>We use Jest for testing. Make sure your code has tests and all tests pass:</p>
+        <pre><code class="language-bash">npm test</code></pre>
+        <p>To run tests with coverage:</p>
+        <pre><code class="language-bash">npm run test:coverage</code></pre>
+        
+        <h3>Documentation</h3>
+        <p>We use JSDoc for code documentation. Make sure your code is well-documented:</p>
+        <pre><code class="language-javascript">/**
+ * Adds two numbers.
+ * @param {number} a - The first number.
+ * @param {number} b - The second number.
+ * @returns {number} The sum of a and b.
+ */
+function add(a, b) {
+  return a + b;
+}</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Pull Request Guidelines</h2>
+      <div class="collapsible-content">
+        <h3>Pull Request Template</h3>
+        <p>When submitting a pull request, please use the provided template and fill out all sections:</p>
+        <pre><code class="language-markdown"># Description
+
+Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context.
+
+Fixes # (issue)
+
+## Type of change
+
+Please delete options that are not relevant.
+
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] This change requires a documentation update
+
+## How Has This Been Tested?
+
+Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. Please also list any relevant details for your test configuration.
+
+- [ ] Test A
+- [ ] Test B
+
+## Checklist:
+
+- [ ] My code follows the style guidelines of this project
+- [ ] I have performed a self-review of my own code
+- [ ] I have commented my code, particularly in hard-to-understand areas
+- [ ] I have made corresponding changes to the documentation
+- [ ] My changes generate no new warnings
+- [ ] I have added tests that prove my fix is effective or that my feature works
+- [ ] New and existing unit tests pass locally with my changes
+- [ ] Any dependent changes have been merged and published in downstream modules</code></pre>
+        
+        <h3>Review Process</h3>
+        <p>All pull requests will be reviewed by at least one maintainer. The review process includes:</p>
+        <ul>
+          <li>Code review: Checking code quality, style, and correctness</li>
+          <li>Test review: Ensuring tests are adequate and pass</li>
+          <li>Documentation review: Ensuring documentation is updated</li>
+        </ul>
+        
+        <h3>Continuous Integration</h3>
+        <p>All pull requests are automatically tested by our continuous integration system. Make sure all tests pass before submitting a pull request.</p>
+      </div>
+      
+      <h2 class="collapsible-header">Issue Guidelines</h2>
+      <div class="collapsible-content">
+        <h3>Bug Reports</h3>
+        <p>When reporting a bug, please include:</p>
+        <ul>
+          <li>A clear and descriptive title</li>
+          <li>Steps to reproduce the bug</li>
+          <li>Expected behavior</li>
+          <li>Actual behavior</li>
+          <li>Screenshots (if applicable)</li>
+          <li>Environment information (OS, Node.js version, etc.)</li>
+        </ul>
+        
+        <h3>Feature Requests</h3>
+        <p>When requesting a feature, please include:</p>
+        <ul>
+          <li>A clear and descriptive title</li>
+          <li>A detailed description of the feature</li>
+          <li>Why the feature would be useful</li>
+          <li>How the feature would work</li>
+          <li>Examples of similar features in other projects (if applicable)</li>
+        </ul>
+        
+        <h3>Questions</h3>
+        <p>If you have a question about Jouster, please:</p>
+        <ul>
+          <li>Check the documentation first</li>
+          <li>Search for existing issues</li>
+          <li>If you can't find an answer, create a new issue with the "question" label</li>
+        </ul>
+      </div>
+      
+      <h2 class="collapsible-header">Community</h2>
+      <div class="collapsible-content">
+        <h3>Communication Channels</h3>
+        <p>We use the following channels for communication:</p>
+        <ul>
+          <li><a href="https://github.com/TSavo/jouster/issues" target="_blank">GitHub Issues</a>: For bug reports, feature requests, and questions</li>
+          <li><a href="https://github.com/TSavo/jouster/discussions" target="_blank">GitHub Discussions</a>: For general discussion and community interaction</li>
+        </ul>
+        
+        <h3>Maintainers</h3>
+        <p>The current maintainers of Jouster are:</p>
+        <ul>
+          <li><a href="https://github.com/TSavo" target="_blank">T Savo</a></li>
+        </ul>
+        
+        <h3>Becoming a Maintainer</h3>
+        <p>If you're interested in becoming a maintainer, please contact one of the current maintainers. We're always looking for passionate contributors to help maintain and improve Jouster.</p>
+      </div>
+      
+      <footer>
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

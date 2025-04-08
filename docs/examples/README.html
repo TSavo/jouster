@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examples - Jouster Documentation</title>
+  
+  <!-- CSS files -->
+  <link rel="stylesheet" href="../assets/css/search.css">
+  <link rel="stylesheet" href="../assets/css/collapsible.css">
+  <link rel="stylesheet" href="../assets/css/code-highlight.css">
+  <link rel="stylesheet" href="../assets/css/interactive-demos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- JavaScript files -->
+  <script src="../assets/js/search-index.js" defer></script>
+  <script src="../assets/js/search-core.js" defer></script>
+  <script src="../assets/js/search-ui.js" defer></script>
+  <script src="../assets/js/collapsible.js" defer></script>
+  <script src="../assets/js/code-highlight.js" defer></script>
+  <script src="../assets/js/interactive-demos.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
+  
+  <style>
+    /* Basic styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #24292e;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .wrapper {
+      display: flex;
+    }
+    
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      border-right: 1px solid #e1e4e8;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 20px 40px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #0366d6;
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+    
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .nav-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-list li {
+      margin-bottom: 8px;
+    }
+    
+    .nav-section {
+      margin-bottom: 20px;
+    }
+    
+    .nav-section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #0366d6;
+    }
+    
+    .nav-subsection {
+      padding-left: 15px;
+    }
+    
+    /* Enhanced badge */
+    .enhanced-badge {
+      display: inline-block;
+      background-color: #2ea44f;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode h1, 
+    body.dark-mode h2, 
+    body.dark-mode h3, 
+    body.dark-mode h4, 
+    body.dark-mode h5, 
+    body.dark-mode h6 {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode a {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .sidebar {
+      border-right-color: #30363d;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e1e4e8;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="../assets/images/logo.svg" alt="Jouster Logo">
+        <h1>Jouster</h1>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
+        <div id="search-results" class="search-results"></div>
+      </div>
+      
+      <div class="dark-mode-container">
+        <span class="dark-mode-label">Dark Mode</span>
+        <label class="dark-mode-toggle">
+          <input type="checkbox" id="dark-mode-toggle">
+          <span class="dark-mode-slider"></span>
+        </label>
+      </div>
+      
+      <nav>
+        <div class="nav-section">
+          <div class="nav-section-title">Getting Started</div>
+          <ul class="nav-list">
+            <li><a href="../main.html">Introduction</a></li>
+            <li><a href="../getting-started-enhanced.html">Installation</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="../setup-wizard.html">Setup Wizard</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="../usage-guide.html">Usage Guide</a> <span class="enhanced-badge">Enhanced</span></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Test Runners</div>
+          <ul class="nav-list">
+            <li><a href="../test-runners-enhanced.html">Overview</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li class="nav-subsection">
+              <ul class="nav-list">
+                <li><a href="../test-runners/jest-enhanced.html">Jest</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="../test-runners/mocha-enhanced.html">Mocha</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="../test-runners/ava.html">AVA</a></li>
+                <li><a href="../test-runners/tape.html">Tape</a></li>
+                <li><a href="../test-runners/jasmine.html">Jasmine</a></li>
+                <li><a href="../test-runners/vitest.html">Vitest</a></li>
+                <li><a href="../test-runners/cypress.html">Cypress</a></li>
+                <li><a href="../test-runners/playwright.html">Playwright</a></li>
+                <li><a href="../test-runners/testcafe.html">TestCafe</a></li>
+                <li><a href="../test-runners/karma.html">Karma</a></li>
+                <li><a href="../test-runners/generic.html">Generic</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Core Concepts</div>
+          <ul class="nav-list">
+            <li><a href="../core-concepts.html">How Jouster Works</a></li>
+            <li><a href="../core-concepts.html#test-identification">Test Identification</a></li>
+            <li><a href="../core-concepts.html#issue-lifecycle">Issue Lifecycle</a></li>
+            <li><a href="../core-concepts.html#mapping-database">Mapping Database</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Advanced Features</div>
+          <ul class="nav-list">
+            <li><a href="../advanced-features.html">Overview</a></li>
+            <li><a href="../templates.html">Templates</a></li>
+            <li><a href="../advanced-features.html#hooks">Hooks</a></li>
+            <li><a href="../advanced-features.html#plugins">Plugins</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Resources</div>
+          <ul class="nav-list">
+            <li><a href="../api-reference.html">API Reference</a></li>
+            <li><a href="../troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="../contributing.html">Contributing</a></li>
+            <li><a href="../examples/README.html">Examples</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <h1>Jouster Examples</h1>
+      
+      <p>This page provides examples of how to use Jouster in different scenarios. These examples demonstrate best practices and common use cases.</p>
+      
+      <h2 class="collapsible-header">Basic Examples</h2>
+      <div class="collapsible-content">
+        <h3>Basic Jest Example</h3>
+        <p>This example shows how to use Jouster with Jest:</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  testRunnerType: 'jest',
+  issueManager: 'github',
+  github: {
+    owner: 'TSavo',
+    repo: 'jouster',
+    token: process.env.GITHUB_TOKEN
+  }
+};</code></pre>
+        
+        <p>Run Jouster with Jest:</p>
+        
+        <pre><code class="language-bash">npx jouster run-tests</code></pre>
+        
+        <h3>Basic Mocha Example</h3>
+        <p>This example shows how to use Jouster with Mocha:</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  testRunnerType: 'mocha',
+  issueManager: 'github',
+  github: {
+    owner: 'TSavo',
+    repo: 'jouster',
+    token: process.env.GITHUB_TOKEN
+  }
+};</code></pre>
+        
+        <p>Run Jouster with Mocha:</p>
+        
+        <pre><code class="language-bash">npx jouster run-tests</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Advanced Examples</h2>
+      <div class="collapsible-content">
+        <h3>Custom Templates</h3>
+        <p>This example shows how to use custom templates:</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  testRunnerType: 'jest',
+  issueManager: 'github',
+  github: {
+    owner: 'TSavo',
+    repo: 'jouster',
+    token: process.env.GITHUB_TOKEN
+  },
+  templates: {
+    open: './templates/open.md',
+    close: './templates/close.md',
+    reopen: './templates/reopen.md'
+  }
+};</code></pre>
+        
+        <p>Create custom templates:</p>
+        
+        <pre><code class="language-markdown">// templates/open.md
+# Test Failure: {{test.name}}
+
+This test is failing with the following error:
+
+```
+{{test.error}}
+```
+
+## Stack Trace
+
+```
+{{test.stackTrace}}
+```
+
+## Test Location
+
+- **File**: {{test.file}}
+- **Line**: {{test.line}}
+- **Column**: {{test.column}}
+
+## Test Runner
+
+- **Type**: {{testRunner.type}}
+- **Version**: {{testRunner.version}}
+
+## System Information
+
+- **OS**: {{system.os}}
+- **Node Version**: {{system.nodeVersion}}
+- **Jouster Version**: {{system.jousterVersion}}
+</code></pre>
+        
+        <h3>Custom Hooks</h3>
+        <p>This example shows how to use custom hooks:</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  testRunnerType: 'jest',
+  issueManager: 'github',
+  github: {
+    owner: 'TSavo',
+    repo: 'jouster',
+    token: process.env.GITHUB_TOKEN
+  },
+  hooks: {
+    beforeRun: './hooks/before-run.js',
+    afterRun: './hooks/after-run.js',
+    beforeIssueCreate: './hooks/before-issue-create.js',
+    afterIssueCreate: './hooks/after-issue-create.js'
+  }
+};</code></pre>
+        
+        <p>Create custom hooks:</p>
+        
+        <pre><code class="language-javascript">// hooks/before-run.js
+module.exports = function(context) {
+  console.log('Running tests with Jouster...');
+  console.log('Test runner:', context.config.testRunnerType);
+  console.log('Issue manager:', context.config.issueManager);
+  
+  // You can modify the context object to affect Jouster's behavior
+  context.config.testRunnerOptions.jest.bail = true;
+  
+  // You can also return a promise to perform asynchronous operations
+  return Promise.resolve();
+};</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">CI/CD Examples</h2>
+      <div class="collapsible-content">
+        <h3>GitHub Actions Example</h3>
+        <p>This example shows how to use Jouster with GitHub Actions:</p>
+        
+        <pre><code class="language-yaml">// .github/workflows/jouster.yml
+name: Jouster
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run tests with Jouster
+      run: npx jouster run-tests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}</code></pre>
+        
+        <h3>CircleCI Example</h3>
+        <p>This example shows how to use Jouster with CircleCI:</p>
+        
+        <pre><code class="language-yaml">// .circleci/config.yml
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: cimg/node:14.17
+    
+    steps:
+      - checkout
+      
+      - run:
+          name: Install dependencies
+          command: npm ci
+      
+      - run:
+          name: Run tests with Jouster
+          command: npx jouster run-tests
+          environment:
+            GITHUB_TOKEN: ${GITHUB_TOKEN}
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - test</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Custom Test Runner Examples</h2>
+      <div class="collapsible-content">
+        <h3>Custom Test Runner Example</h3>
+        <p>This example shows how to create and use a custom test runner:</p>
+        
+        <pre><code class="language-javascript">// custom-test-runner.js
+module.exports = {
+  run: async function(options) {
+    // Run the tests and return the results
+    const { spawn } = require('child_process');
+    const child = spawn('custom-test-runner', ['--reporter', 'json']);
+    
+    let stdout = '';
+    child.stdout.on('data', (data) => {
+      stdout += data.toString();
+    });
+    
+    return new Promise((resolve, reject) => {
+      child.on('close', (code) => {
+        if (code === 0) {
+          resolve(stdout);
+        } else {
+          reject(new Error(`Test runner exited with code ${code}`));
+        }
+      });
+    });
+  },
+  
+  parseResults: function(results) {
+    // Parse the results into a standard format
+    const parsedResults = JSON.parse(results);
+    
+    return {
+      passed: parsedResults.passed,
+      failed: parsedResults.failed,
+      tests: parsedResults.tests.map((test) => ({
+        name: test.name,
+        file: test.file,
+        status: test.status,
+        error: test.error
+      }))
+    };
+  },
+  
+  generateTestId: function(test) {
+    // Generate a unique identifier for the test
+    return `${test.file}:${test.name}`;
+  }
+};</code></pre>
+        
+        <p>Register the custom test runner:</p>
+        
+        <pre><code class="language-javascript">// plugins/custom-plugin.js
+module.exports = function(jouster) {
+  jouster.addTestRunner('custom', require('./custom-test-runner'));
+};</code></pre>
+        
+        <p>Use the custom test runner:</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  testRunnerType: 'custom',
+  issueManager: 'github',
+  github: {
+    owner: 'TSavo',
+    repo: 'jouster',
+    token: process.env.GITHUB_TOKEN
+  },
+  plugins: [
+    './plugins/custom-plugin.js'
+  ]
+};</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Custom Issue Manager Examples</h2>
+      <div class="collapsible-content">
+        <h3>Custom Issue Manager Example</h3>
+        <p>This example shows how to create and use a custom issue manager:</p>
+        
+        <pre><code class="language-javascript">// custom-issue-manager.js
+module.exports = {
+  createIssue: async function(issue, options) {
+    // Create a new issue in the bug tracking system
+    const response = await fetch('https://api.example.com/issues', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${options.token}`
+      },
+      body: JSON.stringify({
+        title: issue.title,
+        body: issue.body,
+        labels: issue.labels
+      })
+    });
+    
+    const data = await response.json();
+    
+    return {
+      id: data.id,
+      url: data.url
+    };
+  },
+  
+  closeIssue: async function(issueId, options) {
+    // Close an issue in the bug tracking system
+    await fetch(`https://api.example.com/issues/${issueId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${options.token}`
+      },
+      body: JSON.stringify({
+        state: 'closed'
+      })
+    });
+  },
+  
+  reopenIssue: async function(issueId, options) {
+    // Reopen a closed issue in the bug tracking system
+    await fetch(`https://api.example.com/issues/${issueId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${options.token}`
+      },
+      body: JSON.stringify({
+        state: 'open'
+      })
+    });
+  },
+  
+  getIssue: async function(issueId, options) {
+    // Get information about an issue in the bug tracking system
+    const response = await fetch(`https://api.example.com/issues/${issueId}`, {
+      headers: {
+        'Authorization': `Bearer ${options.token}`
+      }
+    });
+    
+    const data = await response.json();
+    
+    return {
+      id: data.id,
+      title: data.title,
+      body: data.body,
+      state: data.state,
+      url: data.url
+    };
+  }
+};</code></pre>
+        
+        <p>Register the custom issue manager:</p>
+        
+        <pre><code class="language-javascript">// plugins/custom-plugin.js
+module.exports = function(jouster) {
+  jouster.addIssueManager('custom', require('./custom-issue-manager'));
+};</code></pre>
+        
+        <p>Use the custom issue manager:</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  testRunnerType: 'jest',
+  issueManager: 'custom',
+  custom: {
+    token: process.env.CUSTOM_TOKEN
+  },
+  plugins: [
+    './plugins/custom-plugin.js'
+  ]
+};</code></pre>
+      </div>
+      
+      <footer>
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
