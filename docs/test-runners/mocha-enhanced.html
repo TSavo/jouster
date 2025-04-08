@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mocha Test Runner - Jouster Documentation</title>
-  
+
   <!-- CSS files -->
   <link rel="stylesheet" href="../assets/css/search.css">
   <link rel="stylesheet" href="../assets/css/collapsible.css">
@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../assets/css/interactive-demos.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <!-- JavaScript files -->
   <script src="../assets/js/search-index.js" defer></script>
   <script src="../assets/js/search-core.js" defer></script>
@@ -21,7 +21,7 @@
   <script src="../assets/js/code-highlight.js" defer></script>
   <script src="../assets/js/interactive-demos.js" defer></script>
   <script src="../assets/js/main.js" defer></script>
-  
+
   <style>
     /* Basic styles */
     body {
@@ -32,107 +32,107 @@
       margin: 0 auto;
       padding: 20px;
     }
-    
+
     .wrapper {
       display: flex;
     }
-    
+
     .sidebar {
       width: 260px;
       padding: 20px;
       border-right: 1px solid #e1e4e8;
     }
-    
+
     .main-content {
       flex: 1;
       padding: 20px 40px;
     }
-    
+
     h1, h2, h3, h4, h5, h6 {
       color: #0366d6;
       margin-top: 24px;
       margin-bottom: 16px;
     }
-    
+
     a {
       color: #0366d6;
       text-decoration: none;
     }
-    
+
     a:hover {
       text-decoration: underline;
     }
-    
+
     .logo {
       display: flex;
       align-items: center;
       margin-bottom: 20px;
     }
-    
+
     .logo img {
       width: 40px;
       height: 40px;
       margin-right: 10px;
     }
-    
+
     .logo h1 {
       margin: 0;
       font-size: 24px;
     }
-    
+
     .nav-list {
       list-style-type: none;
       padding: 0;
       margin: 0;
     }
-    
+
     .nav-list li {
       margin-bottom: 8px;
     }
-    
+
     .nav-section {
       margin-bottom: 20px;
     }
-    
+
     .nav-section-title {
       font-weight: 600;
       margin-bottom: 10px;
       color: #0366d6;
     }
-    
+
     .nav-subsection {
       padding-left: 15px;
     }
-    
+
     /* Dark mode styles */
     body.dark-mode {
       background-color: #0d1117;
       color: #c9d1d9;
     }
-    
-    body.dark-mode h1, 
-    body.dark-mode h2, 
-    body.dark-mode h3, 
-    body.dark-mode h4, 
-    body.dark-mode h5, 
+
+    body.dark-mode h1,
+    body.dark-mode h2,
+    body.dark-mode h3,
+    body.dark-mode h4,
+    body.dark-mode h5,
     body.dark-mode h6 {
       color: #58a6ff;
     }
-    
+
     body.dark-mode a {
       color: #58a6ff;
     }
-    
+
     body.dark-mode .sidebar {
       border-right-color: #30363d;
     }
-    
+
     /* Responsive design */
     @media (max-width: 768px) {
       .wrapper {
         flex-direction: column;
       }
-      
+
       .sidebar {
         width: 100%;
         border-right: none;
@@ -148,12 +148,12 @@
         <img src="../assets/images/logo.svg" alt="Jouster Logo">
         <h1>Jouster</h1>
       </div>
-      
+
       <div class="search-container">
         <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
         <div id="search-results" class="search-results"></div>
       </div>
-      
+
       <div class="dark-mode-container">
         <span class="dark-mode-label">Dark Mode</span>
         <label class="dark-mode-toggle">
@@ -161,7 +161,7 @@
           <span class="dark-mode-slider"></span>
         </label>
       </div>
-      
+
       <nav>
         <div class="nav-section">
           <div class="nav-section-title">Getting Started</div>
@@ -172,15 +172,15 @@
             <li><a href="../usage-guide.html">Usage Guide</a></li>
           </ul>
         </div>
-        
+
         <div class="nav-section">
           <div class="nav-section-title">Test Runners</div>
           <ul class="nav-list">
-            <li><a href="../test-runners.html">Overview</a></li>
+            <li><a href="../test-runners-enhanced.html">Overview</a> <span style="display: inline-block; background-color: #2ea44f; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 12px; margin-left: 8px; vertical-align: middle;">Enhanced</span></li>
             <li class="nav-subsection">
               <ul class="nav-list">
-                <li><a href="./jest-enhanced.html">Jest</a></li>
-                <li><a href="./mocha-enhanced.html">Mocha</a></li>
+                <li><a href="./jest-enhanced.html">Jest</a> <span style="display: inline-block; background-color: #2ea44f; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 12px; margin-left: 8px; vertical-align: middle;">Enhanced</span></li>
+                <li><a href="./mocha-enhanced.html">Mocha</a> <span style="display: inline-block; background-color: #2ea44f; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 12px; margin-left: 8px; vertical-align: middle;">Enhanced</span></li>
                 <li><a href="./ava.html">AVA</a></li>
                 <li><a href="./tape.html">Tape</a></li>
                 <li><a href="./jasmine.html">Jasmine</a></li>
@@ -194,7 +194,7 @@
             </li>
           </ul>
         </div>
-        
+
         <div class="nav-section">
           <div class="nav-section-title">Core Concepts</div>
           <ul class="nav-list">
@@ -204,7 +204,7 @@
             <li><a href="../core-concepts.html#mapping-database">Mapping Database</a></li>
           </ul>
         </div>
-        
+
         <div class="nav-section">
           <div class="nav-section-title">Advanced Features</div>
           <ul class="nav-list">
@@ -214,7 +214,7 @@
             <li><a href="../advanced-features.html#plugins">Plugins</a></li>
           </ul>
         </div>
-        
+
         <div class="nav-section">
           <div class="nav-section-title">Resources</div>
           <ul class="nav-list">
@@ -226,31 +226,31 @@
         </div>
       </nav>
     </aside>
-    
+
     <main class="main-content">
       <h1>Mocha Test Runner</h1>
-      
+
       <p><a href="https://mochajs.org/" target="_blank">Mocha</a> is a feature-rich JavaScript test framework running on Node.js and in the browser. Jouster provides seamless integration with Mocha, allowing you to track test failures and manage issues automatically.</p>
-      
+
       <h2 class="collapsible-header">Installation</h2>
       <div class="collapsible-content">
         <p>To use Mocha with Jouster, you need to install Mocha and an assertion library like Chai:</p>
-        
+
         <pre><code class="language-bash">npm install --save-dev mocha chai</code></pre>
-        
+
         <p>Then, configure Jouster to use Mocha as the test runner:</p>
-        
+
         <pre><code class="language-javascript">// jouster.config.js
 module.exports = {
   // ... other configuration
   testRunnerType: 'mocha'
 };</code></pre>
       </div>
-      
+
       <h2 class="collapsible-header">Configuration</h2>
       <div class="collapsible-content">
         <p>Jouster provides several configuration options for Mocha:</p>
-        
+
         <pre><code class="language-javascript">// jouster.config.js
 module.exports = {
   // ... other configuration
@@ -284,29 +284,29 @@ module.exports = {
   }
 };</code></pre>
       </div>
-      
+
       <h2 class="collapsible-header">Usage Examples</h2>
       <div class="collapsible-content">
         <h3>Basic Usage</h3>
         <pre><code class="language-bash">npx jouster run-tests --test-runner mocha test/**/*.js</code></pre>
-        
+
         <h3>With BDD Interface</h3>
         <pre><code class="language-bash">npx jouster run-tests --test-runner mocha --mocha-ui bdd test/**/*.js</code></pre>
-        
+
         <h3>With TDD Interface</h3>
         <pre><code class="language-bash">npx jouster run-tests --test-runner mocha --mocha-ui tdd test/**/*.js</code></pre>
-        
+
         <h3>With Specific Reporter</h3>
         <pre><code class="language-bash">npx jouster run-tests --test-runner mocha --mocha-reporter dot test/**/*.js</code></pre>
-        
+
         <h3>With TypeScript</h3>
         <pre><code class="language-bash">npx jouster run-tests --test-runner mocha --mocha-require ts-node/register test/**/*.ts</code></pre>
       </div>
-      
+
       <h2 class="collapsible-header">Interactive Demo: Mocha Configuration</h2>
       <div class="collapsible-content">
         <p>Try out this interactive demo to see how to configure Mocha with Jouster:</p>
-        
+
         <div class="demo-container">
           <pre class="demo-code"><code class="language-javascript">// Example of configuring Mocha with Jouster
 function createMochaConfig(options = {}) {
@@ -366,11 +366,11 @@ return {
           <div class="demo-result">Click "Run" to see the result</div>
         </div>
       </div>
-      
+
       <h2 class="collapsible-header">Interactive Demo: Processing Mocha Results</h2>
       <div class="collapsible-content">
         <p>Try out this interactive demo to see how Jouster processes Mocha test results:</p>
-        
+
         <div class="demo-container">
           <pre class="demo-code"><code class="language-javascript">// Example of processing Mocha test results
 function processMochaResults(results) {
@@ -384,11 +384,11 @@ function processMochaResults(results) {
       stack: test.err.stack
     } : null
   }));
-  
+
   // Count passed and failed tests
   const passedTests = testResults.filter(test => test.status === 'passed');
   const failedTests = testResults.filter(test => test.status === 'failed');
-  
+
   // Create issues for failed tests
   const issues = failedTests.map(test => ({
     title: `Test failure: ${test.name}`,
@@ -413,7 +413,7 @@ ${test.duration}ms
     `,
     labels: ['test-failure', 'mocha']
   }));
-  
+
   return {
     summary: {
       total: testResults.length,
@@ -537,7 +537,7 @@ return processMochaResults(mochaResults);</code></pre>
           <div class="demo-result">Click "Run" to see the result</div>
         </div>
       </div>
-      
+
       <h2 class="collapsible-header">Best Practices</h2>
       <div class="collapsible-content">
         <h3>1. Choose the Right Interface</h3>
@@ -549,7 +549,7 @@ return processMochaResults(mochaResults);</code></pre>
           <li><strong>QUnit</strong>: QUnit-style adapted from jQuery</li>
         </ul>
         <p>Choose the interface that best fits your team's style and preferences.</p>
-        
+
         <h3>2. Use Hooks Effectively</h3>
         <p>Mocha provides several hooks for setup and teardown:</p>
         <ul>
@@ -559,7 +559,7 @@ return processMochaResults(mochaResults);</code></pre>
           <li><strong>afterEach</strong>: Run after each test in a describe block</li>
         </ul>
         <p>Use these hooks to set up and tear down test fixtures.</p>
-        
+
         <h3>3. Choose the Right Reporter</h3>
         <p>Mocha provides several built-in reporters:</p>
         <ul>
@@ -575,7 +575,7 @@ return processMochaResults(mochaResults);</code></pre>
           <li><strong>doc</strong>: HTML documentation view</li>
         </ul>
         <p>Choose the reporter that best fits your needs.</p>
-        
+
         <h3>4. Use Async/Await for Asynchronous Tests</h3>
         <p>Mocha supports async/await for asynchronous tests:</p>
         <pre><code class="language-javascript">describe('Async tests', function() {
@@ -586,11 +586,11 @@ return processMochaResults(mochaResults);</code></pre>
 });</code></pre>
         <p>Use async/await for cleaner, more readable asynchronous tests.</p>
       </div>
-      
+
       <h2 class="collapsible-header">Troubleshooting</h2>
       <div class="collapsible-content">
         <h3>Common Issues</h3>
-        
+
         <h4>Tests Not Running</h4>
         <ul>
           <li>Check that Mocha is installed</li>
@@ -598,21 +598,21 @@ return processMochaResults(mochaResults);</code></pre>
           <li>Check that the test files match the pattern</li>
           <li>Check that the test files have the correct extension</li>
         </ul>
-        
+
         <h4>Tests Running but Not Reporting</h4>
         <ul>
           <li>Check that the reporter is installed</li>
           <li>Check that the reporter is configured correctly</li>
           <li>Check that Mocha's output is being captured</li>
         </ul>
-        
+
         <h4>Tests Running but Not Failing</h4>
         <ul>
           <li>Check that assertions are being made</li>
           <li>Check that the assertion library is installed</li>
           <li>Check that the assertion library is required</li>
         </ul>
-        
+
         <h4>Tests Running but Not Creating Issues</h4>
         <ul>
           <li>Check that issue tracking is enabled</li>
@@ -620,7 +620,7 @@ return processMochaResults(mochaResults);</code></pre>
           <li>Check that Mocha's test results are being parsed correctly</li>
         </ul>
       </div>
-      
+
       <h2 class="collapsible-header">Further Reading</h2>
       <div class="collapsible-content">
         <ul>
@@ -631,7 +631,7 @@ return processMochaResults(mochaResults);</code></pre>
           <li><a href="https://mochajs.org/#hooks" target="_blank">Mocha Hooks</a></li>
         </ul>
       </div>
-      
+
       <footer>
         <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
       </footer>

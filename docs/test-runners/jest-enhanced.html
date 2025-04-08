@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jest Test Runner - Jouster Documentation</title>
-  
+
   <!-- CSS files -->
   <link rel="stylesheet" href="../assets/css/search.css">
   <link rel="stylesheet" href="../assets/css/collapsible.css">
@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../assets/css/interactive-demos.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <!-- JavaScript files -->
   <script src="../assets/js/search-index.js" defer></script>
   <script src="../assets/js/search-core.js" defer></script>
@@ -21,7 +21,7 @@
   <script src="../assets/js/code-highlight.js" defer></script>
   <script src="../assets/js/interactive-demos.js" defer></script>
   <script src="../assets/js/main.js" defer></script>
-  
+
   <style>
     /* Basic styles */
     body {
@@ -32,107 +32,107 @@
       margin: 0 auto;
       padding: 20px;
     }
-    
+
     .wrapper {
       display: flex;
     }
-    
+
     .sidebar {
       width: 260px;
       padding: 20px;
       border-right: 1px solid #e1e4e8;
     }
-    
+
     .main-content {
       flex: 1;
       padding: 20px 40px;
     }
-    
+
     h1, h2, h3, h4, h5, h6 {
       color: #0366d6;
       margin-top: 24px;
       margin-bottom: 16px;
     }
-    
+
     a {
       color: #0366d6;
       text-decoration: none;
     }
-    
+
     a:hover {
       text-decoration: underline;
     }
-    
+
     .logo {
       display: flex;
       align-items: center;
       margin-bottom: 20px;
     }
-    
+
     .logo img {
       width: 40px;
       height: 40px;
       margin-right: 10px;
     }
-    
+
     .logo h1 {
       margin: 0;
       font-size: 24px;
     }
-    
+
     .nav-list {
       list-style-type: none;
       padding: 0;
       margin: 0;
     }
-    
+
     .nav-list li {
       margin-bottom: 8px;
     }
-    
+
     .nav-section {
       margin-bottom: 20px;
     }
-    
+
     .nav-section-title {
       font-weight: 600;
       margin-bottom: 10px;
       color: #0366d6;
     }
-    
+
     .nav-subsection {
       padding-left: 15px;
     }
-    
+
     /* Dark mode styles */
     body.dark-mode {
       background-color: #0d1117;
       color: #c9d1d9;
     }
-    
-    body.dark-mode h1, 
-    body.dark-mode h2, 
-    body.dark-mode h3, 
-    body.dark-mode h4, 
-    body.dark-mode h5, 
+
+    body.dark-mode h1,
+    body.dark-mode h2,
+    body.dark-mode h3,
+    body.dark-mode h4,
+    body.dark-mode h5,
     body.dark-mode h6 {
       color: #58a6ff;
     }
-    
+
     body.dark-mode a {
       color: #58a6ff;
     }
-    
+
     body.dark-mode .sidebar {
       border-right-color: #30363d;
     }
-    
+
     /* Responsive design */
     @media (max-width: 768px) {
       .wrapper {
         flex-direction: column;
       }
-      
+
       .sidebar {
         width: 100%;
         border-right: none;
@@ -148,12 +148,12 @@
         <img src="../assets/images/logo.svg" alt="Jouster Logo">
         <h1>Jouster</h1>
       </div>
-      
+
       <div class="search-container">
         <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
         <div id="search-results" class="search-results"></div>
       </div>
-      
+
       <div class="dark-mode-container">
         <span class="dark-mode-label">Dark Mode</span>
         <label class="dark-mode-toggle">
@@ -161,7 +161,7 @@
           <span class="dark-mode-slider"></span>
         </label>
       </div>
-      
+
       <nav>
         <div class="nav-section">
           <div class="nav-section-title">Getting Started</div>
@@ -172,15 +172,15 @@
             <li><a href="../usage-guide.html">Usage Guide</a></li>
           </ul>
         </div>
-        
+
         <div class="nav-section">
           <div class="nav-section-title">Test Runners</div>
           <ul class="nav-list">
-            <li><a href="../test-runners.html">Overview</a></li>
+            <li><a href="../test-runners-enhanced.html">Overview</a> <span style="display: inline-block; background-color: #2ea44f; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 12px; margin-left: 8px; vertical-align: middle;">Enhanced</span></li>
             <li class="nav-subsection">
               <ul class="nav-list">
-                <li><a href="./jest-enhanced.html">Jest</a></li>
-                <li><a href="./mocha.html">Mocha</a></li>
+                <li><a href="./jest-enhanced.html">Jest</a> <span style="display: inline-block; background-color: #2ea44f; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 12px; margin-left: 8px; vertical-align: middle;">Enhanced</span></li>
+                <li><a href="./mocha-enhanced.html">Mocha</a> <span style="display: inline-block; background-color: #2ea44f; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 12px; margin-left: 8px; vertical-align: middle;">Enhanced</span></li>
                 <li><a href="./ava.html">AVA</a></li>
                 <li><a href="./tape.html">Tape</a></li>
                 <li><a href="./jasmine.html">Jasmine</a></li>
@@ -194,7 +194,7 @@
             </li>
           </ul>
         </div>
-        
+
         <div class="nav-section">
           <div class="nav-section-title">Core Concepts</div>
           <ul class="nav-list">
@@ -204,7 +204,7 @@
             <li><a href="../core-concepts.html#mapping-database">Mapping Database</a></li>
           </ul>
         </div>
-        
+
         <div class="nav-section">
           <div class="nav-section-title">Advanced Features</div>
           <ul class="nav-list">
@@ -214,7 +214,7 @@
             <li><a href="../advanced-features.html#plugins">Plugins</a></li>
           </ul>
         </div>
-        
+
         <div class="nav-section">
           <div class="nav-section-title">Resources</div>
           <ul class="nav-list">
@@ -226,31 +226,31 @@
         </div>
       </nav>
     </aside>
-    
+
     <main class="main-content">
       <h1>Jest Test Runner</h1>
-      
+
       <p><a href="https://jestjs.io/" target="_blank">Jest</a> is a delightful JavaScript Testing Framework with a focus on simplicity. Jouster provides seamless integration with Jest, allowing you to track test failures and manage issues automatically.</p>
-      
+
       <h2 class="collapsible-header">Installation</h2>
       <div class="collapsible-content">
         <p>To use Jest with Jouster, you need to install Jest:</p>
-        
+
         <pre><code class="language-bash">npm install --save-dev jest</code></pre>
-        
+
         <p>Then, configure Jouster to use Jest as the test runner:</p>
-        
+
         <pre><code class="language-javascript">// jouster.config.js
 module.exports = {
   // ... other configuration
   testRunnerType: 'jest'
 };</code></pre>
       </div>
-      
+
       <h2 class="collapsible-header">Configuration</h2>
       <div class="collapsible-content">
         <p>Jouster provides several configuration options for Jest:</p>
-        
+
         <pre><code class="language-javascript">// jouster.config.js
 module.exports = {
   // ... other configuration
@@ -277,26 +277,26 @@ module.exports = {
   }
 };</code></pre>
       </div>
-      
+
       <h2 class="collapsible-header">Usage Examples</h2>
       <div class="collapsible-content">
         <h3>Basic Usage</h3>
         <pre><code class="language-bash">npx jouster run-tests --test-runner jest src/__tests__</code></pre>
-        
+
         <h3>With Coverage</h3>
         <pre><code class="language-bash">npx jouster run-tests --test-runner jest --jest-coverage src/__tests__</code></pre>
-        
+
         <h3>With Specific Configuration</h3>
         <pre><code class="language-bash">npx jouster run-tests --test-runner jest --jest-config-path ./custom-jest.config.js src/__tests__</code></pre>
-        
+
         <h3>With Test Name Pattern</h3>
         <pre><code class="language-bash">npx jouster run-tests --test-runner jest --jest-test-name-pattern "should handle errors" src/__tests__</code></pre>
       </div>
-      
+
       <h2 class="collapsible-header">Interactive Demo: Jest Configuration</h2>
       <div class="collapsible-content">
         <p>Try out this interactive demo to see how to configure Jest with Jouster:</p>
-        
+
         <div class="demo-container">
           <pre class="demo-code"><code class="language-javascript">// Example of configuring Jest with Jouster
 function createJestConfig(options = {}) {
@@ -351,16 +351,16 @@ return {
           <div class="demo-result">Click "Run" to see the result</div>
         </div>
       </div>
-      
+
       <h2 class="collapsible-header">Interactive Demo: Processing Jest Results</h2>
       <div class="collapsible-content">
         <p>Try out this interactive demo to see how Jouster processes Jest test results:</p>
-        
+
         <div class="demo-container">
           <pre class="demo-code"><code class="language-javascript">// Example of processing Jest test results
 function processJestResults(results) {
   // Extract test results
-  const testResults = results.testResults.flatMap(fileResult => 
+  const testResults = results.testResults.flatMap(fileResult =>
     fileResult.testResults.map(testResult => ({
       name: testResult.fullName,
       status: testResult.status,
@@ -368,11 +368,11 @@ function processJestResults(results) {
       failureMessages: testResult.failureMessages || []
     }))
   );
-  
+
   // Count passed and failed tests
   const passedTests = testResults.filter(test => test.status === 'passed');
   const failedTests = testResults.filter(test => test.status === 'failed');
-  
+
   // Create issues for failed tests
   const issues = failedTests.map(test => ({
     title: `Test failure: ${test.name}`,
@@ -392,7 +392,7 @@ ${test.duration}ms
     `,
     labels: ['test-failure', 'jest']
   }));
-  
+
   return {
     summary: {
       total: testResults.length,
@@ -457,7 +457,7 @@ return processJestResults(jestResults);</code></pre>
           <div class="demo-result">Click "Run" to see the result</div>
         </div>
       </div>
-      
+
       <h2 class="collapsible-header">Best Practices</h2>
       <div class="collapsible-content">
         <h3>1. Use Jest's Built-in Features</h3>
@@ -468,7 +468,7 @@ return processJestResults(jestResults);</code></pre>
           <li><strong>Timer Mocks</strong>: Use Jest's timer mocks to test time-dependent code</li>
           <li><strong>Manual Mocks</strong>: Use manual mocks to replace modules with mock implementations</li>
         </ul>
-        
+
         <h3>2. Organize Tests Effectively</h3>
         <p>Organize your tests to make them easier to maintain:</p>
         <ul>
@@ -476,7 +476,7 @@ return processJestResults(jestResults);</code></pre>
           <li><strong>Use Descriptive Names</strong>: Use descriptive names for test files and test cases</li>
           <li><strong>Co-locate Tests</strong>: Keep tests close to the code they test</li>
         </ul>
-        
+
         <h3>3. Optimize for Performance</h3>
         <p>Jest can be slow with large test suites. Optimize for performance:</p>
         <ul>
@@ -484,7 +484,7 @@ return processJestResults(jestResults);</code></pre>
           <li><strong>Filter Tests</strong>: Run only the tests you need</li>
           <li><strong>Use Fast Transformers</strong>: Use faster transformers like esbuild-jest</li>
         </ul>
-        
+
         <h3>4. Configure for CI</h3>
         <p>Configure Jest for continuous integration:</p>
         <ul>
@@ -493,32 +493,32 @@ return processJestResults(jestResults);</code></pre>
           <li><strong>Fail Fast</strong>: Use the --bail flag to stop after the first failure</li>
         </ul>
       </div>
-      
+
       <h2 class="collapsible-header">Troubleshooting</h2>
       <div class="collapsible-content">
         <h3>Common Issues</h3>
-        
+
         <h4>Tests Not Running</h4>
         <ul>
           <li>Check that Jest is installed</li>
           <li>Check that the test files match Jest's naming conventions</li>
           <li>Check that the test files are in the correct directory</li>
         </ul>
-        
+
         <h4>Tests Running but Not Reporting</h4>
         <ul>
           <li>Check that the reporter is installed</li>
           <li>Check that the reporter is configured correctly</li>
           <li>Check that Jest's output is being captured</li>
         </ul>
-        
+
         <h4>Tests Running but Not Failing</h4>
         <ul>
           <li>Check that assertions are being made</li>
           <li>Check that the assertions are correct</li>
           <li>Check that Jest is configured to fail on assertion failures</li>
         </ul>
-        
+
         <h4>Tests Running but Not Creating Issues</h4>
         <ul>
           <li>Check that issue tracking is enabled</li>
@@ -526,7 +526,7 @@ return processJestResults(jestResults);</code></pre>
           <li>Check that Jest's test results are being parsed correctly</li>
         </ul>
       </div>
-      
+
       <h2 class="collapsible-header">Further Reading</h2>
       <div class="collapsible-content">
         <ul>
@@ -537,7 +537,7 @@ return processJestResults(jestResults);</code></pre>
           <li><a href="https://jestjs.io/docs/mock-functions" target="_blank">Jest Mock Functions</a></li>
         </ul>
       </div>
-      
+
       <footer>
         <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
       </footer>
