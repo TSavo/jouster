@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usage Guide - Jouster Documentation</title>
+  
+  <!-- CSS files -->
+  <link rel="stylesheet" href="./assets/css/search.css">
+  <link rel="stylesheet" href="./assets/css/collapsible.css">
+  <link rel="stylesheet" href="./assets/css/code-highlight.css">
+  <link rel="stylesheet" href="./assets/css/interactive-demos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- JavaScript files -->
+  <script src="./assets/js/search-index.js" defer></script>
+  <script src="./assets/js/search-core.js" defer></script>
+  <script src="./assets/js/search-ui.js" defer></script>
+  <script src="./assets/js/collapsible.js" defer></script>
+  <script src="./assets/js/code-highlight.js" defer></script>
+  <script src="./assets/js/interactive-demos.js" defer></script>
+  <script src="./assets/js/main.js" defer></script>
+  
+  <style>
+    /* Basic styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #24292e;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .wrapper {
+      display: flex;
+    }
+    
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      border-right: 1px solid #e1e4e8;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 20px 40px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #0366d6;
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+    
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .nav-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-list li {
+      margin-bottom: 8px;
+    }
+    
+    .nav-section {
+      margin-bottom: 20px;
+    }
+    
+    .nav-section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #0366d6;
+    }
+    
+    .nav-subsection {
+      padding-left: 15px;
+    }
+    
+    /* Command examples */
+    .command-example {
+      background-color: #f6f8fa;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      padding: 15px;
+      margin: 15px 0;
+    }
+    
+    .command-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .command-description {
+      margin-bottom: 10px;
+    }
+    
+    /* Enhanced badge */
+    .enhanced-badge {
+      display: inline-block;
+      background-color: #2ea44f;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode h1, 
+    body.dark-mode h2, 
+    body.dark-mode h3, 
+    body.dark-mode h4, 
+    body.dark-mode h5, 
+    body.dark-mode h6 {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode a {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .sidebar {
+      border-right-color: #30363d;
+    }
+    
+    body.dark-mode .command-example {
+      background-color: #161b22;
+      border-color: #30363d;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e1e4e8;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="./assets/images/logo.svg" alt="Jouster Logo">
+        <h1>Jouster</h1>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
+        <div id="search-results" class="search-results"></div>
+      </div>
+      
+      <div class="dark-mode-container">
+        <span class="dark-mode-label">Dark Mode</span>
+        <label class="dark-mode-toggle">
+          <input type="checkbox" id="dark-mode-toggle">
+          <span class="dark-mode-slider"></span>
+        </label>
+      </div>
+      
+      <nav>
+        <div class="nav-section">
+          <div class="nav-section-title">Getting Started</div>
+          <ul class="nav-list">
+            <li><a href="./main.html">Introduction</a></li>
+            <li><a href="./getting-started-enhanced.html">Installation</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="./setup-wizard.html">Setup Wizard</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="./usage-guide.html">Usage Guide</a> <span class="enhanced-badge">Enhanced</span></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Test Runners</div>
+          <ul class="nav-list">
+            <li><a href="./test-runners-enhanced.html">Overview</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li class="nav-subsection">
+              <ul class="nav-list">
+                <li><a href="./test-runners/jest-enhanced.html">Jest</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/mocha-enhanced.html">Mocha</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/ava.html">AVA</a></li>
+                <li><a href="./test-runners/tape.html">Tape</a></li>
+                <li><a href="./test-runners/jasmine.html">Jasmine</a></li>
+                <li><a href="./test-runners/vitest.html">Vitest</a></li>
+                <li><a href="./test-runners/cypress.html">Cypress</a></li>
+                <li><a href="./test-runners/playwright.html">Playwright</a></li>
+                <li><a href="./test-runners/testcafe.html">TestCafe</a></li>
+                <li><a href="./test-runners/karma.html">Karma</a></li>
+                <li><a href="./test-runners/generic.html">Generic</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Core Concepts</div>
+          <ul class="nav-list">
+            <li><a href="./core-concepts.html">How Jouster Works</a></li>
+            <li><a href="./core-concepts.html#test-identification">Test Identification</a></li>
+            <li><a href="./core-concepts.html#issue-lifecycle">Issue Lifecycle</a></li>
+            <li><a href="./core-concepts.html#mapping-database">Mapping Database</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Advanced Features</div>
+          <ul class="nav-list">
+            <li><a href="./advanced-features.html">Overview</a></li>
+            <li><a href="./templates.html">Templates</a></li>
+            <li><a href="./advanced-features.html#hooks">Hooks</a></li>
+            <li><a href="./advanced-features.html#plugins">Plugins</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Resources</div>
+          <ul class="nav-list">
+            <li><a href="./api-reference.html">API Reference</a></li>
+            <li><a href="./troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="./contributing.html">Contributing</a></li>
+            <li><a href="./examples/README.html">Examples</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <h1>Jouster Usage Guide</h1>
+      
+      <p>This guide provides detailed information on how to use Jouster in various scenarios. It covers common use cases, command-line options, and best practices.</p>
+      
+      <h2 class="collapsible-header">Command-Line Interface</h2>
+      <div class="collapsible-content">
+        <p>Jouster provides a command-line interface (CLI) for running tests and managing issues. Here are the available commands:</p>
+        
+        <div class="command-example">
+          <div class="command-title">Run Tests</div>
+          <div class="command-description">Run tests and manage issues for failing tests.</div>
+          <pre><code class="language-bash">npx jouster run-tests [options] [files]</code></pre>
+          <p>Options:</p>
+          <ul>
+            <li><code>--test-runner &lt;runner&gt;</code>: Specify the test runner to use (default: auto-detect)</li>
+            <li><code>--generate-issues</code>: Generate issues for failing tests (default: true)</li>
+            <li><code>--track-issues</code>: Track issues for failing tests (default: true)</li>
+            <li><code>--close-issues</code>: Close issues for passing tests (default: true)</li>
+            <li><code>--reopen-issues</code>: Reopen issues for failing tests (default: true)</li>
+            <li><code>--database-path &lt;path&gt;</code>: Path to the database file (default: test-issue-mapping.json)</li>
+            <li><code>--tracker-type &lt;type&gt;</code>: Bug tracker type (github or file, default: github)</li>
+          </ul>
+        </div>
+        
+        <div class="command-example">
+          <div class="command-title">Setup</div>
+          <div class="command-description">Run the setup wizard to configure Jouster for your project.</div>
+          <pre><code class="language-bash">npx jouster setup</code></pre>
+        </div>
+        
+        <div class="command-example">
+          <div class="command-title">List Issues</div>
+          <div class="command-description">List all issues in the mapping database.</div>
+          <pre><code class="language-bash">npx jouster list-issues</code></pre>
+          <p>Options:</p>
+          <ul>
+            <li><code>--database-path &lt;path&gt;</code>: Path to the database file (default: test-issue-mapping.json)</li>
+            <li><code>--status &lt;status&gt;</code>: Filter by issue status (open, closed, all, default: all)</li>
+          </ul>
+        </div>
+        
+        <div class="command-example">
+          <div class="command-title">Clean Database</div>
+          <div class="command-description">Clean the mapping database by removing entries for tests that no longer exist.</div>
+          <pre><code class="language-bash">npx jouster clean-database</code></pre>
+          <p>Options:</p>
+          <ul>
+            <li><code>--database-path &lt;path&gt;</code>: Path to the database file (default: test-issue-mapping.json)</li>
+            <li><code>--dry-run</code>: Show what would be removed without actually removing anything</li>
+          </ul>
+        </div>
+      </div>
+      
+      <h2 class="collapsible-header">Common Use Cases</h2>
+      <div class="collapsible-content">
+        <h3>Running Tests with Jest</h3>
+        <pre><code class="language-bash">npx jouster run-tests --test-runner jest src/__tests__</code></pre>
+        
+        <h3>Running Tests with Mocha</h3>
+        <pre><code class="language-bash">npx jouster run-tests --test-runner mocha --mocha-ui bdd test/**/*.js</code></pre>
+        
+        <h3>Running Tests with a Custom Configuration</h3>
+        <pre><code class="language-bash">npx jouster run-tests --config ./jouster.config.js</code></pre>
+        
+        <h3>Running Tests Without Generating Issues</h3>
+        <pre><code class="language-bash">npx jouster run-tests --no-generate-issues</code></pre>
+        
+        <h3>Running Tests Without Closing Issues</h3>
+        <pre><code class="language-bash">npx jouster run-tests --no-close-issues</code></pre>
+        
+        <h3>Running Tests with a Different Database Path</h3>
+        <pre><code class="language-bash">npx jouster run-tests --database-path ./custom-mapping.json</code></pre>
+        
+        <h3>Running Tests with File Tracker</h3>
+        <pre><code class="language-bash">npx jouster run-tests --tracker-type file --bugs-dir ./bugs</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Continuous Integration</h2>
+      <div class="collapsible-content">
+        <p>Jouster can be integrated into your CI/CD pipeline to automatically create and manage issues for failing tests. Here's how to set it up:</p>
+        
+        <h3>GitHub Actions</h3>
+        <pre><code class="language-yaml"># .github/workflows/tests.yml
+name: Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run tests with Jouster
+      run: npx jouster run-tests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}</code></pre>
+        
+        <h3>CircleCI</h3>
+        <pre><code class="language-yaml"># .circleci/config.yml
+version: 2.1
+jobs:
+  test:
+    docker:
+      - image: cimg/node:16.13
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Run tests with Jouster
+          command: npx jouster run-tests
+          environment:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - test</code></pre>
+        
+        <h3>Travis CI</h3>
+        <pre><code class="language-yaml"># .travis.yml
+language: node_js
+node_js:
+  - 16
+script:
+  - npm ci
+  - npx jouster run-tests</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Environment Variables</h2>
+      <div class="collapsible-content">
+        <p>Jouster can be configured using environment variables. These variables override the configuration in the <code>jouster.config.js</code> file.</p>
+        
+        <pre><code class="language-bash"># Whether to generate issues for failing tests
+GENERATE_ISSUES=true
+
+# Whether to track issues for failing tests
+TRACK_ISSUES=true
+
+# Whether to close issues for passing tests
+CLOSE_ISSUES=true
+
+# Whether to reopen issues for failing tests
+REOPEN_ISSUES=true
+
+# Path to the database file
+DATABASE_PATH=test-issue-mapping.json
+
+# Default labels for issues
+DEFAULT_LABELS=bug,test-failure
+
+# Bug tracker type ('github' or 'file')
+TRACKER_TYPE=github
+
+# Path to the bugs directory (for file tracker)
+BUGS_DIR=./bugs
+
+# GitHub labels to apply to issues
+GITHUB_LABELS=bug,test-failure
+
+# Whether to use the REST API instead of the CLI
+GITHUB_USE_REST=false
+
+# GitHub personal access token (required when using REST API)
+GITHUB_TOKEN=your-token
+
+# GitHub repository in the format 'owner/repo' (required when using REST API)
+GITHUB_REPO=owner/repo
+
+# Path to the template directory
+TEMPLATE_DIR=./templates</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Best Practices</h2>
+      <div class="collapsible-content">
+        <h3>1. Use a Dedicated Branch for Test Fixes</h3>
+        <p>When fixing failing tests, create a dedicated branch for each issue. This makes it easier to track changes and ensures that each fix is properly reviewed.</p>
+        
+        <h3>2. Include Issue Numbers in Commit Messages</h3>
+        <p>When fixing a failing test, include the issue number in the commit message. This helps to track which commits are related to which issues.</p>
+        
+        <pre><code class="language-bash">git commit -m "Fix failing test for Calculator.subtract (fixes #123)"</code></pre>
+        
+        <h3>3. Use Custom Templates for Different Test Types</h3>
+        <p>Create custom templates for different types of tests. This makes it easier to understand the context of a failing test and helps to prioritize fixes.</p>
+        
+        <h3>4. Clean the Database Regularly</h3>
+        <p>Run the <code>clean-database</code> command regularly to remove entries for tests that no longer exist. This keeps the database clean and prevents issues from being reopened for tests that have been removed.</p>
+        
+        <pre><code class="language-bash">npx jouster clean-database</code></pre>
+        
+        <h3>5. Use a Consistent Naming Convention for Tests</h3>
+        <p>Use a consistent naming convention for tests. This makes it easier to identify tests and helps Jouster to track issues more effectively.</p>
+      </div>
+      
+      <h2 class="collapsible-header">Troubleshooting</h2>
+      <div class="collapsible-content">
+        <h3>Issues Not Being Created</h3>
+        <ul>
+          <li>Check that the GitHub CLI is installed and authenticated</li>
+          <li>Check that the GitHub token has the necessary permissions</li>
+          <li>Check that the repository exists and is accessible</li>
+          <li>Check that the test runner is configured correctly</li>
+        </ul>
+        
+        <h3>Issues Not Being Closed</h3>
+        <ul>
+          <li>Check that the <code>close-issues</code> option is enabled</li>
+          <li>Check that the GitHub CLI is installed and authenticated</li>
+          <li>Check that the GitHub token has the necessary permissions</li>
+          <li>Check that the issue exists and is open</li>
+        </ul>
+        
+        <h3>Issues Not Being Reopened</h3>
+        <ul>
+          <li>Check that the <code>reopen-issues</code> option is enabled</li>
+          <li>Check that the GitHub CLI is installed and authenticated</li>
+          <li>Check that the GitHub token has the necessary permissions</li>
+          <li>Check that the issue exists and is closed</li>
+        </ul>
+        
+        <h3>Database Errors</h3>
+        <ul>
+          <li>Check that the database file exists and is writable</li>
+          <li>Check that the database file is valid JSON</li>
+          <li>Try running the <code>clean-database</code> command to remove invalid entries</li>
+        </ul>
+      </div>
+      
+      <footer>
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
