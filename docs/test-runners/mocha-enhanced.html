@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mocha Test Runner - Jouster Documentation</title>
+  
+  <!-- CSS files -->
+  <link rel="stylesheet" href="../assets/css/search.css">
+  <link rel="stylesheet" href="../assets/css/collapsible.css">
+  <link rel="stylesheet" href="../assets/css/code-highlight.css">
+  <link rel="stylesheet" href="../assets/css/interactive-demos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- JavaScript files -->
+  <script src="../assets/js/search-index.js" defer></script>
+  <script src="../assets/js/search-core.js" defer></script>
+  <script src="../assets/js/search-ui.js" defer></script>
+  <script src="../assets/js/collapsible.js" defer></script>
+  <script src="../assets/js/code-highlight.js" defer></script>
+  <script src="../assets/js/interactive-demos.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
+  
+  <style>
+    /* Basic styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #24292e;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .wrapper {
+      display: flex;
+    }
+    
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      border-right: 1px solid #e1e4e8;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 20px 40px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #0366d6;
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+    
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .nav-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-list li {
+      margin-bottom: 8px;
+    }
+    
+    .nav-section {
+      margin-bottom: 20px;
+    }
+    
+    .nav-section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #0366d6;
+    }
+    
+    .nav-subsection {
+      padding-left: 15px;
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode h1, 
+    body.dark-mode h2, 
+    body.dark-mode h3, 
+    body.dark-mode h4, 
+    body.dark-mode h5, 
+    body.dark-mode h6 {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode a {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .sidebar {
+      border-right-color: #30363d;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e1e4e8;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="../assets/images/logo.svg" alt="Jouster Logo">
+        <h1>Jouster</h1>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
+        <div id="search-results" class="search-results"></div>
+      </div>
+      
+      <div class="dark-mode-container">
+        <span class="dark-mode-label">Dark Mode</span>
+        <label class="dark-mode-toggle">
+          <input type="checkbox" id="dark-mode-toggle">
+          <span class="dark-mode-slider"></span>
+        </label>
+      </div>
+      
+      <nav>
+        <div class="nav-section">
+          <div class="nav-section-title">Getting Started</div>
+          <ul class="nav-list">
+            <li><a href="../main.html">Introduction</a></li>
+            <li><a href="../getting-started.html">Installation</a></li>
+            <li><a href="../setup-wizard.html">Setup Wizard</a></li>
+            <li><a href="../usage-guide.html">Usage Guide</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Test Runners</div>
+          <ul class="nav-list">
+            <li><a href="../test-runners.html">Overview</a></li>
+            <li class="nav-subsection">
+              <ul class="nav-list">
+                <li><a href="./jest-enhanced.html">Jest</a></li>
+                <li><a href="./mocha-enhanced.html">Mocha</a></li>
+                <li><a href="./ava.html">AVA</a></li>
+                <li><a href="./tape.html">Tape</a></li>
+                <li><a href="./jasmine.html">Jasmine</a></li>
+                <li><a href="./vitest.html">Vitest</a></li>
+                <li><a href="./cypress.html">Cypress</a></li>
+                <li><a href="./playwright.html">Playwright</a></li>
+                <li><a href="./testcafe.html">TestCafe</a></li>
+                <li><a href="./karma.html">Karma</a></li>
+                <li><a href="./generic.html">Generic</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Core Concepts</div>
+          <ul class="nav-list">
+            <li><a href="../core-concepts.html">How Jouster Works</a></li>
+            <li><a href="../core-concepts.html#test-identification">Test Identification</a></li>
+            <li><a href="../core-concepts.html#issue-lifecycle">Issue Lifecycle</a></li>
+            <li><a href="../core-concepts.html#mapping-database">Mapping Database</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Advanced Features</div>
+          <ul class="nav-list">
+            <li><a href="../advanced-features.html">Overview</a></li>
+            <li><a href="../templates.html">Templates</a></li>
+            <li><a href="../advanced-features.html#hooks">Hooks</a></li>
+            <li><a href="../advanced-features.html#plugins">Plugins</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Resources</div>
+          <ul class="nav-list">
+            <li><a href="../api-reference.html">API Reference</a></li>
+            <li><a href="../troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="../contributing.html">Contributing</a></li>
+            <li><a href="../examples/README.html">Examples</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <h1>Mocha Test Runner</h1>
+      
+      <p><a href="https://mochajs.org/" target="_blank">Mocha</a> is a feature-rich JavaScript test framework running on Node.js and in the browser. Jouster provides seamless integration with Mocha, allowing you to track test failures and manage issues automatically.</p>
+      
+      <h2 class="collapsible-header">Installation</h2>
+      <div class="collapsible-content">
+        <p>To use Mocha with Jouster, you need to install Mocha and an assertion library like Chai:</p>
+        
+        <pre><code class="language-bash">npm install --save-dev mocha chai</code></pre>
+        
+        <p>Then, configure Jouster to use Mocha as the test runner:</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  // ... other configuration
+  testRunnerType: 'mocha'
+};</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Configuration</h2>
+      <div class="collapsible-content">
+        <p>Jouster provides several configuration options for Mocha:</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  // ... other configuration
+  testRunnerType: 'mocha',
+  testRunnerOptions: {
+    mocha: {
+      ui: 'bdd', // Mocha UI (bdd, tdd, qunit, exports)
+      reporter: 'spec', // Mocha reporter
+      timeout: 2000, // Test timeout in milliseconds
+      slow: 75, // Slow threshold in milliseconds
+      bail: false, // Whether to bail after the first test failure
+      retries: 0, // Number of times to retry failed tests
+      grep: '', // Pattern to match test titles
+      fgrep: '', // String to match test titles
+      invert: false, // Invert grep/fgrep matches
+      color: true, // Whether to use colors in output
+      recursive: false, // Whether to look for tests in subdirectories
+      require: [], // Modules to require before running tests
+      extension: ['js'], // File extensions to load
+      file: [], // Files to load before test files
+      ignore: [], // Files to ignore
+      parallel: false, // Whether to run tests in parallel
+      jobs: 1, // Number of parallel jobs
+      sort: false, // Whether to sort test files
+      watch: false, // Whether to watch files for changes
+      'check-leaks': false, // Whether to check for global variable leaks
+      'full-trace': false, // Whether to show full stack traces
+      'inline-diffs': false, // Whether to show inline diffs
+      exit: false // Whether to force Mocha to quit after tests complete
+    }
+  }
+};</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Usage Examples</h2>
+      <div class="collapsible-content">
+        <h3>Basic Usage</h3>
+        <pre><code class="language-bash">npx jouster run-tests --test-runner mocha test/**/*.js</code></pre>
+        
+        <h3>With BDD Interface</h3>
+        <pre><code class="language-bash">npx jouster run-tests --test-runner mocha --mocha-ui bdd test/**/*.js</code></pre>
+        
+        <h3>With TDD Interface</h3>
+        <pre><code class="language-bash">npx jouster run-tests --test-runner mocha --mocha-ui tdd test/**/*.js</code></pre>
+        
+        <h3>With Specific Reporter</h3>
+        <pre><code class="language-bash">npx jouster run-tests --test-runner mocha --mocha-reporter dot test/**/*.js</code></pre>
+        
+        <h3>With TypeScript</h3>
+        <pre><code class="language-bash">npx jouster run-tests --test-runner mocha --mocha-require ts-node/register test/**/*.ts</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Interactive Demo: Mocha Configuration</h2>
+      <div class="collapsible-content">
+        <p>Try out this interactive demo to see how to configure Mocha with Jouster:</p>
+        
+        <div class="demo-container">
+          <pre class="demo-code"><code class="language-javascript">// Example of configuring Mocha with Jouster
+function createMochaConfig(options = {}) {
+  return {
+    testRunnerType: 'mocha',
+    testRunnerOptions: {
+      mocha: {
+        ui: options.ui || 'bdd',
+        reporter: options.reporter || 'spec',
+        timeout: options.timeout || 2000,
+        slow: options.slow || 75,
+        bail: options.bail || false,
+        retries: options.retries || 0,
+        grep: options.grep || '',
+        fgrep: options.fgrep || '',
+        invert: options.invert || false,
+        color: options.color !== undefined ? options.color : true,
+        recursive: options.recursive || false,
+        require: options.require || [],
+        extension: options.extension || ['js'],
+        file: options.file || [],
+        ignore: options.ignore || [],
+        parallel: options.parallel || false,
+        jobs: options.jobs || 1,
+        sort: options.sort || false,
+        watch: options.watch || false,
+        'check-leaks': options['check-leaks'] || false,
+        'full-trace': options['full-trace'] || false,
+        'inline-diffs': options['inline-diffs'] || false,
+        exit: options.exit || false
+      }
+    }
+  };
+}
+
+// Create different Mocha configurations
+const defaultConfig = createMochaConfig();
+
+const typescriptConfig = createMochaConfig({
+  require: ['ts-node/register'],
+  extension: ['ts'],
+  timeout: 5000
+});
+
+const ciConfig = createMochaConfig({
+  reporter: 'min',
+  bail: true,
+  color: false,
+  exit: true
+});
+
+return {
+  default: defaultConfig,
+  typescript: typescriptConfig,
+  ci: ciConfig
+};</code></pre>
+          <div class="demo-result">Click "Run" to see the result</div>
+        </div>
+      </div>
+      
+      <h2 class="collapsible-header">Interactive Demo: Processing Mocha Results</h2>
+      <div class="collapsible-content">
+        <p>Try out this interactive demo to see how Jouster processes Mocha test results:</p>
+        
+        <div class="demo-container">
+          <pre class="demo-code"><code class="language-javascript">// Example of processing Mocha test results
+function processMochaResults(results) {
+  // Extract test results
+  const testResults = results.tests.map(test => ({
+    name: test.fullTitle,
+    status: test.state || 'pending',
+    duration: test.duration || 0,
+    error: test.err ? {
+      message: test.err.message,
+      stack: test.err.stack
+    } : null
+  }));
+  
+  // Count passed and failed tests
+  const passedTests = testResults.filter(test => test.status === 'passed');
+  const failedTests = testResults.filter(test => test.status === 'failed');
+  
+  // Create issues for failed tests
+  const issues = failedTests.map(test => ({
+    title: `Test failure: ${test.name}`,
+    body: `
+# Test Failure
+
+## Test Name
+\`${test.name}\`
+
+## Error Message
+\`\`\`
+${test.error ? test.error.message : 'No error message'}
+\`\`\`
+
+## Stack Trace
+\`\`\`
+${test.error ? test.error.stack : 'No stack trace'}
+\`\`\`
+
+## Duration
+${test.duration}ms
+    `,
+    labels: ['test-failure', 'mocha']
+  }));
+  
+  return {
+    summary: {
+      total: testResults.length,
+      passed: passedTests.length,
+      failed: failedTests.length,
+      pending: testResults.filter(test => test.status === 'pending').length
+    },
+    failedTests,
+    issues
+  };
+}
+
+// Example Mocha results
+const mochaResults = {
+  stats: {
+    suites: 2,
+    tests: 5,
+    passes: 3,
+    pending: 0,
+    failures: 2,
+    start: '2023-01-01T00:00:00.000Z',
+    end: '2023-01-01T00:00:05.000Z',
+    duration: 5000
+  },
+  tests: [
+    {
+      title: 'should add two numbers',
+      fullTitle: 'Calculator should add two numbers',
+      file: '/path/to/test/calculator.test.js',
+      duration: 5,
+      state: 'passed'
+    },
+    {
+      title: 'should subtract two numbers',
+      fullTitle: 'Calculator should subtract two numbers',
+      file: '/path/to/test/calculator.test.js',
+      duration: 3,
+      state: 'failed',
+      err: {
+        message: 'expected 0 to equal 1',
+        stack: 'Error: expected 0 to equal 1\n    at Context.<anonymous> (/path/to/test/calculator.test.js:15:20)'
+      }
+    },
+    {
+      title: 'should capitalize a string',
+      fullTitle: 'StringUtils should capitalize a string',
+      file: '/path/to/test/string-utils.test.js',
+      duration: 2,
+      state: 'passed'
+    },
+    {
+      title: 'should lowercase a string',
+      fullTitle: 'StringUtils should lowercase a string',
+      file: '/path/to/test/string-utils.test.js',
+      duration: 1,
+      state: 'passed'
+    },
+    {
+      title: 'should handle empty strings',
+      fullTitle: 'StringUtils should handle empty strings',
+      file: '/path/to/test/string-utils.test.js',
+      duration: 4,
+      state: 'failed',
+      err: {
+        message: 'TypeError: Cannot read property "length" of undefined',
+        stack: 'TypeError: Cannot read property "length" of undefined\n    at Context.<anonymous> (/path/to/test/string-utils.test.js:30:20)'
+      }
+    }
+  ],
+  pending: [],
+  failures: [
+    {
+      title: 'should subtract two numbers',
+      fullTitle: 'Calculator should subtract two numbers',
+      file: '/path/to/test/calculator.test.js',
+      duration: 3,
+      state: 'failed',
+      err: {
+        message: 'expected 0 to equal 1',
+        stack: 'Error: expected 0 to equal 1\n    at Context.<anonymous> (/path/to/test/calculator.test.js:15:20)'
+      }
+    },
+    {
+      title: 'should handle empty strings',
+      fullTitle: 'StringUtils should handle empty strings',
+      file: '/path/to/test/string-utils.test.js',
+      duration: 4,
+      state: 'failed',
+      err: {
+        message: 'TypeError: Cannot read property "length" of undefined',
+        stack: 'TypeError: Cannot read property "length" of undefined\n    at Context.<anonymous> (/path/to/test/string-utils.test.js:30:20)'
+      }
+    }
+  ],
+  passes: [
+    {
+      title: 'should add two numbers',
+      fullTitle: 'Calculator should add two numbers',
+      file: '/path/to/test/calculator.test.js',
+      duration: 5,
+      state: 'passed'
+    },
+    {
+      title: 'should capitalize a string',
+      fullTitle: 'StringUtils should capitalize a string',
+      file: '/path/to/test/string-utils.test.js',
+      duration: 2,
+      state: 'passed'
+    },
+    {
+      title: 'should lowercase a string',
+      fullTitle: 'StringUtils should lowercase a string',
+      file: '/path/to/test/string-utils.test.js',
+      duration: 1,
+      state: 'passed'
+    }
+  ]
+};
+
+return processMochaResults(mochaResults);</code></pre>
+          <div class="demo-result">Click "Run" to see the result</div>
+        </div>
+      </div>
+      
+      <h2 class="collapsible-header">Best Practices</h2>
+      <div class="collapsible-content">
+        <h3>1. Choose the Right Interface</h3>
+        <p>Mocha provides several interfaces for writing tests:</p>
+        <ul>
+          <li><strong>BDD</strong>: Behavior-driven development style with describe, it, before, after, beforeEach, and afterEach</li>
+          <li><strong>TDD</strong>: Test-driven development style with suite, test, setup, teardown, suiteSetup, and suiteTeardown</li>
+          <li><strong>Exports</strong>: CommonJS module.exports style</li>
+          <li><strong>QUnit</strong>: QUnit-style adapted from jQuery</li>
+        </ul>
+        <p>Choose the interface that best fits your team's style and preferences.</p>
+        
+        <h3>2. Use Hooks Effectively</h3>
+        <p>Mocha provides several hooks for setup and teardown:</p>
+        <ul>
+          <li><strong>before</strong>: Run once before all tests in a describe block</li>
+          <li><strong>after</strong>: Run once after all tests in a describe block</li>
+          <li><strong>beforeEach</strong>: Run before each test in a describe block</li>
+          <li><strong>afterEach</strong>: Run after each test in a describe block</li>
+        </ul>
+        <p>Use these hooks to set up and tear down test fixtures.</p>
+        
+        <h3>3. Choose the Right Reporter</h3>
+        <p>Mocha provides several built-in reporters:</p>
+        <ul>
+          <li><strong>spec</strong>: Hierarchical view with indentation</li>
+          <li><strong>dot</strong>: Dot matrix view</li>
+          <li><strong>nyan</strong>: Nyan cat view</li>
+          <li><strong>tap</strong>: TAP-compatible output</li>
+          <li><strong>landing</strong>: Unicode landing strip view</li>
+          <li><strong>list</strong>: Simple list view</li>
+          <li><strong>progress</strong>: Progress bar view</li>
+          <li><strong>json</strong>: JSON output</li>
+          <li><strong>min</strong>: Minimal output</li>
+          <li><strong>doc</strong>: HTML documentation view</li>
+        </ul>
+        <p>Choose the reporter that best fits your needs.</p>
+        
+        <h3>4. Use Async/Await for Asynchronous Tests</h3>
+        <p>Mocha supports async/await for asynchronous tests:</p>
+        <pre><code class="language-javascript">describe('Async tests', function() {
+  it('should handle async operations', async function() {
+    const result = await someAsyncOperation();
+    assert.strictEqual(result, 'expected value');
+  });
+});</code></pre>
+        <p>Use async/await for cleaner, more readable asynchronous tests.</p>
+      </div>
+      
+      <h2 class="collapsible-header">Troubleshooting</h2>
+      <div class="collapsible-content">
+        <h3>Common Issues</h3>
+        
+        <h4>Tests Not Running</h4>
+        <ul>
+          <li>Check that Mocha is installed</li>
+          <li>Check that the test files exist</li>
+          <li>Check that the test files match the pattern</li>
+          <li>Check that the test files have the correct extension</li>
+        </ul>
+        
+        <h4>Tests Running but Not Reporting</h4>
+        <ul>
+          <li>Check that the reporter is installed</li>
+          <li>Check that the reporter is configured correctly</li>
+          <li>Check that Mocha's output is being captured</li>
+        </ul>
+        
+        <h4>Tests Running but Not Failing</h4>
+        <ul>
+          <li>Check that assertions are being made</li>
+          <li>Check that the assertion library is installed</li>
+          <li>Check that the assertion library is required</li>
+        </ul>
+        
+        <h4>Tests Running but Not Creating Issues</h4>
+        <ul>
+          <li>Check that issue tracking is enabled</li>
+          <li>Check that the GitHub client is configured correctly</li>
+          <li>Check that Mocha's test results are being parsed correctly</li>
+        </ul>
+      </div>
+      
+      <h2 class="collapsible-header">Further Reading</h2>
+      <div class="collapsible-content">
+        <ul>
+          <li><a href="https://mochajs.org/#getting-started" target="_blank">Mocha Documentation</a></li>
+          <li><a href="https://mochajs.org/#command-line-usage" target="_blank">Mocha Command Line Usage</a></li>
+          <li><a href="https://mochajs.org/#configuring-mocha-nodejs" target="_blank">Mocha Configuration</a></li>
+          <li><a href="https://mochajs.org/#reporters" target="_blank">Mocha Reporters</a></li>
+          <li><a href="https://mochajs.org/#hooks" target="_blank">Mocha Hooks</a></li>
+        </ul>
+      </div>
+      
+      <footer>
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

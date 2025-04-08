@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Runners - Jouster Documentation</title>
+  
+  <!-- CSS files -->
+  <link rel="stylesheet" href="./assets/css/search.css">
+  <link rel="stylesheet" href="./assets/css/collapsible.css">
+  <link rel="stylesheet" href="./assets/css/code-highlight.css">
+  <link rel="stylesheet" href="./assets/css/interactive-demos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- JavaScript files -->
+  <script src="./assets/js/search-index.js" defer></script>
+  <script src="./assets/js/search-core.js" defer></script>
+  <script src="./assets/js/search-ui.js" defer></script>
+  <script src="./assets/js/collapsible.js" defer></script>
+  <script src="./assets/js/code-highlight.js" defer></script>
+  <script src="./assets/js/interactive-demos.js" defer></script>
+  <script src="./assets/js/main.js" defer></script>
+  
+  <style>
+    /* Basic styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #24292e;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .wrapper {
+      display: flex;
+    }
+    
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      border-right: 1px solid #e1e4e8;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 20px 40px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #0366d6;
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+    
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .nav-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-list li {
+      margin-bottom: 8px;
+    }
+    
+    .nav-section {
+      margin-bottom: 20px;
+    }
+    
+    .nav-section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #0366d6;
+    }
+    
+    .nav-subsection {
+      padding-left: 15px;
+    }
+    
+    /* Test runner cards */
+    .test-runner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .test-runner-card {
+      background-color: #f6f8fa;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .test-runner-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .test-runner-icon {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #0366d6;
+    }
+    
+    .test-runner-title {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .test-runner-description {
+      margin: 0;
+      font-size: 14px;
+      color: #24292e;
+      opacity: 0.9;
+    }
+    
+    /* Enhanced badge */
+    .enhanced-badge {
+      display: inline-block;
+      background-color: #2ea44f;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode h1, 
+    body.dark-mode h2, 
+    body.dark-mode h3, 
+    body.dark-mode h4, 
+    body.dark-mode h5, 
+    body.dark-mode h6 {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode a {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .sidebar {
+      border-right-color: #30363d;
+    }
+    
+    body.dark-mode .test-runner-card {
+      background-color: #161b22;
+      border-color: #30363d;
+    }
+    
+    body.dark-mode .test-runner-icon {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .test-runner-description {
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode .enhanced-badge {
+      background-color: #238636;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e1e4e8;
+      }
+      
+      .test-runner-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="./assets/images/logo.svg" alt="Jouster Logo">
+        <h1>Jouster</h1>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
+        <div id="search-results" class="search-results"></div>
+      </div>
+      
+      <div class="dark-mode-container">
+        <span class="dark-mode-label">Dark Mode</span>
+        <label class="dark-mode-toggle">
+          <input type="checkbox" id="dark-mode-toggle">
+          <span class="dark-mode-slider"></span>
+        </label>
+      </div>
+      
+      <nav>
+        <div class="nav-section">
+          <div class="nav-section-title">Getting Started</div>
+          <ul class="nav-list">
+            <li><a href="./main.html">Introduction</a></li>
+            <li><a href="./getting-started.html">Installation</a></li>
+            <li><a href="./setup-wizard.html">Setup Wizard</a></li>
+            <li><a href="./usage-guide.html">Usage Guide</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Test Runners</div>
+          <ul class="nav-list">
+            <li><a href="./test-runners-enhanced.html">Overview</a></li>
+            <li class="nav-subsection">
+              <ul class="nav-list">
+                <li><a href="./test-runners/jest-enhanced.html">Jest</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/mocha-enhanced.html">Mocha</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/ava.html">AVA</a></li>
+                <li><a href="./test-runners/tape.html">Tape</a></li>
+                <li><a href="./test-runners/jasmine.html">Jasmine</a></li>
+                <li><a href="./test-runners/vitest.html">Vitest</a></li>
+                <li><a href="./test-runners/cypress.html">Cypress</a></li>
+                <li><a href="./test-runners/playwright.html">Playwright</a></li>
+                <li><a href="./test-runners/testcafe.html">TestCafe</a></li>
+                <li><a href="./test-runners/karma.html">Karma</a></li>
+                <li><a href="./test-runners/generic.html">Generic</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Core Concepts</div>
+          <ul class="nav-list">
+            <li><a href="./core-concepts.html">How Jouster Works</a></li>
+            <li><a href="./core-concepts.html#test-identification">Test Identification</a></li>
+            <li><a href="./core-concepts.html#issue-lifecycle">Issue Lifecycle</a></li>
+            <li><a href="./core-concepts.html#mapping-database">Mapping Database</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Advanced Features</div>
+          <ul class="nav-list">
+            <li><a href="./advanced-features.html">Overview</a></li>
+            <li><a href="./templates.html">Templates</a></li>
+            <li><a href="./advanced-features.html#hooks">Hooks</a></li>
+            <li><a href="./advanced-features.html#plugins">Plugins</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Resources</div>
+          <ul class="nav-list">
+            <li><a href="./api-reference.html">API Reference</a></li>
+            <li><a href="./troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="./contributing.html">Contributing</a></li>
+            <li><a href="./examples/README.html">Examples</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <h1>Test Runners</h1>
+      
+      <p>Jouster supports multiple test runners, allowing you to use your preferred testing framework while still benefiting from Jouster's issue tracking capabilities. This document provides an overview of the supported test runners and common configuration options.</p>
+      
+      <div class="note">
+        <p><strong>Note:</strong> Pages marked with <span class="enhanced-badge">Enhanced</span> include interactive demos and additional features.</p>
+      </div>
+      
+      <h2>Supported Test Runners</h2>
+      
+      <div class="test-runner-grid">
+        <div class="test-runner-card">
+          <div class="test-runner-icon"><i class="fas fa-jest"></i>J</div>
+          <h3 class="test-runner-title">Jest <span class="enhanced-badge">Enhanced</span></h3>
+          <p class="test-runner-description">A delightful JavaScript Testing Framework with a focus on simplicity.</p>
+          <a href="./test-runners/jest-enhanced.html">Learn more →</a>
+        </div>
+        
+        <div class="test-runner-card">
+          <div class="test-runner-icon"><i class="fas fa-coffee"></i></div>
+          <h3 class="test-runner-title">Mocha <span class="enhanced-badge">Enhanced</span></h3>
+          <p class="test-runner-description">A feature-rich JavaScript test framework running on Node.js and in the browser.</p>
+          <a href="./test-runners/mocha-enhanced.html">Learn more →</a>
+        </div>
+        
+        <div class="test-runner-card">
+          <div class="test-runner-icon"><i class="fas fa-bolt"></i></div>
+          <h3 class="test-runner-title">AVA</h3>
+          <p class="test-runner-description">A test runner for Node.js with a concise API, detailed error output, and process isolation.</p>
+          <a href="./test-runners/ava.html">Learn more →</a>
+        </div>
+        
+        <div class="test-runner-card">
+          <div class="test-runner-icon"><i class="fas fa-tape"></i>T</div>
+          <h3 class="test-runner-title">Tape</h3>
+          <p class="test-runner-description">A TAP-producing test harness for Node.js and browsers.</p>
+          <a href="./test-runners/tape.html">Learn more →</a>
+        </div>
+        
+        <div class="test-runner-card">
+          <div class="test-runner-icon"><i class="fas fa-flower"></i>J</div>
+          <h3 class="test-runner-title">Jasmine</h3>
+          <p class="test-runner-description">A behavior-driven development framework for testing JavaScript code.</p>
+          <a href="./test-runners/jasmine.html">Learn more →</a>
+        </div>
+        
+        <div class="test-runner-card">
+          <div class="test-runner-icon"><i class="fas fa-vial"></i></div>
+          <h3 class="test-runner-title">Vitest</h3>
+          <p class="test-runner-description">A Vite-native testing framework with a focus on speed and simplicity.</p>
+          <a href="./test-runners/vitest.html">Learn more →</a>
+        </div>
+        
+        <div class="test-runner-card">
+          <div class="test-runner-icon"><i class="fas fa-tree"></i></div>
+          <h3 class="test-runner-title">Cypress</h3>
+          <p class="test-runner-description">A next-generation front-end testing tool built for the modern web.</p>
+          <a href="./test-runners/cypress.html">Learn more →</a>
+        </div>
+        
+        <div class="test-runner-card">
+          <div class="test-runner-icon"><i class="fas fa-theater-masks"></i></div>
+          <h3 class="test-runner-title">Playwright</h3>
+          <p class="test-runner-description">A framework for Web Testing and Automation.</p>
+          <a href="./test-runners/playwright.html">Learn more →</a>
+        </div>
+        
+        <div class="test-runner-card">
+          <div class="test-runner-icon"><i class="fas fa-mug-hot"></i></div>
+          <h3 class="test-runner-title">TestCafe</h3>
+          <p class="test-runner-description">A Node.js tool to automate end-to-end web testing.</p>
+          <a href="./test-runners/testcafe.html">Learn more →</a>
+        </div>
+        
+        <div class="test-runner-card">
+          <div class="test-runner-icon"><i class="fas fa-karma"></i>K</div>
+          <h3 class="test-runner-title">Karma</h3>
+          <p class="test-runner-description">A test runner that runs tests in real browsers.</p>
+          <a href="./test-runners/karma.html">Learn more →</a>
+        </div>
+        
+        <div class="test-runner-card">
+          <div class="test-runner-icon"><i class="fas fa-cogs"></i></div>
+          <h3 class="test-runner-title">Generic</h3>
+          <p class="test-runner-description">A generic test runner for any command-line test tool.</p>
+          <a href="./test-runners/generic.html">Learn more →</a>
+        </div>
+      </div>
+      
+      <h2 class="collapsible-header">Common Configuration</h2>
+      <div class="collapsible-content">
+        <p>All test runners share some common configuration options:</p>
+        
+        <pre><code class="language-javascript">module.exports = {
+  // ... other configuration
+  testRunnerType: 'auto', // 'jest', 'mocha', 'ava', 'tape', 'jasmine', 'vitest', 'cypress', 'playwright', 'testcafe', 'karma', 'generic', or 'auto'
+  testRunnerOptions: {
+    // Test runner-specific options
+  }
+};</code></pre>
+        
+        <p>The <code>testRunnerType</code> option specifies which test runner to use. If set to <code>'auto'</code>, Jouster will attempt to detect the test runner based on your project's dependencies.</p>
+      </div>
+      
+      <h2 class="collapsible-header">Interactive Demo: Auto-Detection</h2>
+      <div class="collapsible-content">
+        <p>Try out this interactive demo to see how Jouster's auto-detection works:</p>
+        
+        <div class="demo-container">
+          <pre class="demo-code"><code class="language-javascript">// Example of auto-detecting test runners
+function detectTestRunner(dependencies) {
+  const testRunners = [
+    'jest',
+    'mocha',
+    'ava',
+    'tape',
+    'jasmine',
+    'vitest',
+    'cypress',
+    '@playwright/test',
+    'testcafe',
+    'karma'
+  ];
+  
+  // Find the first test runner in the dependencies
+  const detectedRunner = testRunners.find(runner => 
+    dependencies.hasOwnProperty(runner));
+  
+  // Return the detected runner or fall back to Jest
+  return detectedRunner || 'jest';
+}
+
+// Test with different dependency sets
+const results = [
+  detectTestRunner({ 'mocha': '^9.0.0', 'chai': '^4.0.0' }),
+  detectTestRunner({ '@playwright/test': '^1.0.0' }),
+  detectTestRunner({ 'some-other-package': '^1.0.0' })
+];
+
+return {
+  'With Mocha': results[0],
+  'With Playwright': results[1],
+  'With no test runners': results[2]
+};</code></pre>
+          <div class="demo-result">Click "Run" to see the result</div>
+        </div>
+      </div>
+      
+      <h2 class="collapsible-header">Interactive Demo: Test Runner Configuration</h2>
+      <div class="collapsible-content">
+        <p>Try out this interactive demo to see how to configure different test runners:</p>
+        
+        <div class="demo-container">
+          <pre class="demo-code"><code class="language-javascript">// Example of configuring different test runners
+function createConfig(testRunner, options = {}) {
+  return {
+    testRunnerType: testRunner,
+    testRunnerOptions: {
+      [testRunner]: options
+    }
+  };
+}
+
+// Create configurations for different test runners
+const jestConfig = createConfig('jest', {
+  coverage: true,
+  verbose: true,
+  testTimeout: 10000
+});
+
+const mochaConfig = createConfig('mocha', {
+  ui: 'bdd',
+  timeout: 5000,
+  reporters: ['spec'],
+  require: ['ts-node/register']
+});
+
+const playwrightConfig = createConfig('playwright', {
+  browser: 'chromium',
+  headed: false,
+  workers: 4,
+  timeout: 30000
+});
+
+return {
+  jest: jestConfig,
+  mocha: mochaConfig,
+  playwright: playwrightConfig
+};</code></pre>
+          <div class="demo-result">Click "Run" to see the result</div>
+        </div>
+      </div>
+      
+      <h2 class="collapsible-header">Best Practices</h2>
+      <div class="collapsible-content">
+        <h3>1. Use the Right Test Runner for the Job</h3>
+        <ul>
+          <li>Use <strong>Jest</strong> for unit and integration tests in JavaScript/TypeScript projects</li>
+          <li>Use <strong>Mocha</strong> for flexible, customizable testing</li>
+          <li>Use <strong>AVA</strong> for concurrent test execution</li>
+          <li>Use <strong>Tape</strong> for simple, TAP-producing tests</li>
+          <li>Use <strong>Jasmine</strong> for behavior-driven development</li>
+          <li>Use <strong>Vitest</strong> for Vite-based projects</li>
+          <li>Use <strong>Cypress</strong> for end-to-end testing of web applications</li>
+          <li>Use <strong>Playwright</strong> for cross-browser end-to-end testing</li>
+          <li>Use <strong>TestCafe</strong> for end-to-end testing without browser plugins</li>
+          <li>Use <strong>Karma</strong> for testing in real browsers</li>
+        </ul>
+        
+        <h3>2. Configure for Your Environment</h3>
+        <ul>
+          <li>Use headless browsers in CI environments</li>
+          <li>Use headed browsers for local development</li>
+          <li>Adjust concurrency based on available resources</li>
+          <li>Use appropriate timeouts for your tests</li>
+        </ul>
+        
+        <h3>3. Use Consistent Reporting</h3>
+        <ul>
+          <li>Use the same reporter across all test runners</li>
+          <li>Configure reporters to provide the information you need</li>
+          <li>Use JSON reporters for machine-readable output</li>
+        </ul>
+      </div>
+      
+      <footer>
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
