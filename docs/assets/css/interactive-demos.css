@@ -1,0 +1,74 @@
+/* Interactive demos styles */
+.demo-container {
+  margin: 20px 0;
+  border: 1px solid var(--border-color, #e1e4e8);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.demo-code {
+  margin: 0;
+  padding: 15px;
+  background-color: var(--code-bg, #f6f8fa);
+  border-bottom: 1px solid var(--border-color, #e1e4e8);
+}
+
+.run-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: var(--button-bg, #0366d6);
+  color: var(--button-color, #ffffff);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.run-button:hover {
+  background-color: var(--button-hover-bg, #035fc7);
+}
+
+.demo-result {
+  padding: 15px;
+  background-color: var(--demo-result-bg, #ffffff);
+  min-height: 50px;
+}
+
+.demo-success {
+  color: var(--success-color, #22863a);
+}
+
+.demo-error {
+  color: var(--error-color, #cb2431);
+}
+
+/* Dark mode styles */
+body.dark-mode .demo-container {
+  border-color: var(--border-color, #30363d);
+}
+
+body.dark-mode .demo-code {
+  background-color: var(--code-bg, #161b22);
+  border-color: var(--border-color, #30363d);
+}
+
+body.dark-mode .run-button {
+  background-color: var(--button-bg, #238636);
+}
+
+body.dark-mode .run-button:hover {
+  background-color: var(--button-hover-bg, #2ea043);
+}
+
+body.dark-mode .demo-result {
+  background-color: var(--demo-result-bg, #0d1117);
+}
+
+body.dark-mode .demo-success {
+  color: var(--success-color, #3fb950);
+}
+
+body.dark-mode .demo-error {
+  color: var(--error-color, #f85149);
+}

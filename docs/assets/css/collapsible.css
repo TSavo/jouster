@@ -1,0 +1,56 @@
+/* Collapsible sections styles */
+.collapsible-header {
+  cursor: pointer;
+  padding: 10px 15px;
+  background-color: var(--collapsible-header-bg, #f6f8fa);
+  border: 1px solid var(--border-color, #e1e4e8);
+  border-radius: 4px;
+  margin-bottom: 0;
+  position: relative;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.collapsible-header:hover {
+  background-color: var(--collapsible-header-hover-bg, #ebedef);
+}
+
+.collapsible-toggle {
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+.collapsible-header.active .collapsible-toggle {
+  transform: rotate(180deg);
+}
+
+.collapsible-content {
+  padding: 0 15px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  border-left: 1px solid var(--border-color, #e1e4e8);
+  border-right: 1px solid var(--border-color, #e1e4e8);
+  border-bottom: 1px solid var(--border-color, #e1e4e8);
+  border-radius: 0 0 4px 4px;
+  margin-top: -1px;
+  margin-bottom: 15px;
+  background-color: var(--collapsible-content-bg, #ffffff);
+}
+
+/* Dark mode styles */
+body.dark-mode .collapsible-header {
+  background-color: var(--collapsible-header-bg, #161b22);
+  border-color: var(--border-color, #30363d);
+}
+
+body.dark-mode .collapsible-header:hover {
+  background-color: var(--collapsible-header-hover-bg, #1f2937);
+}
+
+body.dark-mode .collapsible-content {
+  background-color: var(--collapsible-content-bg, #0d1117);
+  border-color: var(--border-color, #30363d);
+}
