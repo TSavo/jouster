@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Templates - Jouster Documentation</title>
+  
+  <!-- CSS files -->
+  <link rel="stylesheet" href="./assets/css/search.css">
+  <link rel="stylesheet" href="./assets/css/collapsible.css">
+  <link rel="stylesheet" href="./assets/css/code-highlight.css">
+  <link rel="stylesheet" href="./assets/css/interactive-demos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- JavaScript files -->
+  <script src="./assets/js/search-index.js" defer></script>
+  <script src="./assets/js/search-core.js" defer></script>
+  <script src="./assets/js/search-ui.js" defer></script>
+  <script src="./assets/js/collapsible.js" defer></script>
+  <script src="./assets/js/code-highlight.js" defer></script>
+  <script src="./assets/js/interactive-demos.js" defer></script>
+  <script src="./assets/js/main.js" defer></script>
+  
+  <style>
+    /* Basic styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #24292e;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .wrapper {
+      display: flex;
+    }
+    
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      border-right: 1px solid #e1e4e8;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 20px 40px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #0366d6;
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+    
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .nav-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-list li {
+      margin-bottom: 8px;
+    }
+    
+    .nav-section {
+      margin-bottom: 20px;
+    }
+    
+    .nav-section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #0366d6;
+    }
+    
+    .nav-subsection {
+      padding-left: 15px;
+    }
+    
+    /* Enhanced badge */
+    .enhanced-badge {
+      display: inline-block;
+      background-color: #2ea44f;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    
+    body.dark-mode h1, 
+    body.dark-mode h2, 
+    body.dark-mode h3, 
+    body.dark-mode h4, 
+    body.dark-mode h5, 
+    body.dark-mode h6 {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode a {
+      color: #58a6ff;
+    }
+    
+    body.dark-mode .sidebar {
+      border-right-color: #30363d;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e1e4e8;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="./assets/images/logo.svg" alt="Jouster Logo">
+        <h1>Jouster</h1>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search documentation...">
+        <div id="search-results" class="search-results"></div>
+      </div>
+      
+      <div class="dark-mode-container">
+        <span class="dark-mode-label">Dark Mode</span>
+        <label class="dark-mode-toggle">
+          <input type="checkbox" id="dark-mode-toggle">
+          <span class="dark-mode-slider"></span>
+        </label>
+      </div>
+      
+      <nav>
+        <div class="nav-section">
+          <div class="nav-section-title">Getting Started</div>
+          <ul class="nav-list">
+            <li><a href="./main.html">Introduction</a></li>
+            <li><a href="./getting-started-enhanced.html">Installation</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="./setup-wizard.html">Setup Wizard</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li><a href="./usage-guide.html">Usage Guide</a> <span class="enhanced-badge">Enhanced</span></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Test Runners</div>
+          <ul class="nav-list">
+            <li><a href="./test-runners-enhanced.html">Overview</a> <span class="enhanced-badge">Enhanced</span></li>
+            <li class="nav-subsection">
+              <ul class="nav-list">
+                <li><a href="./test-runners/jest-enhanced.html">Jest</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/mocha-enhanced.html">Mocha</a> <span class="enhanced-badge">Enhanced</span></li>
+                <li><a href="./test-runners/ava.html">AVA</a></li>
+                <li><a href="./test-runners/tape.html">Tape</a></li>
+                <li><a href="./test-runners/jasmine.html">Jasmine</a></li>
+                <li><a href="./test-runners/vitest.html">Vitest</a></li>
+                <li><a href="./test-runners/cypress.html">Cypress</a></li>
+                <li><a href="./test-runners/playwright.html">Playwright</a></li>
+                <li><a href="./test-runners/testcafe.html">TestCafe</a></li>
+                <li><a href="./test-runners/karma.html">Karma</a></li>
+                <li><a href="./test-runners/generic.html">Generic</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Core Concepts</div>
+          <ul class="nav-list">
+            <li><a href="./core-concepts.html">How Jouster Works</a></li>
+            <li><a href="./core-concepts.html#test-identification">Test Identification</a></li>
+            <li><a href="./core-concepts.html#issue-lifecycle">Issue Lifecycle</a></li>
+            <li><a href="./core-concepts.html#mapping-database">Mapping Database</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Advanced Features</div>
+          <ul class="nav-list">
+            <li><a href="./advanced-features.html">Overview</a></li>
+            <li><a href="./templates.html">Templates</a></li>
+            <li><a href="./advanced-features.html#hooks">Hooks</a></li>
+            <li><a href="./advanced-features.html#plugins">Plugins</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Resources</div>
+          <ul class="nav-list">
+            <li><a href="./api-reference.html">API Reference</a></li>
+            <li><a href="./troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="./contributing.html">Contributing</a></li>
+            <li><a href="./examples/README.html">Examples</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <h1>Templates</h1>
+      
+      <p>Jouster uses templates to generate the content of issues. You can customize these templates to include additional information or format the content differently. This page explains how to use and customize templates in Jouster.</p>
+      
+      <h2 class="collapsible-header">Template Types</h2>
+      <div class="collapsible-content">
+        <p>Jouster uses three types of templates:</p>
+        <ul>
+          <li><strong>Open Template</strong>: Used when creating a new issue for a failing test.</li>
+          <li><strong>Close Template</strong>: Used when closing an issue for a test that is now passing.</li>
+          <li><strong>Reopen Template</strong>: Used when reopening an issue for a test that is failing again after it was fixed.</li>
+        </ul>
+        
+        <p>Each template type serves a different purpose and can be customized independently.</p>
+      </div>
+      
+      <h2 class="collapsible-header">Default Templates</h2>
+      <div class="collapsible-content">
+        <p>Jouster provides default templates for each template type. These templates include basic information about the test failure and are designed to be useful out of the box.</p>
+        
+        <h3>Open Template</h3>
+        <pre><code class="language-markdown"># Test Failure: {{test.name}}
+
+This test is failing with the following error:
+
+```
+{{test.error}}
+```
+
+## Stack Trace
+
+```
+{{test.stackTrace}}
+```
+
+## Test Location
+
+- **File**: {{test.file}}
+- **Line**: {{test.line}}
+- **Column**: {{test.column}}
+
+## Test Runner
+
+- **Type**: {{testRunner.type}}
+- **Version**: {{testRunner.version}}
+
+## System Information
+
+- **OS**: {{system.os}}
+- **Node Version**: {{system.nodeVersion}}
+- **Jouster Version**: {{system.jousterVersion}}
+</code></pre>
+        
+        <h3>Close Template</h3>
+        <pre><code class="language-markdown"># Test Fixed: {{test.name}}
+
+This test is now passing. Closing the issue.
+
+## Test Location
+
+- **File**: {{test.file}}
+- **Line**: {{test.line}}
+- **Column**: {{test.column}}
+
+## Test Runner
+
+- **Type**: {{testRunner.type}}
+- **Version**: {{testRunner.version}}
+
+## System Information
+
+- **OS**: {{system.os}}
+- **Node Version**: {{system.nodeVersion}}
+- **Jouster Version**: {{system.jousterVersion}}
+</code></pre>
+        
+        <h3>Reopen Template</h3>
+        <pre><code class="language-markdown"># Test Failing Again: {{test.name}}
+
+This test is failing again with the following error:
+
+```
+{{test.error}}
+```
+
+## Stack Trace
+
+```
+{{test.stackTrace}}
+```
+
+## Test Location
+
+- **File**: {{test.file}}
+- **Line**: {{test.line}}
+- **Column**: {{test.column}}
+
+## Test Runner
+
+- **Type**: {{testRunner.type}}
+- **Version**: {{testRunner.version}}
+
+## System Information
+
+- **OS**: {{system.os}}
+- **Node Version**: {{system.nodeVersion}}
+- **Jouster Version**: {{system.jousterVersion}}
+</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Custom Templates</h2>
+      <div class="collapsible-content">
+        <p>You can customize the templates to include additional information or format the content differently. Custom templates are specified in the configuration file using the <code>templates</code> property.</p>
+        
+        <h3>Template Files</h3>
+        <p>Custom templates are stored in files and referenced in the configuration file. The files can be in any format, but Markdown is recommended for GitHub issues.</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  // ... other configuration
+  templates: {
+    open: './templates/open.md',
+    close: './templates/close.md',
+    reopen: './templates/reopen.md'
+  }
+};</code></pre>
+        
+        <h3>Inline Templates</h3>
+        <p>You can also specify templates inline in the configuration file:</p>
+        
+        <pre><code class="language-javascript">// jouster.config.js
+module.exports = {
+  // ... other configuration
+  templates: {
+    open: `# Test Failure: {{test.name}}
+
+This test is failing with the following error:
+
+\`\`\`
+{{test.error}}
+\`\`\`
+
+## Stack Trace
+
+\`\`\`
+{{test.stackTrace}}
+\`\`\`
+
+## Test Location
+
+- **File**: {{test.file}}
+- **Line**: {{test.line}}
+- **Column**: {{test.column}}
+
+## Test Runner
+
+- **Type**: {{testRunner.type}}
+- **Version**: {{testRunner.version}}
+
+## System Information
+
+- **OS**: {{system.os}}
+- **Node Version**: {{system.nodeVersion}}
+- **Jouster Version**: {{system.jousterVersion}}
+`,
+    close: `# Test Fixed: {{test.name}}
+
+This test is now passing. Closing the issue.
+
+## Test Location
+
+- **File**: {{test.file}}
+- **Line**: {{test.line}}
+- **Column**: {{test.column}}
+
+## Test Runner
+
+- **Type**: {{testRunner.type}}
+- **Version**: {{testRunner.version}}
+
+## System Information
+
+- **OS**: {{system.os}}
+- **Node Version**: {{system.nodeVersion}}
+- **Jouster Version**: {{system.jousterVersion}}
+`,
+    reopen: `# Test Failing Again: {{test.name}}
+
+This test is failing again with the following error:
+
+\`\`\`
+{{test.error}}
+\`\`\`
+
+## Stack Trace
+
+\`\`\`
+{{test.stackTrace}}
+\`\`\`
+
+## Test Location
+
+- **File**: {{test.file}}
+- **Line**: {{test.line}}
+- **Column**: {{test.column}}
+
+## Test Runner
+
+- **Type**: {{testRunner.type}}
+- **Version**: {{testRunner.version}}
+
+## System Information
+
+- **OS**: {{system.os}}
+- **Node Version**: {{system.nodeVersion}}
+- **Jouster Version**: {{system.jousterVersion}}
+`
+  }
+};</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Template Variables</h2>
+      <div class="collapsible-content">
+        <p>Templates can include variables that are replaced with actual values when the template is rendered. Variables are enclosed in double curly braces (<code>{{variable}}</code>).</p>
+        
+        <h3>Available Variables</h3>
+        <p>The following variables are available in templates:</p>
+        
+        <h4>Test Variables</h4>
+        <ul>
+          <li><code>{{test.name}}</code>: The name of the test.</li>
+          <li><code>{{test.file}}</code>: The file containing the test.</li>
+          <li><code>{{test.line}}</code>: The line number of the test.</li>
+          <li><code>{{test.column}}</code>: The column number of the test.</li>
+          <li><code>{{test.error}}</code>: The error message from the test failure.</li>
+          <li><code>{{test.stackTrace}}</code>: The stack trace from the test failure.</li>
+          <li><code>{{test.duration}}</code>: The duration of the test in milliseconds.</li>
+        </ul>
+        
+        <h4>Test Runner Variables</h4>
+        <ul>
+          <li><code>{{testRunner.type}}</code>: The type of test runner (Jest, Mocha, etc.).</li>
+          <li><code>{{testRunner.version}}</code>: The version of the test runner.</li>
+          <li><code>{{testRunner.command}}</code>: The command used to run the tests.</li>
+        </ul>
+        
+        <h4>System Variables</h4>
+        <ul>
+          <li><code>{{system.os}}</code>: The operating system.</li>
+          <li><code>{{system.nodeVersion}}</code>: The version of Node.js.</li>
+          <li><code>{{system.jousterVersion}}</code>: The version of Jouster.</li>
+          <li><code>{{system.date}}</code>: The current date and time.</li>
+          <li><code>{{system.user}}</code>: The current user.</li>
+        </ul>
+        
+        <h4>Issue Variables</h4>
+        <ul>
+          <li><code>{{issue.id}}</code>: The ID of the issue.</li>
+          <li><code>{{issue.url}}</code>: The URL of the issue.</li>
+          <li><code>{{issue.title}}</code>: The title of the issue.</li>
+          <li><code>{{issue.body}}</code>: The body of the issue.</li>
+          <li><code>{{issue.state}}</code>: The state of the issue (open, closed, etc.).</li>
+          <li><code>{{issue.labels}}</code>: The labels of the issue.</li>
+          <li><code>{{issue.assignee}}</code>: The assignee of the issue.</li>
+          <li><code>{{issue.createdAt}}</code>: The creation date of the issue.</li>
+          <li><code>{{issue.updatedAt}}</code>: The last update date of the issue.</li>
+        </ul>
+      </div>
+      
+      <h2 class="collapsible-header">Template Helpers</h2>
+      <div class="collapsible-content">
+        <p>Jouster provides several helpers that can be used in templates to format data or perform operations.</p>
+        
+        <h3>Conditional Helpers</h3>
+        <p>Conditional helpers allow you to include content based on conditions:</p>
+        
+        <pre><code class="language-markdown">{{#if test.error}}
+## Error
+```
+{{test.error}}
+```
+{{/if}}
+
+{{#unless test.error}}
+No error was reported.
+{{/unless}}
+</code></pre>
+        
+        <h3>Iteration Helpers</h3>
+        <p>Iteration helpers allow you to iterate over arrays:</p>
+        
+        <pre><code class="language-markdown">## Labels
+{{#each issue.labels}}
+- {{this}}
+{{/each}}
+</code></pre>
+        
+        <h3>Formatting Helpers</h3>
+        <p>Formatting helpers allow you to format data:</p>
+        
+        <pre><code class="language-markdown">## Created At
+{{formatDate issue.createdAt "YYYY-MM-DD HH:mm:ss"}}
+
+## Duration
+{{formatDuration test.duration}}
+
+## Stack Trace
+{{formatStackTrace test.stackTrace}}
+</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Template Examples</h2>
+      <div class="collapsible-content">
+        <h3>Basic Template</h3>
+        <pre><code class="language-markdown"># Test Failure: {{test.name}}
+
+This test is failing with the following error:
+
+```
+{{test.error}}
+```
+
+## Stack Trace
+
+```
+{{test.stackTrace}}
+```
+
+## Test Location
+
+- **File**: {{test.file}}
+- **Line**: {{test.line}}
+- **Column**: {{test.column}}
+</code></pre>
+        
+        <h3>Detailed Template</h3>
+        <pre><code class="language-markdown"># Test Failure: {{test.name}}
+
+This test is failing with the following error:
+
+```
+{{test.error}}
+```
+
+## Stack Trace
+
+```
+{{test.stackTrace}}
+```
+
+## Test Location
+
+- **File**: {{test.file}}
+- **Line**: {{test.line}}
+- **Column**: {{test.column}}
+
+## Test Runner
+
+- **Type**: {{testRunner.type}}
+- **Version**: {{testRunner.version}}
+- **Command**: {{testRunner.command}}
+
+## System Information
+
+- **OS**: {{system.os}}
+- **Node Version**: {{system.nodeVersion}}
+- **Jouster Version**: {{system.jousterVersion}}
+- **Date**: {{formatDate system.date "YYYY-MM-DD HH:mm:ss"}}
+- **User**: {{system.user}}
+
+## Issue Information
+
+- **ID**: {{issue.id}}
+- **URL**: {{issue.url}}
+- **State**: {{issue.state}}
+- **Created At**: {{formatDate issue.createdAt "YYYY-MM-DD HH:mm:ss"}}
+- **Updated At**: {{formatDate issue.updatedAt "YYYY-MM-DD HH:mm:ss"}}
+
+## Labels
+
+{{#each issue.labels}}
+- {{this}}
+{{/each}}
+
+## Assignee
+
+{{#if issue.assignee}}
+{{issue.assignee}}
+{{else}}
+No assignee
+{{/if}}
+</code></pre>
+        
+        <h3>Custom Template with Conditional Sections</h3>
+        <pre><code class="language-markdown"># Test Failure: {{test.name}}
+
+{{#if test.error}}
+This test is failing with the following error:
+
+```
+{{test.error}}
+```
+{{else}}
+This test is failing, but no error was reported.
+{{/if}}
+
+{{#if test.stackTrace}}
+## Stack Trace
+
+```
+{{test.stackTrace}}
+```
+{{/if}}
+
+## Test Location
+
+- **File**: {{test.file}}
+{{#if test.line}}
+- **Line**: {{test.line}}
+{{/if}}
+{{#if test.column}}
+- **Column**: {{test.column}}
+{{/if}}
+
+## Test Runner
+
+- **Type**: {{testRunner.type}}
+{{#if testRunner.version}}
+- **Version**: {{testRunner.version}}
+{{/if}}
+{{#if testRunner.command}}
+- **Command**: {{testRunner.command}}
+{{/if}}
+
+## System Information
+
+- **OS**: {{system.os}}
+- **Node Version**: {{system.nodeVersion}}
+- **Jouster Version**: {{system.jousterVersion}}
+- **Date**: {{formatDate system.date "YYYY-MM-DD HH:mm:ss"}}
+{{#if system.user}}
+- **User**: {{system.user}}
+{{/if}}
+</code></pre>
+      </div>
+      
+      <h2 class="collapsible-header">Template Best Practices</h2>
+      <div class="collapsible-content">
+        <h3>Include Essential Information</h3>
+        <p>Make sure your templates include all the essential information needed to understand and fix the test failure:</p>
+        <ul>
+          <li>Test name and location</li>
+          <li>Error message and stack trace</li>
+          <li>Test runner information</li>
+          <li>System information</li>
+        </ul>
+        
+        <h3>Use Markdown Formatting</h3>
+        <p>Use Markdown formatting to make your templates more readable:</p>
+        <ul>
+          <li>Use headings for sections</li>
+          <li>Use code blocks for error messages and stack traces</li>
+          <li>Use lists for related information</li>
+          <li>Use bold or italic text for emphasis</li>
+        </ul>
+        
+        <h3>Use Conditional Sections</h3>
+        <p>Use conditional sections to include or exclude information based on its availability:</p>
+        <ul>
+          <li>Use <code>{{#if variable}}</code> to include a section only if the variable is available</li>
+          <li>Use <code>{{#unless variable}}</code> to include a section only if the variable is not available</li>
+          <li>Use <code>{{else}}</code> to provide alternative content</li>
+        </ul>
+        
+        <h3>Use Formatting Helpers</h3>
+        <p>Use formatting helpers to format data in a more readable way:</p>
+        <ul>
+          <li>Use <code>{{formatDate}}</code> to format dates</li>
+          <li>Use <code>{{formatDuration}}</code> to format durations</li>
+          <li>Use <code>{{formatStackTrace}}</code> to format stack traces</li>
+        </ul>
+      </div>
+      
+      <footer>
+        <p>Jouster Documentation - <a href="https://github.com/TSavo/jouster">GitHub Repository</a></p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
