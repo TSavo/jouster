@@ -40,6 +40,11 @@
   background-color: var(--collapsible-content-bg, #ffffff);
 }
 
+/* When the collapsible header is active, show the content */
+.collapsible-header.active + .collapsible-content {
+  padding: 15px;
+}
+
 /* Dark mode styles */
 body.dark-mode .collapsible-header {
   background-color: var(--collapsible-header-bg, #161b22);

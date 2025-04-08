@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
   loadScript('https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-json.min.js');
 
   // Initialize all features
-  initCollapsibleSections();
+  // Note: collapsible sections are initialized by collapsible.js
+  initNavSectionCollapsible();
   initDarkModeToggle();
   initSearch();
   initCodeHighlighting();
@@ -40,26 +41,8 @@ function loadScript(src) {
   });
 }
 
-// Collapsible sections
-function initCollapsibleSections() {
-  // Add toggle functionality to section headers
-  const collapsibleHeaders = document.querySelectorAll('.collapsible-header');
-
-  collapsibleHeaders.forEach(header => {
-    header.addEventListener('click', function() {
-      this.classList.toggle('active');
-
-      // Toggle the content visibility
-      const content = this.nextElementSibling;
-      if (content.style.maxHeight) {
-        content.style.maxHeight = null;
-      } else {
-        content.style.maxHeight = content.scrollHeight + "px";
-      }
-    });
-  });
-
-  // Initialize nav section collapsible behavior
+// Initialize nav section collapsible behavior
+function initNavSectionCollapsible() {
   const navSectionTitles = document.querySelectorAll('.nav-section-title');
 
   navSectionTitles.forEach(title => {
